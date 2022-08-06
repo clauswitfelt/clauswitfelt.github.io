@@ -16,14 +16,12 @@
   function status()
   {
     
-    document.getElementById("mnitfelt").value="Så er det status-tid";
-    
-    
+    document.getElementById("statusfelt").value="Så er det status-tid";
     for(var t=0;t<varelager.length()-1;t++)
     {
     statustekst=statustekst+varelager[t]+"<p>";
     }
-    document.getElementById("mitefelt").value=statustekst;
+    document.getElementById("statusfelt").value=statustekst;
     
   }
   
@@ -52,7 +50,7 @@
     <button onclick="status()">Se status</button><br>
     <button onclick="indkoeb()">indkøb</button><br>
     <button onclick="lager()">Se lager</button><br>
-    <button onclick="udsalg()">hold udsalg</button><br>
+    <button onclick="udsalg()">Hold udsalg</button><br>
     <button onclick="status()">Se status</button><br>
     
   
@@ -63,11 +61,11 @@
     
     <fieldset>
       <legend>Lagerstatus</legend>
-    <input type="textarea" rows="10" cols="150" id="mitfelt"></input>   
+    <input type="textarea" rows="30" cols="150" id="statusfelt"></input>   
   </fieldset>
    <p>
   <p>
-    <input type="textarea" rows="10" cols="150" id="lagerfelt"></input> 
+    <input type="textarea" rows="30" cols="150" id="lagerfelt"></input> 
     
   
   
