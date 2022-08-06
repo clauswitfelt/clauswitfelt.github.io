@@ -2,9 +2,18 @@
 <meta charset="utf-8">
   
 <script>
+  var varelager=["hoodies","caps","sneakers", "Tights", "solbriller"];
 
   function sestatus()
-  {}
+  {
+    var statustekst="";
+    for(var t=0;t<varelager.length()-1;t++)
+    {
+    statustekst=statustekst+varelager[t]+"<p>";
+    }
+    document.getElementById("status").innerHTML=statustekst;
+    
+  }
   
   function koeb()
   {}
@@ -28,7 +37,8 @@
     <li></li>
     <li></li>
     </nl>
-    
+    <p>
+  <p>
     <button onclick="status()">Se status</button><br>
     <button onclick="indkoeb()">indkøb</button><br>
     <button onclick="lager()">Se lager</button><br>
