@@ -7,17 +7,22 @@
   
   function status()
   {
-    alert("Status");
+    
+    document.getElementById("statusfelt").value="Så er det status-tid";
+    
+    
     for(var t=0;t<varelager.length()-1;t++)
     {
     statustekst=statustekst+varelager[t]+"<p>";
     }
-    document.getElementById("status").value=statustekst;
+    document.getElementById("statusfelt").value=statustekst;
     
   }
   
   function koeb()
-  {}
+  {
+  alert("Status");
+  }
   
   function lager()
   {
@@ -43,7 +48,7 @@
     
      <p>
   <p>
-    <div id="status">
+    <div id="statusfelt">
     <fieldset>
       <legend>Status</legend>
        
