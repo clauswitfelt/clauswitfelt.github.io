@@ -3,10 +3,10 @@
   
 <script>
   var varelager=["hoodies","caps","sneakers", "Tights", "solbriller"];
-
-  function sestatus()
+  var statustekst="";
+  
+  function status()
   {
-    var statustekst="";
     alert("Status");
     for(var t=0;t<varelager.length()-1;t++)
     {
@@ -22,6 +22,7 @@
   function lager()
   {
     alert("Lagerstatus!");
+    
   }
   
 </script>
@@ -34,7 +35,7 @@
  
     <p>
   <p>
-    <button onclick="sestatus()">Se status</button><br>
+    <button onclick="status()">Se status</button><br>
     <button onclick="indkoeb()">indkøb</button><br>
     <button onclick="lager()">Se lager</button><br>
     <button onclick="udsalg()">hold udsalg</button><br>
