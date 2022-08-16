@@ -15,7 +15,7 @@ titleDiv.textcontent=q.title;
   
 }
 
-showQuestion(question);
+
 
 
 
