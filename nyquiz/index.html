@@ -14,6 +14,11 @@ function showQuestion(q)
   let als = document.querySelectorAll('.alternative');
   als.forEach(function(element, index){
     element.textContent=q.alternatives[index];
+    element.addEventListner('click', function(){
+      element.textContent= 'a';
+    
+    });
+    
   });
   
 }
