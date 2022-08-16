@@ -14,7 +14,7 @@ function showQuestion(q)
   let als = document.querySelectorAll('.alternative');
   als.forEach(function(element, index){
     element.textContent=q.alternatives[index];
-    element.addEventListner('click', function(){
+    element.addEventListener('click', function(){
       element.textContent= 'a';
     
     });
@@ -32,7 +32,7 @@ function demo()
   </script>  
 
   
-  <div id="title">Quiz 5</div>
+  <div id="title">Quiz 6</div>
   
   <ul>
     <li class="alternative"></LI> 
