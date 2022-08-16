@@ -9,8 +9,13 @@
 
 function showQuestion(q)
 {
-let titleDiv=document.getElementById('title');
-titleDiv.textContent=q.title;
+  let titleDiv=document.getElementById('title');
+  titleDiv.textContent=q.title;
+  let als = document.querySelectorAll('.alternative');
+  als.forEach(function(element, index){
+    element.textContent=q.alternatives[index];
+  });
+  
 }
 
 function demo()
@@ -22,7 +27,7 @@ function demo()
   </script>  
 
   
-  <div id="title">Quiz 3</div>
+  <div id="title">Quiz 4</div>
   
   <ul>
     <li class="alternative"></LI> 
