@@ -15,8 +15,16 @@ function showQuestion(q)
   als.forEach(function(element, index){
     element.textContent=q.alternatives[index];
     element.addEventListener('click', function(){
-      element.textContent= 'a';
-    
+      //element.textContent= 'a';
+      if(g.correctAnswer==index)
+      {
+        alert("Correctzumndo1");
+      
+      
+      
+      }
+      
+      
     });
     
   });
@@ -32,7 +40,7 @@ function demo()
   </script>  
 
   
-  <div id="title">Quiz 6</div>
+  <div id="title">Quiz 7</div>
   
   <ul>
     <li class="alternative"></LI> 
