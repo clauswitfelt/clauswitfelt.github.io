@@ -114,7 +114,7 @@ function tjek()
   }
 }
   
-  function drop()
+function drop()
 {
   var u=prompt("Hvad vil du gerne smide ud?");
   for(var t=0; t<inv.length-1; t++)
@@ -122,6 +122,8 @@ function tjek()
     if(inv[t]==u)
     {
       inv[t]="en bunke værdiløst grus";
+      document.getElementById("status").innerHTML=" ";
+      alert("Du smider "+u);
     }
   
   }
@@ -131,7 +133,7 @@ function tjek()
 
  
     <p>
-      <h4>Et tekst-baseret adventure spil af Claus Witfelt.....!</h4>
+      <h4>Et tekst-baseret adventure spil af Claus Witfelt.</h4>
     <p>
       <div id="info">Indhold</div><p>
       <div id="rum">Rum </div><p>
