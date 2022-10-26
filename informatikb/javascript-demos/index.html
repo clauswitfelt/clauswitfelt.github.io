@@ -88,6 +88,7 @@ function venstre()
   {
     aktrum=0;
   }
+  tjek();
   start();
 }
   
@@ -95,21 +96,20 @@ function saml()
 {
   t=ting[aktrum];
   alert("Du tager nu "+t);
-  ting[aktrum]=" ";//
+  ting[aktrum]=" ";
   inv.push(t);
 }
   
 function komm()
 {
-  
+  alert("Hov, hvem der......");
 }
   
 function tjek()
 {
-  if(rum[aktrum]=="Enden af verden" && inv>8)
+  if(aktrum]==4 && inv>=8)
   {
       alert("Du nåede til enden af verden med alle tingene. Smid ringen i Mordors miner og vend fredeligt hjem til Herredet!");  
-  
   }
 }
   
