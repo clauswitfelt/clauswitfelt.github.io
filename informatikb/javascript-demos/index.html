@@ -48,10 +48,10 @@ var inv=["en madpose","Sværdet SKRÆP", "3 magiske trylle-terninger"];
   
 function start()
 {
-  alert("Hovsa!");  
-  document.getElementById("rum").value="Du er nu i "+rum[aktrum];
-  document.getElementById("info").value="Du kan se "+ting[aktrum];
-  document.getElementById("status").value="Du medbringer "+inv;
+  alert("Eventyret STARTER!");  
+  document.getElementById("rum").innerHTML="Du er nu i "+rum[aktrum];
+  document.getElementById("info").innerHTML="Du kan se "+ting[aktrum];
+  document.getElementById("status").innerHTML="Du medbringer "+inv;
 }
   
 function hojre()
