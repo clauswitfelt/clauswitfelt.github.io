@@ -49,7 +49,9 @@ var inv=["en madpose","Sværdet SKRÆP"];
 function start()
 {
     alert("Du klikkede");
-  document.getElementById("info").value="Du er nu i "+rum[aktrum];
+  document.getElementById("rum").value="Du er nu i "+rum[aktrum];
+  document.getElementById("info").value="Du kan se "+ting[aktrum];
+  document.getElementById("status").value="Du medbringer "+inv;
 }
   
   
@@ -66,11 +68,11 @@ function start()
       <div id="rum"></div><p>
       <div id="status"></div><p>
     
-    <button onclick="start()">start spillet - Eventyret om ringen!</button>
-    <button onclick="hojre()">Gå til højre!</button>
-    <button onclick="venstre()">Gå til venstre!</button>
-    <button onclick="saml()">Saml ting op</button>
-    <button onclick="komm()">Kommuniker....</button>
+    <button onclick="start()">start spillet - Eventyret om ringen!</button><p>
+    <button onclick="hojre()">Gå til højre!</button><br>
+    <button onclick="venstre()">Gå til venstre!</button><br>
+    <button onclick="saml()">Saml ting op</button><br>
+    <button onclick="komm()">Kommuniker....</button><br>
     </div>
   </div>
 </div>
