@@ -27,7 +27,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}e
 
 <!-- Header -->
 <header class="w3-container w3-red w3-center" style="padding:128px 16px">
-  <h2 class="w3-margin w3-jumbo">INFORMATIK B 2022</h2>
+  <h2 class="w3-margin w3-jumbo">Eventyret om RINGEN!</h2>
 </header>
 
 
@@ -76,6 +76,7 @@ function hojre()
   
 {
   aktrum=aktrum+1;
+  tjek();
   start();
 }
  
@@ -91,13 +92,25 @@ function venstre()
   
 function saml()
 {
-  alert("Hovsa!");
+  t=ting[aktrum];
+  alert("Du tager nu "+t);
+  inv.push(t);
+  
   
 }
   
 function komm()
 {
-  alert("Eventyret STARTER!");  
+  
+}
+  
+function tjek()
+{
+  if(rum[aktrum]=="Enden af verden" and inv>8)
+  {
+      alert("Du nåede til enden af verden med alle tingene. Smid ringen i Mordors miner og vend fredeligt hjem til Herredet!");  
+  
+  }
 }
   
 </script>
