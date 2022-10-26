@@ -39,7 +39,25 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}e
     </div>
 
 <div class="w3-twothird">
-      
+
+<style>
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button1 {width: 250px;}
+
+</style>  
+  
 <script>
 var aktrum=0;
 var ting=["Et spyd","en bøjet femøre","et bulet hjelm","kun et tot vissent græs","Ringen over dem alle"];
@@ -90,11 +108,11 @@ function komm()
       <div id="rum">Rum </div><p>
       <div id="status">Du har følgende med...</div><p>
     
-    <button onclick="start()">start spillet - Eventyret om ringen!</button><p>
-    <button onclick="hojre()">Gå til højre!</button><br>
-    <button onclick="venstre()">Gå til venstre!</button><br>
-    <button onclick="saml()">Saml ting op</button><br>
-    <button onclick="komm()">Kommuniker....</button><br>
+    <button class="button button1" onclick="start()">start spillet - Eventyret om ringen!</button><p>
+    <button class="button button1" onclick="hojre()">Gå til højre!</button><br>
+    <button class="button button1" onclick="venstre()">Gå til venstre!</button><br>
+    <button class="button button1" onclick="saml()">Saml ting op</button><br>
+    <button class="button button1" onclick="komm()">Kommuniker....</button><br>
     </div>
   </div>
 </div>
