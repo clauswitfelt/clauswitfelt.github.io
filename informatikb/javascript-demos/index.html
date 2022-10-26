@@ -60,7 +60,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}e
   
 <script>
 var aktrum=0;
-var ting=["et spyd","en bøjet femøre","et bulet hjelm","kun et tot vissent græs","Ringen over dem alle"];
+var ting=["et spyd","en bøjet femøre","et bulet hjelm","kun et tot vissent græs","ringen over dem alle"];
 var rum=["salen", "gangen","Sarumans borg","Thingvalla sletten", "Enden af verden"];
 var inv=["en madpose"," sværdet SKRÆP", " 3 magiske trylle-terninger"];  
   
@@ -109,7 +109,7 @@ function komm()
 function tjek()
 {
   var u=inv.length;
-  if(aktrum==4 && u>7)
+  if(aktrum==4 && inv.includes("ringen over dem alle"))
   {
       alert("Du nåede til enden af verden med alle tingene. Smid ringen i Mordors miner og vend fredeligt hjem til Herredet!");  
   }
@@ -134,7 +134,7 @@ function drop()
 
  
     <p>
-      <h4>Et tekst-baseret adventure spil af Claus Witfelt.</h4>
+      <h4>Et tekst-baseret adventure spil af gamedesigner Claus Witfelt.</h4>
     <p>
       <div id="info">Indhold</div><p>
       <div id="rum">Rum </div><p>
