@@ -42,21 +42,19 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}e
       
 <script>
 var aktrum=0;
-var ting=["Et spyd","en bøjet femøre","et bulet hjelm","kun et tot vissent græs"];
-var rum=["salen", "gangen","Sarumans borg","Thingvalla sletten"];
+var ting=["Et spyd","en bøjet femøre","et bulet hjelm","kun et tot vissent græs","Ringen over dem alle"];
+var rum=["salen", "gangen","Sarumans borg","Thingvalla sletten", "Enden af verden"];
 var inv=["en madpose","Sværdet SKRÆP"];  
   
 function start()
 {
     alert("Du klikkede");
-  document.getElementById("info").value="Du er nu i "+rum[0];
+  document.getElementById("info").value="Du er nu i "+rum[aktrum];
 }
   
   
 </script>
 
-  
-  
       
     <h1>Eventyret om RINGEN!</h1>
     <p>
@@ -69,8 +67,10 @@ function start()
       <div id="status"></div><p>
     
     <button onclick="start()">start spillet - Eventyret om ringen!</button>
-  
-  
+    <button onclick="hojre()">Gå til højre!</button>
+    <button onclick="venstre()">Gå til venstre!</button>
+    <button onclick="saml()">Saml ting op</button>
+    <button onclick="komm()">Kommuniker....</button>
     </div>
   </div>
 </div>
