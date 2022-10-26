@@ -116,8 +116,15 @@ function tjek()
   
   function drop()
 {
-  var u=prompt("Hvad vil du gerne smide ud?")
+  var u=prompt("Hvad vil du gerne smide ud?");
+  for(var t=0; t<inv.length-1; t++)
+  {
+    if(inv[t]==u)
+    {
+      inv[t]="en bunke værdiløst grus";
+    }
   
+  }
 }
   
 </script>
