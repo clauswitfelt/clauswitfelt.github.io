@@ -60,7 +60,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}e
   
 <script>
 var aktrum=0;
-var ting=["En buket blomster","et spyd","en bøjet femøre","ringen over dem alle","et bulet hjelm","kun et tot vissent græs",];
+var ting=["En buket blomster","et spyd","en bøjet femøre","ringen over dem alle","et bulet hjelm","kun et tot vissent græs"];
 var rum=["herredet","salen", "gangen","Sarumans borg","Thingvalla sletten", "Enden af verden"];
 var inv=["en madpose"," sværdet SKRÆP", " 3 magiske trylle-terninger"];  
   
@@ -94,7 +94,7 @@ function venstre()
   
 function saml()
 {
-  t=ting[aktrum];
+  var t=ting[aktrum];
   alert("Du tager nu "+t);
   ting[aktrum]=" ";
   inv.push(t);
@@ -125,13 +125,14 @@ function drop()
       inv[t]="en bunke værdiløst grus";
       document.getElementById("status").innerHTML=" ";
       alert("Du smider "+u);
+      status();
     }
   
   }
 }
   
 </script>
-      <h4>Et tekst-baseret adventure spil af gamedezigner Claus W</h4>
+      <h4>Et tekst-baseret adventure spil af gamedesigner Claus W</h4>
     <p>
       <div id="info">Indhold</div><p>
       <div id="rum">Rum </div><p>
