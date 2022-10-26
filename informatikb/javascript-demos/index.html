@@ -38,20 +38,39 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}e
       <i class="fa fa-coffee w3-padding-64 w3-text-red w3-margin-right"></i>
     </div>
 
-    <div class="w3-twothird">
+<div class="w3-twothird">
       
-      
+<script>
+var aktrum=0;
+var ting=["Et spyd","en bøjet femøre","et bulet hjelm","kun et tot vissent græs"];
+var rum=["salen", "gangen","Sarumans borg","Thingvalla sletten"];
+var inv=["en madpose","Sværdet SKRÆP"];  
+  
+function start()
+{
+    alert("Du klikkede");
+  document.getElementById("info").value="Du er nu i "+rum[0];
+}
+  
+  
+</script>
+
+  
+  
       
     <h1>Eventyret om RINGEN!</h1>
     <p>
-      <h4>Et tekstbaseret adventure spil at Claus Witfelt</h4>
+      <h4>Et tekstbaseret adventure spil af Claus Witfelt</h4>
     <p>
     <p>  
     <p>
       <div id="info"></div><p>
       <div id="rum"></div><p>
       <div id="status"></div><p>
-      
+    
+    <button onclick="start()">start spillet - Eventyret om ringen!</button>
+  
+  
     </div>
   </div>
 </div>
