@@ -60,13 +60,13 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}e
   
 <script>
 var aktrum=0;
-var ting=["Et spyd","en bøjet femøre","et bulet hjelm","kun et tot vissent græs","Ringen over dem alle"];
+var ting=["et spyd","en bøjet femøre","et bulet hjelm","kun et tot vissent græs","Ringen over dem alle"];
 var rum=["salen", "gangen","Sarumans borg","Thingvalla sletten", "Enden af verden"];
-var inv=["en madpose","Sværdet SKRÆP", "3 magiske trylle-terninger"];  
+var inv=["en madpose"," sværdet SKRÆP", " 3 magiske trylle-terninger"];  
   
 function start()
 {
-  alert("Eventyret STARTER!");  
+  
   document.getElementById("rum").innerHTML="Du er nu i "+rum[aktrum];
   document.getElementById("info").innerHTML="Du kan se "+ting[aktrum];
   document.getElementById("status").innerHTML="Du medbringer "+inv;
@@ -81,7 +81,12 @@ function hojre()
  
 function venstre()
 {
-  alert("Hovsa!");
+  aktrum=aktrum-1;
+  if(aktrum<0)
+  {
+    aktrum=0;
+  }
+  start();
 }
   
 function saml()
@@ -92,7 +97,7 @@ function saml()
   
 function komm()
 {
-  alert("Hovsa!");
+  alert("Eventyret STARTER!");  
 }
   
 </script>
