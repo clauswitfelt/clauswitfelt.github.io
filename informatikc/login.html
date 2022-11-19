@@ -33,9 +33,13 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
   
 function login()
   {
-  alert("Tjuhej");
+  
   mitbrugernavn=document.getElementById("bnavnfelt".value;
-  mitkodeord=document.getElementById("kordfelt".value;                               
+  mitkodeord=document.getElementById("kordfelt".value;  
+  if(mitbrugernavn=="admin" && mitkodeord=="123456")
+    {
+    alert("Velkommenm, du bliver nu logget ind!");
+    }
     
   }
   
