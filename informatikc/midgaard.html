@@ -49,33 +49,33 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <script>
   function nord()
   {
-    document.getElementById("info").value="Du går nord");
+    document.getElementById("info").innerHTML="Du går nord");
   
   }
   
   function syd()
   {
-  document.getElementById("info").value="Du går syd");
+  document.getElementById("info").innerHTML="Du går syd");
   }
   
   function oest()
   {
-  document.getElementById("info").value="Du går øst");
+  document.getElementById("info").innerHTML="Du går øst");
   }
   
   function vest()
   {
-  document.getElementById("info").value="Du går vest");
+  document.getElementById("info").innerHTML="Du går vest");
   }
   
   function se()
   {
-  document.getElementById("info").value="Du ser");
+  document.getElementById("info").innerHTML="Du ser");
   }
   
   function tag()
   {
-  document.getElementById("info").value="Du tager ringen");
+  document.getElementById("info").innerHTML="Du tager ringen");
   }
   
   
@@ -84,7 +84,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
       
     <h1>Velkommen til MIDGAARD - et tekstbaseret adventurespil</h1>
     <p>
-      <div id="info"></div>
+      <div id="info">...</div>
     <p>
       <button onclick="nord()">Nord</button><p>
       <button onclick="syd()">Syd</button><p>
