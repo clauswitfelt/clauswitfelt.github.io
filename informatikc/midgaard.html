@@ -53,7 +53,10 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
       
 <script>
   function nord()
-  {}
+  {
+    document.getElementById("info").value="Du går nord");
+  
+  }
   
   function syd()
   {}
@@ -78,12 +81,12 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
     <p>
       <div id="info"></div>
     <p>
-      <button onclick="">Nord</button><p>
-      <button onclick="">Syd</button><p>
-      <button onclick="">Øst</button><p>
-      <button onclick="">Vest</button><p>
-      <button onclick="">Se</button><p>
-      <button onclick="">Tag</button><p>
+      <button onclick="nord()">Nord</button><p>
+      <button onclick="syd()">Syd</button><p>
+      <button onclick="oest()">Øst</button><p>
+      <button onclick="vest">Vest</button><p>
+      <button onclick="se">Se</button><p>
+      <button onclick="tag">Tag</button><p>
  
       
     </div>
