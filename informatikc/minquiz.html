@@ -32,7 +32,38 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
   
   function changemaker()
   {
-  alert("Hop");
+    var point=0;
+    a=prompt("Deltager du i nogle af skolens UDVALG (j/n)?");
+    if(a=='j')
+    {
+      point=point+1
+    }
+    b=prompt("Hvis du har noget tid, kunne du så finde på at bruge det på andre (j/n)?");
+    if(b=='j')
+    {
+      point=point+1
+    }
+    c=prompt("Lever du så klima-venligt som muligt (j/n)?");
+    if(c=='j')
+    {
+      point=point+1
+    }
+    d=prompt("Synes du at en fremmed, det er blot en ven, du endnu ikke har mødt (j/n)?");
+    if(d=='j')
+    {
+      point=point+1
+    }
+    e=prompt("Møder du hver dag med en positiv indstilling (j/n)?");
+    if(e=='j')
+    {
+      point=point+1
+    }
+    
+    alert(point);
+    
+    
+    
+    
   }  
   
   
@@ -63,7 +94,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
       <button onclick="changemaker()">Tryk for at starte testen</button>
       
-      
+      <div id="afgørelse"></div>
       
       
     </div>
