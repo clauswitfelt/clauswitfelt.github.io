@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="da">
+<head>
+	<title>Vi leger med canvas</title>
+	<meta charset="utf-8">
+	
+	<style>
+		canvas {
+			border: 1px solid black;
+		}
+	</style>
+	
+	<script src="canvas.js"></script>
+</head>
+
+<body>
+
+	<canvas id="testCanvas" width="600px" height="400px"><p>Din browser understøtter ikke canvas-elementet</p></canvas>
+
+</body>
+</html>
+
+JavaScriptet:
+
+window.onload = function() {
+	var canvas = document.getElementById("testCanvas");
+	var context = canvas.getContext("2d");
+	
+	drawSquare(canvas, context);
+
+	drawCircle(canvas, context);
+
+
+	for (var squares = 0; squares < 20; squares++) {
+		drawSquare(canvas, context);
+	}
+	for (var circles = 0; circles < 20; circles++) {
+		drawCircle(canvas, context);
+	}
+
+};
+
+
+function drawSquare(canvas, context) {
+	var w = Math.floor(Math.random() * 40);
+	
+	var x = Math.floor(Math.random() * canvas.width);
+	
+	var y = Math.floor(Math.random() * canvas.height);
+	
+	context.fillStyle = "#BADA55";
+	context.fillRect(x, y, w, w);
+}
+
+
+function drawCircle(canvas, context) {
+	var radius = Math.floor(Math.random()*40);
+	var x = Math.floor(Math.random() * canvas.width);
+	var y = Math.floor(Math.random() * canvas.height);
+	
+	context.beginPath();
+	context.arc(x, y, radius, 0, 2*Math.PI, true);
+	
+	context.fillStyle = "#242424";
+	context.fill();
+}
+        
