@@ -4,9 +4,9 @@
   
 <script>
 
-  
-// Get the canvas element
-const canvas = document.querySelector('canvas');
+  window.onload = function() {
+    // Get the canvas element
+const canvas = document.querySelector('mycanvas');
 
 // Set the canvas dimensions to match the window size
 canvas.width = window.innerWidth;
@@ -62,11 +62,14 @@ function update() {
 
 // Start the game loop
 update();  
+};
+  
+
   
 </script>
-  <h3>Et remake af det klassiske Kaptajn Kaper-spil!</h3>  
+  <h3>Et remake af det klassiske Kaptajn Kaper-spil II!</h3>  
   
-<canvas height=800 width="400"></canvas>
+<canvas id="mycanvas" height=800 width="400"></canvas>
 
   
   
