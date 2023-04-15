@@ -47,7 +47,7 @@ frigateImg.src = 'frigate.png';
 // Wait for the image to load before drawing it
 frigateImg.onload = function() {
   // Draw the image on the canvas
-  ctx.drawImage(frigateImg, x, y, width, height);
+  ctx.drawImage(frigateImg, 100, 100, 100, 100);
 };
 	}
 	
@@ -64,18 +64,9 @@ function drawSquare(canvas, context) {
 }
 
 
-function drawCircle(canvas, context) {
-	var radius = Math.floor(Math.random()*40);
-	var x = Math.floor(Math.random() * canvas.width);
-	var y = Math.floor(Math.random() * canvas.height);
-	
-	context.beginPath();
-	context.arc(x, y, radius, 0, 2*Math.PI, true);
-	
-	context.fillStyle = "#242424";
-	context.fill();
-}
+
 	
 </script>	
+<p>
         
 <a href="https://www.flaticon.com/free-icons/ship" title="ship icons">Ship icons created by Freepik - Flaticon</a>
