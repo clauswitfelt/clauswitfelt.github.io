@@ -26,20 +26,31 @@ window.onload = function() {
 	var canvas = document.getElementById("testCanvas");
 	var context = canvas.getContext("2d");
 	
-	drawSquare(canvas, context);
+	tegnskib(canvas, context);
 
-	drawCircle(canvas, context);
-
-
-	for (var squares = 0; squares < 20; squares++) {
-		drawSquare(canvas, context);
-	}
-	for (var circles = 0; circles < 20; circles++) {
-		drawCircle(canvas, context);
-	}
+	
 
 };
 
+	
+function tegnskib(canvas, context)
+	{
+	//var canvas = document.getElementById('myCanvas');
+	//var ctx = canvas.getContext('2d');
+
+// Create a new image object
+var frigateImg = new Image();
+
+// Set the source of the image
+frigateImg.src = 'frigate.png';
+
+// Wait for the image to load before drawing it
+frigateImg.onload = function() {
+  // Draw the image on the canvas
+  ctx.drawImage(frigateImg, x, y, width, height);
+};
+	}
+	
 
 function drawSquare(canvas, context) {
 	var w = Math.floor(Math.random() * 40);
@@ -67,3 +78,4 @@ function drawCircle(canvas, context) {
 	
 </script>	
         
+<a href="https://www.flaticon.com/free-icons/ship" title="ship icons">Ship icons created by Freepik - Flaticon</a>
