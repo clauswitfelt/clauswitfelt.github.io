@@ -26,7 +26,7 @@ window.onload = function() {
 	var canvas = document.getElementById("testCanvas");
 	var context = canvas.getContext("2d");
 	
-	tegnskib(canvas, context);
+	tegnskib2(canvas, context);
 
 	
 
@@ -50,10 +50,15 @@ frigateImg.src = 'frigate.png';
  
 	}
 	
-
-
-
-
+function tegnskib2(canvas, context)
+	{
+	var canvas = document.getElementById('myCanvas');
+	var context.beginPath();
+	context.arc(x, y, radius, 0, 2*Math.PI, true);
+	
+	context.fillStyle = "#242424";
+	context.fill();
+}
 	
 </script>	
 <p>
