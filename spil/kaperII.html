@@ -32,34 +32,19 @@ window.onload = function() {
 	ctx.fillStyle = "blue";
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
 	
-	tegnskib2(canvas, context);
+	drawCircle(canvas, context);
 
 	
 
 };
 
 	
-function tegnskib(canvas, context)
-	{
-	//var canvas = document.getElementById('testCanvas');
-	//var ctx = canvas.getContext('2d');
-
-// Create a new image object
-var frigateImg = new Image();
-
-// Set the source of the image
-frigateImg.src = 'frigate.png';
-
- 
-  // Draw the image on the canvas
-  ctx.drawImage(frigateImg, 100, 100, 100, 100);
- 
-	}
+function drawCircle(canvas, context) {
+	var radius = Math.floor(Math.random()*40);
+	var x = Math.floor(Math.random() * canvas.width);
+	var y = Math.floor(Math.random() * canvas.height);
 	
-function tegnskib2(canvas, context)
-	{
-	var canvas = document.getElementById('testCanvas');
-	var context.beginPath();
+	context.beginPath();
 	context.arc(x, y, radius, 0, 2*Math.PI, true);
 	
 	context.fillStyle = "#242424";
