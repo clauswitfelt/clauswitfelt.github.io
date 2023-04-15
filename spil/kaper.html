@@ -6,7 +6,7 @@
 
   
 // Get the canvas element
-const canvas = document.querySelector('gid');
+const canvas = document.querySelector('canvas');
 
 // Set the canvas dimensions to match the window size
 canvas.width = window.innerWidth;
@@ -23,10 +23,50 @@ const ctx = canvas.getContext('2d');
 ctx.fillStyle = 'blue';
 ctx.fillRect(0, 0, canvas.width, canvas.height);  
   
+// Listen for keyboard events
+window.addEventListener('keydown', (event) => {
+  if (event.key === 'ArrowLeft') {
+    // Move the object to the left
+    x -= speed;
+  } else if (event.key === 'ArrowRight') {
+    // Move the object to the right
+    x += speed;
+  } else if (event.key === 'ArrowUp') {
+    // Move the object up
+    y -= speed;
+  } else if (event.key === 'ArrowDown') {
+    // Move the object down
+    y += speed;
+  }
+});
+
+// Listen for mouse events
+canvas.addEventListener('mousemove', (event) => {
+  // Update the position of the object based on the mouse position
+  x = event.clientX;
+  y = event.clientY;
+});
+
+// Update the game loop
+function update() {
+  // Clear the canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Draw the object at its current position
+  ctx.fillStyle = 'blue';
+  ctx.fillRect(x, y, 50, 50);
+
+  // Request the next animation frame
+  requestAnimationFrame(update);
+}
+
+// Start the game loop
+update();  
+  
 </script>
+  <h3>Et remake af det klassiske Kaptajn Kaper-spil!</h3>  
   
-  
-<canvas id="gid" height=800 width="400"></canvas>
+<canvas height=800 width="400"></canvas>
 
   
   
