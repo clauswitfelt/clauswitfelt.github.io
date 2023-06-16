@@ -62,7 +62,30 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 </head>
 <body>
 
-
+   <script>
+   
+     function goll()
+     {
+     var sket=Math.floor(Math.random() * 2);
+        if(sket==1)
+        {
+           alert("Gollum stjæler herskerringen. Din mission er mislykkedes!");
+        }
+        
+        if(sket==0)
+        {
+        alert("Gollum faldt i søvn. det sker ikke mere.....");
+        }
+     
+     
+     
+     
+     }
+   
+   
+   
+   
+   </script>
    
    
 <!-- Header -->
@@ -86,14 +109,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
      
   Gollum, det ækle dyr kigge misundeligt på ringen og hvæser: "My prezziouszzzs......"
   
-<div class="dropdown">
-  <button class="dropbtn">Hvad vælger du?</button>
-  <div class="dropdown-content">
-    <a href="intet.html">1</a>
-    <a href="ringen.html">2</a>
-    <a href="gandalf">3</a>
-  </div>
-</div>   
+   <button id="goll" onclick="goll()">Tryk for at se, hvad der sker!</button> 
 
 
 
