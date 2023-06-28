@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <title>Claus Witfelts side</title>
@@ -45,20 +42,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
     <h1>IT-sikkerhed</h1>
     <p>
       
-      <ol>
-        <li>Se video om Bahne <a href="https://www.youtube.com/watch?v=p0w2Ak8qskg&list=PLoZj_NSNw_TRMN5w-V7odgdg42S7YNhoz&index=4&ab_channel=Erhvervsstyrelsen-DanishBusinessAuthority">her</a></li>
-        <li><a href="https://www.youtube.com/playlist?list=PLoZj_NSNw_TSA6E4-XARb4JDj8TsofQVZ">Erhvervsstyrelsen: De 7 råd om IT-sikkerhed</a></li>
-      <li>Se video 2</li>  
-      <li><a href="https://danske-podcasts.dk/podcast/true-cybercrime/episode-4-ransomware-fra-en-computer-i-ukraine-kol">Hør podcast om Maersk og Ransomware/Notpetya</a></li>
-      <li>Læs om Notepetya i ComputerWorld</li>
-      <li>Tag quizzen: Hvor meget ved du om IT-SIKKERHED?</li>
-      <li>....</li>
-      <li>Trusselsvurdering</li>
-      <li>IT-sikkerhedsplan</li>
-      <li>NIST Frameworkedt</li>
-      
-      </ol>
-      
+    
       
     <p>
    <iframe width="560" height="315" src="https://www.youtube.com/embed/z2554-8um7c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
