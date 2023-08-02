@@ -44,28 +44,23 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
          {
             var quest2=prompt("Er dit valgsprog enhver er sin egen lykkes smed (j/n)");
             if(quest2=='j')
-         {
-            alert("Stem Venstre!");
-         }
-            else
-         {
-
-            var quest3=prompt("Kæmper du primært for at bedre arbejdebevægelsens vilkår(j/n)");
-            if(quest3=='j')
-         {
-            alert("Stem Socialdemokratiet!");
-         }
-
-         }
+            {
+                  alert("Stem Venstre!");
+            }
             else
             {
-               alert("Stem hvad du har lyst til!");
+               var quest3=prompt("Kæmper du primært for at bedre arbejdebevægelsens vilkår(j/n)");
+               if(quest3=='j')
+               {
+                     alert("Stem Socialdemokratiet!");
+               }
+               else
+               {
+                     alert("Stem hvad du har lyst til!");
                
-            }
-            
-         }
-         
+               }
 
+         }
          
       }
 
