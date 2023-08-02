@@ -127,7 +127,35 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
   function adaptiv()
   {
+
+var streak=0;
+  var level=3;
+  var ltur=3;
+  var c;
   
+  while(ltur<=15)
+    {  
+  var a=Math.floor(Math.random()*level+ltur)+1;
+  var b=Math.floor(Math.random()*level+ltur)+1;
+  c=a+b;
+  
+  var s=prompt("Hvad er "+a+" + "+b+"? ");
+  if(c==s)
+  {
+    alert("Yes!");
+    streak=streak+1;
+    if(streak==2)
+    {
+      level=level+1;
+    }
+  }
+  else
+  {
+    streak=0;
+  }
+      ltur=ltur+1;
+  }
+    
   }
 
   
