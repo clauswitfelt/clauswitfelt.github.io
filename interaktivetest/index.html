@@ -34,35 +34,33 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <script>
    
    function fravalg()
+   {
+      var quest1=prompt("Synes du, at forsvaret skal nedlægges eller reduceres mest muligt? (j/n)");
+      if(quest1=='j')
       {
-         var quest1=prompt("Synes du, at forsvaret skal nedlægges eller reduceres mest muligt? (j/n)");
-         if(quest1=='j')
-         {
             alert("Stem radikalt!");
+      }
+      else
+      {
+         var quest2=prompt("Er dit valgsprog enhver er sin egen lykkes smed (j/n)");
+         if(quest2=='j')
+         {
+                  alert("Stem Venstre!");
          }
          else
          {
-            var quest2=prompt("Er dit valgsprog enhver er sin egen lykkes smed (j/n)");
-            if(quest2=='j')
+            var quest3=prompt("Kæmper du primært for at bedre arbejdebevægelsens vilkår(j/n)");
+            if(quest3=='j')
             {
-                  alert("Stem Venstre!");
+                     alert("Stem Socialdemokratiet!");
             }
             else
             {
-               var quest3=prompt("Kæmper du primært for at bedre arbejdebevægelsens vilkår(j/n)");
-               if(quest3=='j')
-               {
-                     alert("Stem Socialdemokratiet!");
-               }
-               else
-               {
                      alert("Stem hvad du har lyst til!");
-               
-               }
-
+            }
          }
-         
       }
+   }
 
 
    function pointtest()
