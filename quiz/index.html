@@ -28,16 +28,57 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 
 
- function pointtest2()
+  function pointtest()
 {
   var point=0;
-  var sprg1=prompt("En berømt dansk konge havde sandsynligt en tand med en lidt mærkelig farve, nemlig?");
-  if(sprg1=="blå")
+  var s1=prompt("Hvem havde en blå tand?");
+  if(s1=="Harald")
   {
-   alert("Korrekt. 10 point til dig");
-   point=point+10;
+    alert("10 point");
+    point=point+10;
+      
+    
   }
+    var s2=prompt("Hvem lod Rundetårn bygge?");
+  if(s2=="Christian d. 4.")
+  {
+    alert("10 point");
+    point=point+10;
+      
+    
   }
+    var s3=prompt("Hvilket parti kom Stauning fra?");
+  if(s3=="Socialdemokratiet")
+  {
+    alert("10 point");
+    point=point+10;
+      
+    
+  }
+    var s4=prompt("Hvad kaldes det danske flag?");
+  if(s4=="Dannebrog")
+  {
+    alert("10 point");
+    point=point+10;
+      
+    
+  }
+    var s5=prompt("Hvilken biskop sige at have anlagt København?");
+  if(s5=="Absalon")
+  {
+    alert("10 point");
+    point=point+10;
+      
+    
+  }
+
+  
+  var dom="Du fik "+point;
+  alert(dom);
+  
+}
+
+
 
  
 
@@ -75,7 +116,7 @@ I denne start du tænke på en karakter fra den berømte RINGENES HERRE film.
      <button onclick="location.href='https://www.ventures.dk/studieteknik/laeringsstil/';"  >Læringsstiltest</button><p>
      <button onclick="location.href='';"  >Indfødsretstesten</button><p>   
      <button onclick="startquiz()">Start quiz</button><p></p>
-     <button onclick="pointtest2()">Start quiz om DANMARKSHISTORIEN</button><p>
+     <button onclick="pointtest()">Start quiz om DANMARKSHISTORIEN</button><p>
 
       Prøv også de nationale test!
 
