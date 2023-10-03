@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>French Language Learning App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>French Language Learning</h1>
+    <p id="wordDisplay">Bonjour (Hello)</p>
+    <button onclick="nextWord()">Next Word</button>
+
+    <script>
+        const wordPairs = [
+            { french: "Bonjour", english: "Hello" },
+            { french: "Maison", english: "House" },
+            { french: "Chien", english: "Dog" },
+            { french: "Chat", english: "Cat" },
+            { french: "Fleur", english: "Flower" },
+            // Add more word pairs here
+        ];
+
+        let currentIndex = 0;
+        const wordDisplay = document.getElementById("wordDisplay");
+
+        function displayWord() {
+            const wordPair = wordPairs[currentIndex];
+            wordDisplay.textContent = `${wordPair.french} (${wordPair.english})`;
+        }
+
+        function nextWord() {
+            currentIndex = (currentIndex + 1) % wordPairs.length;
+            displayWord();
+        }
+
+        // Initial display
+        displayWord();
+    </script>
+</body>
+</html>
