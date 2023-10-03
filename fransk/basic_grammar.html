@@ -1,0 +1,39 @@
+// Define a grammar quiz with questions and correct answers
+const quiz = [
+  {
+    question: 'Select the correct sentence: ',
+    options: ['She is going to the store.', 'She am going to the store.', 'She are going to the store.'],
+    correctAnswer: 0,
+    points: 1,
+  },
+  {
+    question: 'Choose the right verb tense: ',
+    options: ['I eat lunch.', 'I eats lunch.', 'I ate lunch.'],
+    correctAnswer: 2,
+    points: 1,
+  },
+  // Add more questions here
+];
+
+// Function to display and evaluate the quiz
+function runQuiz() {
+  let totalPoints = 0;
+
+  for (let i = 0; i < quiz.length; i++) {
+    const questionData = quiz[i];
+    const userAnswer = prompt(questionData.question + questionData.options.join('\n'));
+
+    // Check if the user's answer is correct
+    if (parseInt(userAnswer) === questionData.correctAnswer) {
+      console.log('Correct! You earned ' + questionData.points + ' point(s).');
+      totalPoints += questionData.points;
+    } else {
+      console.log('Incorrect. The correct answer was ' + questionData.correctAnswer);
+    }
+  }
+
+  console.log('Quiz completed. Total points: ' + totalPoints);
+}
+
+// Run the quiz
+runQuiz();
