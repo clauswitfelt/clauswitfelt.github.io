@@ -1,1 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Claus Witfelts side</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+</style>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-red w3-card w3-left-align w3-large">
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="index.html" class="w3-bar-item w3-button w3-padding-large w3-white">Hjem</a>
+    
+  </div>
+
+  
+</div>
+
+<!-- Header -->
+<header class="w3-container w3-red w3-center" style="padding:128px 16px">
+  <h2 class="w3-margin w3-jumbo">Interaktive test</h2>
+</header>
+
+
+<script>
+   
+  
+
+
+   function pointtest()
+   {
+      let point=0;
+      var question1=prompt("Hvad hedder TYSKLANDs hovedstad?");
+      var question2=prompt("Hvad hedder den sydligste delstat i TYSKLAND?");
+      var question3=prompt("Hvor mange farver er der i TYSKLANDs flag?");
+      var question4=prompt("Er TYSKLAND medlem af EU? (j/n)");
+      var question5=prompt("Hvad var forkortelsen for det tidligere Østtyskland?");
+      if(question1=="Berlin")
+      {
+         point=point+1;
+      }
+      if(question2=="Bayern")
+      {
+         point=point+1;
+      }
+      if(question3=="3")
+      {
+         point=point+1;
+      }
+      if(question4=="j")
+      {
+         point=point+1;
+      }
+      if(question5=="DDR")
+      {
+         point=point+1;
+      }
+     alert("Du fik "+point);
+   }
+
+   function fravalg()
+   {
+      var quest1=prompt("Synes du, at forsvaret skal nedlægges eller reduceres mest muligt? (j/n)");
+      if(quest1=='j')
+      {
+            alert("Stem radikalt!");
+      }
+      else
+      {
+         var quest2=prompt("Er dit valgsprog enhver er sin egen lykkes smed (j/n)");
+         if(quest2=='j')
+         {
+                  alert("Stem Venstre!");
+         }
+         else
+         {
+            var quest3=prompt("Kæmper du primært for at bedre arbejdebevægelsens vilkår(j/n)");
+            if(quest3=='j')
+            {
+                     alert("Stem Socialdemokratiet!");
+            }
+            else
+            {
+                     alert("Stem hvad du har lyst til!");
+            }
+         }
+      }
+   }
+
+
+   function rygetest()
+   {
+       var t=prompt("Bruger du nikotinprodukter (nikotintyggegyúmmi, snus, cigaretter eller lign.)? (j/n)");
+       if(t=="n")
+       {
+         alert("Fortsæt endeligt din sunde og klimarigtige livsstil");
+       }
+       else
+       {
+         var a=prompt("Ryger eller forbruger du mere tobak, end hvad der svarer til 20 cigaretter om dagen?");
+         if(a=="j")
+         {
+            alert("Søg professionel hjælp!");
+           
+         }
+         else
+         {
+
+           alert("Læs bogen Hold Så Op Med At Ryge!");
+         }
+         
+         
+       }
+
+
+      
+   }
+
+  function adaptiv()
+  {
+
+var streak=0;
+  var level=3;
+  var ltur=3;
+  var c;
+  
+  while(ltur<=15)
+    {  
+  var a=Math.floor(Math.random()*level+ltur)+1;
+  var b=Math.floor(Math.random()*level+ltur)+1;
+  c=a+b;
+  
+  var s=prompt("Hvad er "+a+" + "+b+"? ");
+  if(c==s)
+  {
+    alert("Yes!");
+    streak=streak+1;
+    if(streak==2)
+    {
+      level=level+1;
+    }
+  }
+  else
+  {
+    streak=0;
+  }
+      ltur=ltur+1;
+  }
+    
+  }
+
+  
+
+  function boernesyg()
+    {
+    var t1=prompt("Har barnet udslæt på huden og rød tunge? (j/n)");
+    if(t1=='j')
+    {
+      alert("Dit barn kan have skarlagensfeber!");
+    }
+    
+    var t1=prompt("Har barnet feber?");
+    if(t1=='j')
+    {
+      alert("Dit barn kan have skarlagensfeber!");
+    }
+    var t1=prompt("Har barnet feber?");
+    if(t1=='j')
+    {
+      alert("Dit barn kan have Fåresyge!");
+    }
+    var t1=prompt("Har barnet feber?");
+    if(t1=='j')
+    {
+      alert("Dit barn kan have Mæslinger!");
+    }
+
+
+
+       
+      
+      
+    }
+      
+</script>
+   
+
+<!-- Second Grid -->
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+  <div class="w3-content">
+    
+
+    <div class="w3-twothird">
+
+
+      <table border="0" align="left">
+<tr><td>
+<div id="daily_french_text1"></div></td></tr></table>
+<script type="text/javascript"><!--
+   var today = new Date();
+   var url = 'http://www.200words-a-day.com/';
+   var d=new Date();
+   var month=new Array(12);
+   month[0]="Jan";
+   month[1]="Feb";
+   month[2]="Mar";
+   month[3]="Apr";
+   month[4]="May";
+   month[5]="Jun";
+   month[6]="Jul";
+   month[7]="Aug";
+   month[8]="Sep";
+   month[9]="Oct";
+   month[10]="Nov";
+   month[11]="Dec";
+   var monthName = month[today.getMonth()];
+   var dayNum = today.getDate();
+   var todaystr = dayNum+monthName;
+   var text = document.getElementById('daily_french_text1');
+   text.innerHTML="<iframe frameborder='1' width='850' height='1250' scrolling='no' src='"+url+todaystr+"-daily-french-lesson.html' />";
+--></script>
+
+</p><p>
+       
+      
+      
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+  
    
