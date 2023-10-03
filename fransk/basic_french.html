@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>French Grammar Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #quiz-container {
+            background-color: #fff;
+            max-width: 400px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>French Grammar Quiz</h1>
+    <div id="quiz-container">
+        <p id="question">What is the plural form of 'chat' in French?</p>
+        <input type="text" id="answer" placeholder="Your answer">
+        <button onclick="checkAnswer()">Check Answer</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        const questions = [
+            { question: "What is the plural form of 'chat' in French?", answer: "chats" },
+            { question: "Conjugate the verb 'manger' in the present tense for 'nous'.", answer: "mangeons" },
+            { question: "Translate 'elle est' to English.", answer: "she is" },
+            // Add more questions and answers here
+        ];
+
+        let currentQuestionIndex = 0;
+        const questionElement = document.getElementById("question");
+        const answerInput = document.getElementById("answer");
+        const resultElement = document.getElementById("result");
+
+        function displayQuestion() {
+            if (currentQuestionIndex < questions.length) {
+                const currentQuestion = questions[currentQuestionIndex];
+                questionElement.textContent = currentQuestion.question;
+                answerInput.value = "";
+                resultElement.textContent = "";
+            } else {
+                questionElement.textContent = "Quiz Completed!";
+                answerInput.style.display = "none";
+            }
+        }
+
+        function checkAnswer() {
+            const currentQuestion = questions[currentQuestionIndex];
+            const userAnswer = answerInput.value.trim().toLowerCase();
+            const correctAnswer = currentQuestion.answer.toLowerCase();
+
+            if (userAnswer === correctAnswer) {
+                resultElement.textContent = "Correct!";
+            } else {
+                resultElement.textContent = `Incorrect. The correct answer is: ${currentQuestion.answer}`;
+            }
+
+            currentQuestionIndex++;
+            displayQuestion();
+        }
+
+        // Initial display
+        displayQuestion();
+    </script>
+</body>
+</html>
