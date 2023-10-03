@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grammar Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Grammar Quiz</h1>
+        <form id="quizForm">
+            <p>Select the correct sentence:</p>
+            <label>
+                <input type="radio" name="q1" value="0"> She is going to the store.
+            </label><br>
+            <label>
+                <input type="radio" name="q1" value="1"> She am going to the store.
+            </label><br>
+            <label>
+                <input type="radio" name="q1" value="2"> She are going to the store.
+            </label><br>
+            
+            <p>Choose the right verb tense:</p>
+            <label>
+                <input type="radio" name="q2" value="0"> I eat lunch.
+            </label><br>
+            <label>
+                <input type="radio" name="q2" value="1"> I eats lunch.
+            </label><br>
+            <label>
+                <input type="radio" name="q2" value="2"> I ate lunch.
+            </label><br>
+
+            <!-- Add more questions here -->
+
+            <input type="submit" value="Submit">
+        </form>
+        <div id="results"></div>
+    </div>
+
+    <script>
+        const quizForm = document.getElementById('quizForm');
+        const resultsDiv = document.getElementById('results');
+        
+        quizForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const answers = {
+                q1: parseInt(document.querySelector('input[name="q1"]:checked').value),
+                q2: parseInt(document.querySelector('input[name="q2"]:checked').value),
+                // Add more questions and answers here
+            };
+            
+            const totalPoints = Object.values(answers).reduce((acc, val) => acc + val, 0);
+            
+            resultsDiv.innerHTML = `<p>Total points: ${totalPoints}</p>`;
+        });
+    </script>
+</body>
+</html>
