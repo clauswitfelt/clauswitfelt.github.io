@@ -29,8 +29,8 @@ body
 
 .btn
 {
-  background-color: ligthblue;
-  border: 1px solid ligthblue;
+  background-color: blue;
+  border: 1px solid gray;
   border-radius: 5px;
   padding: 5px 10px;
   color: white;
