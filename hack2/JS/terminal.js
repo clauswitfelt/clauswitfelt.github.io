@@ -3,8 +3,8 @@ let projAsk = false;
 let lastCommands = [];
 
 const COMMANDS = {
-  help: ` Help is avaliable. <p>Try the standard UNIX-commands: ls, format, dir, ren, pwd, login, cat, cd, del. <p>Please don't click the picture below<p> <h1 onclick="alert('the password is hotgoblin')"><img src="https://media.giphy.com/media/3o7bu0ZQQp2QQQQQQQ/giphy.gif" alt="" width=50px height=50px></h1>`,
-  login: `LOGIN - Try to LOGIN with both a USERNAME and a PASSWORD  `,
+  help: `Help is avaliable. <p>Try the standard UNIX-commands: ls, format, dir, ren, pwd, login, cat, cd, del. <p>Please don't click the picture below<p> <h1 onclick="alert('the password is hotgoblin')"><img src="https://media.giphy.com/media/3o7bu0ZQQp2QQQQQQQ/giphy.gif" alt="" width=50px height=50px></h1>`,
+  login: `LOGIN - Try to LOGIN with both a USERNAME and a PASSWORD `,
   ls: `LS lists a directory`,
   dir: `DIR - same as ls`,
   ls: ` `,
@@ -19,7 +19,7 @@ const COMMANDS = {
   cat: `CAT reads a document. Remember the argument `,
   cd: `CD changes the directory  `,
   del: `DEL deletes a file `,
-  ren: `REN: renames a file or a directory. The managers name i Charlie`,
+  ren: `REN: renames a file or a directory. The managers name is Charlie`,
 
 };
 
