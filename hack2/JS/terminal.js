@@ -134,7 +134,7 @@ class Terminal extends HTMLElement {
       <div class="terminal-window primary-bg" onclick="document.getElementById('dummyKeyboard').focus();">
         <div class="terminal-output" id="terminalOutput">
           <div class="terminal-line">
-            <span class="help-msg">Type <span class="help">command1</span> to get started</span>
+            <span class="help-msg">Type <span class="help">info or help</span> to start</span>
               commands.<br>
           </div>
         </div>
