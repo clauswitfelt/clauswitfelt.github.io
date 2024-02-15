@@ -4,8 +4,13 @@ let lastCommands = [];
 
 const COMMANDS = {
   help: ` Try clicking on <h1 onclick="alert('the password is HOTGOBLIN')">me<img src="https://media.giphy.com/media/3o7bu0ZQQp2QQQQQQQ/giphy.gif" alt="" width=50px height=50px></h1>`,
-  login: `  `,
-  ls: `You can use <pre style="color:red">HTML, CSS, and JavaScript</tags> for commands!`,
+  login: `LOGIN - Try to LOGIN with both a USERNAME and a PASSWORD  `,
+  ls: `LS lists a directory`,
+  dir: `DIR - same as ls`,
+  ls: ` `,
+  format: ` `,
+  debug: ` `,
+  home: ` `,
   cat: `CAT reads a document. Remember the argument `,
   cd: `CD changes the directory  `,
   del: `DEL deletes a file `,
