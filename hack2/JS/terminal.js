@@ -16,11 +16,11 @@ const COMMANDS = {
   login_private: `Succes. Now try to list directory and find the password to the managers bankaccount , type enter when you have both`,
   cat: `List of content. BTW, our manager loves long list of integer-numbers, like 123456 or 87654321, tangrams and palindromes`,
   login_customer: `You can now login as a customer `,
-  home4: ` `,
-  cat: `CAT reads a document. Remember the argument `,
+  hack: `You can do better than that `,
+  cat: `CAT reads a document. Do remember the argument. The managers account number could be 43961812 or 41961812 `,
   cd: `CD changes the directory  `,
   del: `DEL deletes a file. <p>The manager uses Malune Rititsa Bank for his personal finances `,
-  ren: `REN: renames a file or a directory. The managers name is Charlie`,
+  ren: `REN: renames a file or a directory. The managers name is Charlie and his mothers maiden name was Cathleen`,
 
 };
 
