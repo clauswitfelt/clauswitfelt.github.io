@@ -14,7 +14,7 @@ const COMMANDS = {
   info: `Type help, if you need help. Login if you want to login`,
   login: `This login is for employees. Use login_customer as a customer, login_private for private logins `,
   login_private: `Succes. Now try to list directory and find the password to the managers bankaccount , type enter when you have both`,
-  cat: `List of users `,
+  cat: `List of content. BTW, our manager loves long list of integer-numbers, like 123456 or 87654321, tangrams and palindromes`,
   login_customer: `You can now login as a customer `,
   home4: ` `,
   cat: `CAT reads a document. Remember the argument `,
