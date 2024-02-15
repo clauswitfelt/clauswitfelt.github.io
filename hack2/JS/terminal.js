@@ -7,13 +7,13 @@ const COMMANDS = {
   login: `LOGIN - Try to LOGIN with both a USERNAME and a PASSWORD `,
   ls: `LS lists a directory`,
   dir: `DIR - same as ls`,
-  ls: ` `,
+  ls: `LS list the current directory. PWD has the same function `,
   format: `Please don't format the harddisk `,
   debug: `No use here `,
   pwd: `You are in the home directory `,
   info: `Type help, if you need help. Login if you want to login`,
   login: `This login is for employees. Use login_customer as a customer, login_private for private logins `,
-  login_private: `Succes. Now try to list directory and find the password to the managers bankaccount`,
+  login_private: `Succes. Now try to list directory and find the password to the managers bankaccount , type enter when you have both`,
   cat: `List of users `,
   login_customer: `You can now login as a customer `,
   home4: ` `,
@@ -41,7 +41,7 @@ const execute = function executeCommand(input) {
     input = "sudo";
   }
 
-  if (input == "login") {
+  if (input == "enter") {
     open("ohiobank.html");
   } else if (input === "clear" || input === "cls") {
     clearScreen();
