@@ -17,7 +17,7 @@ const COMMANDS = {
   cat: `List of content. BTW, our manager loves long list of integer-numbers, like 123456 or 87654321, tangrams and palindromes`,
   login_customer: `You can now login as a customer `,
   hack: `You can do better than that `,
-  cat: `CAT reads a document. Do remember the argument. The managers account number could be 43961812 or 41961812 `,
+  cat: `CAT reads a document. Do remember the argument. The managers account number could be 43961864 or 41961812 `,
   cd: `CD changes the directory  `,
   del: `DEL deletes a file. <p>The manager uses Malune Rititsa Bank for his personal finances `,
   ren: `REN: renames a file or a directory. The managers name is Charlie and his mothers maiden name was Cathleen`,
