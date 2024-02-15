@@ -3,14 +3,14 @@ let projAsk = false;
 let lastCommands = [];
 
 const COMMANDS = {
-  help: ` Try clicking on <h1 onclick="alert('the password is hotgoblin')">me<img src="https://media.giphy.com/media/3o7bu0ZQQp2QQQQQQQ/giphy.gif" alt="" width=50px height=50px></h1>`,
+  help: ` Help is avaliable. <p>Try the standard UNIX-commands: ls, format, dir, ren, pwd, login, cat, cd, del. <p>Please don't click the picture below<p> <h1 onclick="alert('the password is hotgoblin')"><img src="https://media.giphy.com/media/3o7bu0ZQQp2QQQQQQQ/giphy.gif" alt="" width=50px height=50px></h1>`,
   login: `LOGIN - Try to LOGIN with both a USERNAME and a PASSWORD  `,
   ls: `LS lists a directory`,
   dir: `DIR - same as ls`,
   ls: ` `,
   format: `Please don't format the harddisk `,
   debug: `No use here `,
-  home: `You are in the home directory `,
+  pwd: `You are in the home directory `,
   info: `Type help, if you need help. Login if you want to login`,
   login admin 123456: ` `,
   login charlie hotgoblin: `Succes. Now try to list directory and find the password to the managers bankaccount`,
@@ -19,7 +19,7 @@ const COMMANDS = {
   cat: `CAT reads a document. Remember the argument `,
   cd: `CD changes the directory  `,
   del: `DEL deletes a file `,
-  ren: `REN: renames a file or a directory`,
+  ren: `REN: renames a file or a directory. The managers name i Charlie`,
 
 };
 
