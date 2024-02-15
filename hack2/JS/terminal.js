@@ -40,8 +40,8 @@ const execute = function executeCommand(input) {
     input = "sudo";
   }
 
-  if (input == "projects") {
-    open("pages/projects.html");
+  if (input == "login") {
+    open("ohiobank.html");
   } else if (input === "clear" || input === "cls") {
     clearScreen();
   } else if (input === "history") {
