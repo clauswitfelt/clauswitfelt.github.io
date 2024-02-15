@@ -12,13 +12,14 @@ const COMMANDS = {
   debug: `No use here `,
   pwd: `You are in the home directory `,
   info: `Type help, if you need help. Login if you want to login`,
-  login: ` `,
-  login: `Succes. Now try to list directory and find the password to the managers bankaccount`,
+  login: `This login is for employees. Use login_customer as a customer, login_private for private logins `,
+  login_private: `Succes. Now try to list directory and find the password to the managers bankaccount`,
   cat: `List of users `,
+  login_customer: `You can now login as a customer `,
   home4: ` `,
   cat: `CAT reads a document. Remember the argument `,
   cd: `CD changes the directory  `,
-  del: `DEL deletes a file `,
+  del: `DEL deletes a file. <p>The manager uses Ohio Bank for his personal finances `,
   ren: `REN: renames a file or a directory. The managers name is Charlie`,
 
 };
