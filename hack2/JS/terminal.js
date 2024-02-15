@@ -19,7 +19,7 @@ const COMMANDS = {
   home4: ` `,
   cat: `CAT reads a document. Remember the argument `,
   cd: `CD changes the directory  `,
-  del: `DEL deletes a file. <p>The manager uses Ohio Bank for his personal finances `,
+  del: `DEL deletes a file. <p>The manager uses Malune Rititsa Bank for his personal finances `,
   ren: `REN: renames a file or a directory. The managers name is Charlie`,
 
 };
@@ -42,7 +42,7 @@ const execute = function executeCommand(input) {
   }
 
   if (input == "enter") {
-    open("ohiobank.html");
+    open("mrbank.html");
   } else if (input === "clear" || input === "cls") {
     clearScreen();
   } else if (input === "history") {
