@@ -4,12 +4,12 @@ let lastCommands = [];
 
 const COMMANDS = {
   command1: ` Try clicking on <h1 onclick="alert('hihi')">me<img src="https://media.giphy.com/media/3o7bu0ZQQp2QQQQQQQ/giphy.gif" alt="" width=50px height=50px></h1>`,
-  command2: `You can use <pre style="color:red">HTML, CSS, and JavaScript</tags> for commands! Try clicking on `,
+  command2: `  `,
   ls: `You can use <pre style="color:red">HTML, CSS, and JavaScript</tags> for commands! Try clicking on `,
-  cat: `You can use <pre style="color:red">HTML, CSS, and JavaScript</tags> for commands! Try clicking on `,
-  broke: `You can use <pre style="color:red">HTML, CSS, and JavaScript</tags> for commands! Try clicking on `,
-  spike: `You can use <pre style="color:red">HTML, CSS, and JavaScript</tags> for commands! Try clicking on `,
-  peak: `You can use <pre style="color:red">HTML, CSS, and JavaScript</tags> for commands! Try clicking on `,
+  cat: `CAT reads a document. Remember the argument `,
+  cd: `CD changes the directory  `,
+  del: `DEL deletes a file `,
+  ren: `REN: renames a file or a directory`,
 
 };
 
