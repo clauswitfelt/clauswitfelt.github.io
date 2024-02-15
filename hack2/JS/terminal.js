@@ -3,7 +3,7 @@ let projAsk = false;
 let lastCommands = [];
 
 const COMMANDS = {
-  help: ` Try clicking on <h1 onclick="alert('the password is HOTGOBLIN')">me<img src="https://media.giphy.com/media/3o7bu0ZQQp2QQQQQQQ/giphy.gif" alt="" width=50px height=50px></h1>`,
+  help: ` Try clicking on <h1 onclick="alert('the password is hotgoblin')">me<img src="https://media.giphy.com/media/3o7bu0ZQQp2QQQQQQQ/giphy.gif" alt="" width=50px height=50px></h1>`,
   login: `LOGIN - Try to LOGIN with both a USERNAME and a PASSWORD  `,
   ls: `LS lists a directory`,
   dir: `DIR - same as ls`,
@@ -12,9 +12,9 @@ const COMMANDS = {
   debug: `No use here `,
   home: `You are in the home directory `,
   info: `Type help, if you need help. Login if you want to login`,
-  home1: ` `,
-  home2: ` `,
-  home3: ` `,
+  login admin 123456: ` `,
+  login charlie hotgoblin: `Succes. Now try to list directory and find the password to the managers bankaccount`,
+  cat users: `List of users `,
   home4: ` `,
   cat: `CAT reads a document. Remember the argument `,
   cd: `CD changes the directory  `,
