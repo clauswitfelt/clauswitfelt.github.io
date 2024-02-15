@@ -3,9 +3,9 @@ let projAsk = false;
 let lastCommands = [];
 
 const COMMANDS = {
-  command1: ` Try clicking on <h1 onclick="alert('hihi')">me<img src="https://media.giphy.com/media/3o7bu0ZQQp2QQQQQQQ/giphy.gif" alt="" width=50px height=50px></h1>`,
-  command2: `  `,
-  ls: `You can use <pre style="color:red">HTML, CSS, and JavaScript</tags> for commands! Try clicking on `,
+  help: ` Try clicking on <h1 onclick="alert('the password is HOTGOBLIN')">me<img src="https://media.giphy.com/media/3o7bu0ZQQp2QQQQQQQ/giphy.gif" alt="" width=50px height=50px></h1>`,
+  login: `  `,
+  ls: `You can use <pre style="color:red">HTML, CSS, and JavaScript</tags> for commands!`,
   cat: `CAT reads a document. Remember the argument `,
   cd: `CD changes the directory  `,
   del: `DEL deletes a file `,
