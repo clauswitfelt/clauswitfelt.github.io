@@ -36,12 +36,12 @@ mybox
 
   function gangsta()
     {
-      let g=Math.floor(Math.random() * 3);
+      let g=Math.floor(Math.random() * 3)+1;
       if(g==1)
       {
          
         
-        document.getElementById('mybox').innerHTML = "Du hustler for viildt. Street respect = +10";
+        document.getElementById('mybox').innerHTML = "<h3>Du hustler for viildt. Street respect = +10</h3>";
         
       }
 
@@ -60,13 +60,21 @@ mybox
     }
 
   function straeber()
-  {}
+  {
+    alert("Du er en stræber");
+  }
 
   function relax()
-  {}
+  {
+ alert("Du er en relaxer");
+    
+  }
 
   function brainbreak()
-  {}
+  {
+   alert("Nap et brainbreak!");
+    
+  }
   
   
 </script>
