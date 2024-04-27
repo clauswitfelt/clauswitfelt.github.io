@@ -55,6 +55,18 @@ li.dropdown {
   display: block;
 }
 </style>
+
+<script>
+function tilmeld()
+{
+alert("Kære Hanne Kjeldsen. Du er nu tilmeldt senior-gymnastik. Vel mødt");
+
+  
+}
+  
+</script>
+
+  
 </head>
 <body>
 
@@ -77,9 +89,20 @@ li.dropdown {
 <h5>- Dit liv er for kort til slappe kroppe!</h5>
 <p>Vælg i menuen for at se vores tilbud</p>
 <p>
-<img src="pexels.jpg" width="50%">
-</p>
-Fotos af Yan Krukau: https://www.pexels.com/da-dk/foto/kvinder-sport-fitness-straekke-8436457/
+
+<form action="">
+  <fieldset>
+    <legend>Tilmelding:</legend>
+    <label for="fname">Fornavn:</label><br>
+    <input type="text" id="fname" name="fname" value="Mit fornavn"><br>
+    <label for="lname">Efternavn:</label><br>
+    <input type="text" id="lname" name="lname" value="mit efternavn"><br><br>
+    <button onclick="tilmeld()">Tilmeld</button>
+  </fieldset>
+  
+</form>  
+
+
   
 </body>
 </html>
