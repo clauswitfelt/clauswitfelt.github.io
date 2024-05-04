@@ -1,36 +1,22 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>THNX - scybertrusselsspillet</title>
-  <link href="game.css" rel="stylesheet" type="text/css" />
+<script src="https://cdn.jsdelivr.net/npm/jquery"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.terminal/js/jquery.terminal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.terminal/css/jquery.terminal.min.css"/>
 </head>
-
 <body>
-   
-  <script src="game.js"></script>
 
-<div class="container">
-<div id="text"><h4>Niveau 0</h4><p>Du bliver antaget som IT-sikkerhedsassistent på prøve...held og lykke!</p></div>
-<div id="option-buttons" class="option-grid">
-<button class="btn">Button 1</button>
-<button class="btn">Button 2</button>
-<button class="btn">Button 3</button>
-<button class="btn">Button 4</button>
-
-
-</div>
+  <script>
+$('body').terminal({
+    hello: function(what) {
+        this.echo('Hello, ' + what +
+                  '. Wellcome to this terminal.');
+    }
+}, {
+    greetings: 'My First Web Terminal'
+});
+</script>
   
-
-  
-  
-</div>
-  
-
-  
- 
- </body>
-
+</body>
 </html>
