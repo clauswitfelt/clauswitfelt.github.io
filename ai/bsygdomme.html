@@ -20,8 +20,23 @@ function diagnose()
 var sprg1=prompt('Har dit barn feber? (J/N)');
 if (sprg1='J')
 {
-document.getElementById('diag').innerHTML = 'Jeg tror dit barn har ondt i maven';
+document.getElementById('diag').innerHTML = ' ';
+  var sprg2=prompt('Er det let eller høj feber? (L/H)');
+  if(sprg2='L')
+  {
+      document.getElementById('diag').innerHTML = 'Dit barn kan have røde hunde';
+    
+  }
+  else
+  {
+      document.getElementById('diag').innerHTML = 'Dit barn kan have mæslinger';
+    
+  }
 
+  
+
+
+  
 }
 else
 {
@@ -72,7 +87,7 @@ document.getElementById('diag').innerHTML = "Jeg ved ikke, hvad dit barn kan fej
       <li>Mæslinger (høj feber og kraftig forkølelse med hoste og hæshed, lysskyhed og øjenbetændelse. )</li>
       <li>Røde hunde (let feberk snue og hævede, ømme lymfeknuder i nakken. Udslæt i ansigtet)</li>
       <li>Fåresyge (utilpashed, feber og trykken i den ene eller begge sider af kinderne)</li>
-      <li>Skarlagenssyge ()</li>  
+      <li>skoldkopper (let feber, udslæt på ansigt og krop)</li>  
       </ol>
 
       <div id="diag">
