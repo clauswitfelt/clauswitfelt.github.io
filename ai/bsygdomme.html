@@ -14,24 +14,14 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 </style>
 
 <script>
-
+var dom='Her kommer diagnosen';
 function diagnose()
 {
 var sprg1=prompt('Har dit barn feber? (J/N)');
 if (sprg1='J')
 {
 document.getElementById('diag').innerHTML = ' ';
-  var sprg2=prompt('Er det let eller høj feber? (L/H)');
-  if(sprg2='L')
-  {
-      document.getElementById('diag').innerHTML = 'Dit barn kan have røde hunde';
-    
-  }
-  else
-  {
-      document.getElementById('diag').innerHTML = 'Dit barn kan have mæslinger';
-    
-  }
+  
 
   
 
@@ -44,7 +34,20 @@ document.getElementById('diag').innerHTML = "Jeg ved ikke, hvad dit barn kan fej
 
   
 }
-  
+
+  var sprg2=prompt('Er det let eller høj feber? (L/H)');
+  if(sprg2='L')
+  {
+      document.getElementById('diag').innerHTML = 'Dit barn kan have røde hunde';
+    
+  }
+  else
+  {
+      
+    
+  }
+
+  document.getElementById('diag').innerHTML = dom;
 }
   
 
