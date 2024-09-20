@@ -35,8 +35,9 @@ function hashCode(str) {
 
 function demo()
     {
-
-        alert("Hi");
+        var ps=prompt("Indtast password");
+        var hashv=hashCode(ps);
+        alert(hashv);
     }
 
 
@@ -77,7 +78,10 @@ function demo()
   <input type="submit" onclick="demo()" value="Submit">
 </form> 
 
-<p>If you click the "Submit" button, the form-data will be sent to a page called "/action_page.php".</p>
+<p> </p>
+
+<di id="hash"</div>
+<button onclick="demo()">Indtast hash-værdi</button>
  
       
 
