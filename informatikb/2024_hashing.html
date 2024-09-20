@@ -43,10 +43,15 @@ function demo()
 
 function login()
     {
-        alert(".....");
+        
         var bnavn=document.getElementById("brugern").value;
         var pswrd=document.getElementById("kodeo").value;
         var hashv=hashCode(pswrd);
+        if(pswrd==-1349495183)
+        [
+            window.open("https://clauswitfelt.github.io/informatikb/loginsuccess.html");
+        ]
+        
         alert(hashv);
     }
 
