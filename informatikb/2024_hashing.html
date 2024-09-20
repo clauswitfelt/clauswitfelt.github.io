@@ -41,6 +41,14 @@ function demo()
     }
 
 
+function login()
+    {
+        var bnavn=document.getElementById("brugern").value;
+        var hashv=hashCode(ps);
+        alert(hashv);
+    }
+
+
 </script>
 
 
@@ -81,7 +89,19 @@ function demo()
 
 <di id="hash"</div>
 <button onclick="demo()">Indtast hash-værdi</button>
- 
+<p></p> 
+
+<p></p> 
+<h2>Login demo men hashing</h2>
+<p>I denne login-funktion er paswordet IKKE lagret nogle steder, kun hash-værdien (Passwordet er MilkyWay)</p> 
+<form>
+  <label for="fname">First name:</label><br>
+  <input type="text" id="brugern" name="fname" value="Brugernavn"><br>
+  <label for="lname">Last name:</label><br>
+  <input type="text" id="lname" name="kodero" value="Kodeord"><br><br>
+  <input type="submit" value="Submit">
+</form> 
+
       
 
       
