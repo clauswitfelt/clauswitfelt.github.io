@@ -44,7 +44,8 @@ function demo()
 function login()
     {
         var bnavn=document.getElementById("brugern").value;
-        var hashv=hashCode(ps);
+        var pswrd=document.getElementById("kodeo").value;
+        var hashv=hashCode(pswrd);
         alert(hashv);
     }
 
@@ -99,7 +100,7 @@ function login()
   <input type="text" id="brugern" name="fname" value="Brugernavn"><br>
   <label for="lname">Last name:</label><br>
   <input type="text" id="lname" name="kodero" value="Kodeord"><br><br>
-  <input type="submit" value="Submit">
+  <button onclick="login()">Login</button>
 </form> 
 
       
