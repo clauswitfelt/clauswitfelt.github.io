@@ -36,6 +36,7 @@ function start1()
   {
   alert("Horray!");
     points=points+1;
+    document.getElementById("mypoints").value=points;
     
   }  
 }
@@ -81,7 +82,7 @@ function start3()
 
  <p>In this game, you will explore the mysteries of the new european dataprivacy regulation! </p>   
 
-<div id="points"><i>Your points:</i></div>
+<div id="mypoints"><i>Your points:</i></div>
 <p></p>
 <button id="mybut1" onclick="start1()">Level 1: Personal</button> <br>
 <button id="mybut2" onclick="start2()">Level 2: Company level</button> <br>
