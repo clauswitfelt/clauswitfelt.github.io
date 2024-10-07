@@ -26,19 +26,41 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 <script>
 
-function start()
+
+var points==;
+  
+function start1()
 {
   var sprg1=prompt("What is the commen known Acronym for dataprotection regulation? (Capital letters)");
   if(sprg=="GDPR")
   {
   alert("Horray!");
+    points=points+1;
     
-  }
-
-  
+  }  
 }
   
+function start2()
+{
+  var sprg1=prompt("Is GDPR a national, European or International regulation? (N/E/I) ");
+  if(sprg=="E")
+  {
+  alert("Horray!");
+    points=points+1;
+    
+  }  
+}
 
+function start3()
+{
+  var sprg1=prompt("What is the commen known Acronym for dataprotection regulation? (Capital letters)");
+  if(sprg=="GDPR")
+  {
+  alert("Horray!");
+    points=points+1;
+    
+  }  
+}
 
 
   
@@ -58,11 +80,12 @@ function start()
 
 
  <p>In this game, you will explore the mysteries of the new european dataprivacy regulation! </p>   
- 
 
-<button id="mybut1" onclick="start()">Level 1</button> <br>
-<button id="mybut2" onclick="start()">Level 2</button> <br>
-<button id="mybut3" onclick="start()">Level 3</button> <br>
+<div id="points">Points</div>
+<p></p>
+<button id="mybut1" onclick="start1()">Level 1</button> <br>
+<button id="mybut2" onclick="start2()">Level 2</button> <br>
+<button id="mybut3" onclick="start3()">Level 3</button> <br>
       
 
       
