@@ -41,27 +41,6 @@ function start1()
   }  
 }
   
-function start2()
-{
-  var sprg2=prompt("Is GDPR a national, European or International regulation? (N/E/I) ");
-  if(sprg2=="E")
-  {
-  alert("Horray!");
-    points=points+1;
-    
-  }  
-}
-
-function start3()
-{
-  var sprg3=prompt("Who is being protected by the regulation. Government, Citizen or Companies (1/2/3)");
-  if(sprg3=="2")
-  {
-  alert("Horray!");
-    points=points+1;
-    
-  }  
-}
 
 
   
@@ -84,10 +63,21 @@ function start3()
 
 <div id="mypoints"><i>Your points:</i></div>
 <p></p>
-<button id="mybut1" onclick="start1()">Level 1: Person</button> <br>
-<button id="mybut2" onclick="start2()">Level 2: Company level</button> <br>
-<button id="mybut3" onclick="start3()">Level 3: National level</button> <br>
-      
+
+
+  <h2>Text input fields</h2>
+
+<form>
+  <label for="guess1">Your guess:</label><br>
+  <input type="text" id="guess" name="guess" value="My Guess"><br>
+  
+</form>
+
+<p> </p>
+
+<p>Also note that the default width of text input fields is 20 characters.</p>
+
+<button onclick="chall()">Give me a challenge!</button>
 
       
     </div>
