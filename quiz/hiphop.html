@@ -1,0 +1,95 @@
+
+
+
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rap og Hip-Hop Test</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+
+<script>
+  const questions = [
+    {
+        question: "Hvem er kendt som 'The Godfather of Hip Hop'?",
+        a: "Dr. Dre",
+        b: "Eminem",
+        c: "Snoop Dogg",
+        d: "Afrika Bambaataa",
+        answer: "d"
+    },
+    {
+        question: "Hvilket år blev hip-hop officielt udnævnt som en kulturel bevægelse af US Congress?",
+        a: "1979",
+        b: "1989",
+        c: "1999",
+        d: "2009",
+        answer: "b"
+    },
+    // Tilføj 8 flere spørgsmål her
+];
+
+let currentQuestion = 0;
+let score = 0;
+
+function showQuestion() {
+    const q = questions[currentQuestion];
+    document.getElementById("question").innerText = q.question;
+    document.getElementById("a").innerText = q.a;
+    document.getElementById("b").innerText = q.b;
+    document.getElementById("c").innerText = q.c;
+    document.getElementById("d").innerText = q.d;
+}
+
+function submitAnswer() {
+    const answers = document.getElementsByName("answer");
+    let selectedAnswer = "";
+
+    for (let i = 0; i < answers.length; i++) {
+        if (answers[i].checked) {
+            selectedAnswer = answers[i].value;
+            break;
+        }
+    }
+
+    if (selectedAnswer === questions[currentQuestion].answer) {
+        score++;
+    }
+
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+        showQuestion();
+    } else {
+        document.getElementById("quiz").className = "hidden";
+        document.getElementById("result").innerText = "Din score er: " + score + "/" + questions.length;
+    }
+}
+
+showQuestion();
+
+</script>
+
+  
+<body>
+    <h1>Rap og Hip-Hop Test</h1>
+    <div id="quiz">
+        <p id="question"></p>
+        <label><input type="radio" name="answer" value="a">a)</label> <span id="a"></span><br>
+        <label><input type="radio" name="answer" value="b">b)</label> <span id="b"></span><br>
+        <label><input type="radio" name="answer" value="c">c)</label> <span id="c"></span><br>
+        <label><input type="radio" name="answer" value="d">d)</label> <span id="d"></span><br>
+        <button onclick="submitAnswer()">Answer</button>
+    </div>
+    <p id="result"></p>
+
+    <script src="quiz.js"></script>
+</body>
+</html>
