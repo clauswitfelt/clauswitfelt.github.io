@@ -1,2 +1,78 @@
 
 
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test i Belbin's mennesketyper</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+    </style>
+
+<script>
+
+
+  function calculateResults() {
+  const answers = {
+    A: 0,
+    B: 0,
+    C: 0,
+    D: 0,
+    E: 0,
+    F: 0,
+    G: 0,
+    H: 0,
+  };
+
+  const radios = document.querySelectorAll('input[type="radio"]');
+  radios.forEach((radio) => {
+    if (radio.checked) {
+      answers[radio.value]++;
+    }
+  });
+
+  let resultsHTML = '<h2>Dine resultater:</h2><ul>';
+  for (const [key, value] of Object.entries(answers)) {
+    resultsHTML += `<li>${key}: ${value}</li>`;
+  }
+  resultsHTML += '</ul>';
+
+  document.getElementById('results').innerHTML = resultsHTML;
+}
+</script>
+
+
+  
+</head>
+<body>
+    <h1>Test i Belbin's mennesketyper</h1>
+    <p>Vælg den svarmulighed, du mener bedst svarer til dig.</p>
+    <form id="quiz">
+        <fieldset>
+            <legend>Spørgsmål 1:</legend>
+            <input type="radio" id="q1a" name="q1" value="A">
+            <label for="q1a">A) Koordinator</label><br>
+            <input type="radio" id="q1b" name="q1" value="B">
+            <label for="q1b">B) Udforsker</label><br>
+            <input type="radio" id="q1c" name="q1" value="C">
+            <label for="q1c">C) Innovator</label><br>
+            <input type="radio" id="q1d" name="q1" value="D">
+            <label for="q1d">D) Implementerer</label><br>
+            <input type="radio" id="q1e" name="q1" value="E">
+            <label for="q1e">E) Forsvarer</label><br>
+            <input type="radio" id="q1f" name="q1" value="F">
+            <label for="q1f">F) Specialist</label><br>
+            <input type="radio" id="q1g" name="q1" value="G">
+            <label for="q1g">G) Holdleder</label><br>
+            <input type="radio" id="q1h" name="q1" value="H">
+            <label for="q1h">H) Teamspiller</label><br>
+        </fieldset>
+        <!-- Gentag fieldset for hver spørgsmål -->
+    </form>
+    <button onclick="calculateResults()">Beregn resultater</button>
+    <div id="results"></div>
+</body>
+</html>
