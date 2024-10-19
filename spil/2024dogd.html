@@ -1,0 +1,4 @@
+<html> <head> <title>Dungeons and Dragons</title> <script> var points = 0; var room = 1;
+function nextRoom() { if (room == 1) { document.getElementById("room1").style.display = "none"; document.getElementById("room2").style.display = "block"; room = 2; points += 10; document.getElementById("points").innerHTML = "Points: " + points; } else if (room == 2) { alert("Tak for spillet! Du har samlet " + points + " points."); } } </script>
+
+</head> <body> <h1>Dungeons and Dragons</h1> <p>Points: <span id="points">0</span></p> <div id="room1"> <h2>Room 1</h2> <p>Du står i et mørkt rum. Der er en dør mod nord.</p> <button onclick="nextRoom()">Gå mod nord</button> </div> <div id="room2" style="display: none;"> <h2>Room 2</h2> <p>Du er kommet til et stort rum med en skat i midten. Gratulerer, du har vundet!</p> </div> </body> </html>
