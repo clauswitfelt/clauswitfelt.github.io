@@ -31,28 +31,28 @@ function door1()
   var sprg1=prompt("Hvad hedder direktøren for museet til efternavn?");
   if(sprg1="Mentz")
   {
-    alert("Yes");
+     
     document.getElementById("info").innerHTML="Du går nu videre til niveau 2"; 
   }
 }
 
 function door2()
 {
-  var sprg1=prompt("Hvad hedder direktøren for museet til efternavn?");
-  if(sprg1="Mentz")
+  var sprg1=prompt("Er der en ENIGMA på museet? (J/N)");
+  if(sprg1="J")
   {
-    alert("Yes");
-    document.getElementById("info").innerHTML="Du går nu videre til niveau 2";
+    
+    document.getElementById("info").innerHTML="Du går nu videre til niveau 3";
   }
 }
 
 function door3()
 {
-  var sprg1=prompt("Hvad hedder direktøren for museet til efternavn?");
-  if(sprg1="Mentz")
+  var sprg1=prompt("Der er en meget smuk skibsmodel, bygget af noget usædvanligt, nemlig hvad?");
+  if(sprg1="ben")
   {
-    alert("Yes");
-    document.getElementById("info").innerHTML="Du går nu videre til niveau 2";
+     
+    document.getElementById("info").innerHTML="Du er en mester!";
   }
 }
 
