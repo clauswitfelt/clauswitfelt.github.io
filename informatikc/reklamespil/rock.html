@@ -1,0 +1,237 @@
+
+
+
+<script type="text/JavaScript"> 
+    var bandnavn="Kutter-Kaj og trawler-drengene";
+    var managernavn="din lillebror"
+    var silverados=50000;
+    var tur=10;
+    var hits=0;
+    var minsang="";
+    
+    function vent()
+    {
+        alert("I venter en uge i studiet....");
+        status();    
+    }
+    
+    function status()
+    {
+        tur=tur-1;
+        if(tur==0)
+        {
+            
+            if(silverados<50000)
+            {
+                alert("Det var *det* spil! I brændte aldrig rigtigt igennem");
+            }
+            
+            if(silverados>50000)
+            {
+                alert("Det var *det* spil! I scorede virkeligt kassen på jeres BAND...");
+            }
+        }     
+        document.getElementById("navnet").innerHTML = "BAND-NAVN: "+bandnavn+"<p>"+"SILVERADOS: "+silverados+"<p>Manager: "+managernavn+"<p><p>"+"<p>UGER TIL GENNEMBRUD: "+tur; 
+    }
+    
+    function band()
+    {
+        bandnavn=prompt("Hvad vil I kalde jeres band?");
+        document.getElementById("navnet").innerHTML = "NAVN: "+bandnavn+"<p> Silverados: "+silverados; 
+        status();
+    }
+    
+    function hit()
+    {
+        hitnavn=prompt("Hvad vil I kalde jeres hit?");
+        var t =Math.floor((Math.random() * 500) + 1); 
+        document.getElementById("navnet").innerHTML = "Hittet "+hitnavn+" indbringer "+t*10+" Silverados <p><p>";
+        silverados=silverados+t*10;
+        document.getElementById("infofelt").innerHTML =
+        "<p><p>Oh, I love you so very much<p> You are my one desire<p> I feel capitol, when you are near me!<p>"+'<iframe width="100%" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/248477447&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>';
+        hits=hits+1;
+    }
+    
+    function hit2()
+    {
+        
+        hitnavn=prompt("Hvad vil I kalde jeres hit?");
+        minsang=prompt("Indtast lyrikken til jeres hit")
+        var t =Math.floor((Math.random() * 500) + 1); 
+        document.getElementById("navnet").innerHTML = "Hittet "+hitnavn+" indbringer "+t*10+" Silverados <p><p>";
+        silverados=silverados+t*10;
+        document.getElementById("infofelt").innerHTML =
+        hitnavn+"<p>"+minsang;
+        hits=hits+1;
+    }
+    
+    function manager()
+    {
+        managernavn=prompt("Hvilken manager vil I hyre? (Myrna=1, Herman=2)");
+        
+        if(managernavn==1)
+        {
+            document.getElementById("infofelt").innerHTML = '<p><strong>Du hyrer Myrna Enevoldsen som manager</strong><p>';
+            managernavn="Myrna Enevoldsen";
+            silverados=silverados-10000;
+            status();
+        }
+        
+        if(managernavn==2)
+        {                                               document.getElementById("infofelt").innerHTML = '<p><strong>Du hyrer Herman Nielsen som manager</strong><p>'; 
+         managernavn="Herman Nielsen";
+            silverados=silverados-7500;
+        }
+        status();    
+    }
+       
+    function koncert()
+    {
+        if(managernavn=="din lillebror")
+        {
+            alert("Kære ven...Du kan ikke afholde station-koncerter med din lillebror som manager!");
+            manager();
+        } else {
+            var k =Math.floor((Math.random() * 3) + 1); 
+        
+            if(k==1)
+            {
+                var s =Math.floor((Math.random() * 2) + 1);
+                if(s==1)
+                {
+                    alert("Koncerten på Wembley bliver en MEGA-succes!");
+                    silverados=silverados+10000;   
+                }
+                
+                if(s==2)
+                {
+                    alert("Koncerten på Wembley bliver en grande fiasko!");
+                    silverados=silverados-10000;   
+                }
+                
+                
+            }
+        
+            if(k==2)
+            {
+                var s =Math.floor((Math.random() * 2) + 1);
+                if(s==1)
+                {
+                     alert("Koncerten i Monterey bliver en MEGA-succes!");
+                    silverados=silverados+12000;   
+                }
+                
+                if(s==2)
+                {
+                     alert("Koncerten i Monterey får en lunken modtagelse");
+                    silverados=silverados-12000;  
+                }
+            }
+        
+            if(k==3)
+            {
+                var s =Math.floor((Math.random() * 2) + 1);
+                if(s==1)
+                {
+                    alert("Koncerten på Times Square bliver en MEGA-succes!");
+                    silverados=silverados+14000;   
+                }
+                
+                if(s==2)
+                {
+                    alert("Tilskuerne udebliver til jeres koncerten på Times Square!");
+                    silverados=silverados-14000;   
+                }
+                
+            }
+        }
+        status();
+    } 
+    
+    function video() {
+        var myWindow = window.open("https://www.youtube.com/watch?v=xcxCdacqG_c&index=6&list=PLCA9A9B18BE3342D8");
+    }
+    
+     function promo2() {
+        var myWindow = window.open("", "MsgWindow", "width=650,height=250");
+         myWindow.document.write("<p>PRESSEMEDDELELSE</p> Endnu en turné og album-udsendelse er klar...<p>Kontakt presse-bureauet for mere info og fotos.");
+    }
+    
+    function album()
+    {
+        if(hits<3)
+        {
+            alert("Du kan ikke lave et album med mindre end 3 hits!");
+            hit();
+        } else {
+            alert("I udsender et album....Fans skriger på mere");
+            hits=0;    
+        }  
+    }
+
+
+function lykken()
+    {
+        tur=tur+1;
+        var t=Math.floor(Math.random() * 5);
+        if(t==1)
+        {
+                  alert("Undgå skandale - gå til FINN, når de skal MALE");
+         }
+         if(t==2)
+        {
+                  alert("GUITAR-JOHNNY - fikser din 'spade', så du er klar til at 'lave ballade!'");
+         }
+         if(t==3)
+        {
+                  alert("Nikki's garage - vil Folkevognen lidt ekstra. Eftersyn og blipleje!");
+         }
+         if(t==4)
+        {
+                  alert("LAILAS BEAUTY-SALON. SKØNHED INDERST OG YDERST");
+         }
+         if(t==5)
+        {
+                  alert("VAGNS THE & KAFFE - ALLE SPECILITETER KAN VI SKAFFE.");
+         }
+
+
+        
+    }
+
+</script> 
+    
+</head>
+
+<header>
+   <h2>Et remake af det klassiske spil: "It's only ROCK'N ROLL"</h2>
+    <strong>I har maks. 10 uger til at brænde igennem og tjene mere end de 50.000 silvarados, I har lånt i banken!</strong><p><p>
+</header>
+
+<div id="navnet">
+    </div>    
+    
+<nav>
+ <input type="button" value="Dan band!" onclick="band()"/><br>
+<input type="button" value="Indspil et cover-nummer!" onclick="hit()"/><br> 
+<input type="button" value="Indspil et eget nummer!" onclick="hit2()"/><br>     
+    <input type="button" value="Hyr manager!" onclick="manager()"/><br> 
+  <input type="button" value="Afhold stadion-koncert!" onclick="koncert()"/><br>
+    <input type="button" value="Udsend album" onclick="album()"/><br> 
+    <input type="button" value="Indspil musik-video" onclick="video()"/><br> 
+    <input type="button" value="Udsend promo-materiale" onclick="promo2()"/><br> 
+    <input type="button" value="Vent en tur" onclick="vent()"/><br>
+    <input type="button" value="Støt vores sponsorer...." onclick="lykken()"/><br> 
+</nav>
+    
+<div id="infofelt" bgcolor="red">
+    <p>
+    <p>
+</div>
+    
+<div id="terning" bgcolor="red">
+    <p>
+    <p>
+</div>    
+ 
+ 
