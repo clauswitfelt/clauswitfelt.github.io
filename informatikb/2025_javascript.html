@@ -72,12 +72,19 @@ function slag()
 
 function provmit()
 {
+  let nisser=0;
   let t=prompt("Hvor mange slag skal vi prøve?");
   for(t2=0;t>t;t++)
     {
-
+      let t3=Math.floor(Math.random() * 6) + 1;
+      if(t3==6)
+      {
+        nisser=nisser+1
+      }
+        
       
     }
+  alert("Du fik: "+nisser);
 
 
   
