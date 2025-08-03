@@ -41,6 +41,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
   tabeller
   redundans
   intergritet
+  Nøgler - primærnøgle og fremmednøgle
   
     
  <h1>E/R modellering af databaser </h1>
@@ -71,9 +72,42 @@ Når vi arbejder med databaser, bruger vi E/R-modellering
 
 
  <h1>Normalisering af databaser</h1>
-   <p>
+<p>
 <p> 
+Normalisering af databaser vil sige at dele databaser op i hensigtigsmæssige tabeller
+Vi har 3 normalformer
+<ol>
+<li>Der skal være en entydig nøgle, og der må ikke være gentagne felter</li>
+<li></li>
+<li></li>
+</ol>
 
+<h4>Eksempel</h4>
+<table style="width:100%">
+  <tr>
+    <th>Hans Hansen</th>
+    <th>H. Hansen</th>
+    <th>Anders Hansen</th>
+  </tr>
+  <tr>
+    <td>Mælk</td>
+    <td>Æg</td>
+    <td>Hk. oksekød</td>
+  </tr>
+  <tr>
+    <td>vanillie-sukker</td>
+    <td>Hk. oksekød</td>
+    <td>....</td>
+  </tr>
+  <tr>
+    <td>Hk. oksekød</td>
+    <td>vanillie-sukker</td>
+    
+    <td>....</td>
+  </tr>
+</table>
+
+  
 
  <h1>SQL databaser</h1>
 <p>
