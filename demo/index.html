@@ -1,1 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Political Interest Selector</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .topic-card {
+            transition: all 0.2s ease-in-out;
+        }
+        .topic-card.selected {
+            border-color: #3b82f6; /* blue-500 */
+            background-color: #eff6ff; /* blue-50 */
+        }
+        .topic-card.selected svg {
+            color: #3b82f6; /* blue-500 */
+        }
+        .topic-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto px-4 py-8 md:py-12">
+        
+        <!-- Header Section -->
+        <header class="text-center mb-8 md:mb-12">
+            <h1 class="text-3xl md:text-5xl font-bold text-gray-900">Discover Your Political Interests</h1>
+            <p class="mt-2 md:mt-4 text-md md:text-lg text-gray-600 max-w-2xl mx-auto">Select the topics you care about the most to see a curated list.</p>
+        </header>
+
+        <main class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Topics Grid Section -->
+            <div class="lg:col-span-2">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800">Choose your topics</h2>
+                <div id="topics-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                    <!-- Topic cards will be injected here by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Selected Interests Section -->
+            <aside class="lg:col-span-1 bg-white p-6 rounded-xl shadow-md border border-gray-200">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-semibold text-gray-800">Selected Interests</h2>
+                    <button id="reset-button" class="text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors">Reset</button>
+                </div>
+                <div id="selected-topics-container">
+                    <!-- Selected topics will be listed here -->
+                     <p id="placeholder-text" class="text-gray-500">Your selected topics will appear here.</p>
+                </div>
+            </aside>
+
+        </main>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const topics = [
+                { id: 'economy', name: 'Economy', icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>` },
+                { id: 'healthcare', name: 'Healthcare', icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>` },
+                { id: 'education', name: 'Education', icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 14l9-5-9-5-9 5 9 5z" /><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-5.998 12.078 12.078 0 01.665-6.479L12 14z" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-5.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222 4 2.222V20M1 12l5.373 2.986L12 17.5l5.627-2.514L23 12" /></svg>` },
+                { id: 'environment', name: 'Environment', icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2h10a2 2 0 002-2v-1a2 2 0 012-2h1.945M7.707 4.293l.53-.53a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414l3.293-3.293-3.293-3.293a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>` },
+                { id: 'foreign_policy', name: 'Foreign Policy', icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2h10a2 2 0 002-2v-1a2 2 0 012-2h1.945M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93s3.05-7.44 7-7.93v15.86zm2-15.86c1.03.13 2 .45 2.87.93L15 8h-1V4.07zM15 10h-1v4h1v-4zm-8-4.07C7.97 5.55 9 5.87 10 6v2H9l-1.87-1.07z" /></svg>` },
+                { id: 'immigration', name: 'Immigration', icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.653-.122-1.28-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.653.122-1.28.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>` },
+                { id: 'tech', name: 'Technology', icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" /></svg>` },
+                { id: 'defense', name: 'Defense', icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.286zm0 13.036h.008v.008h-.008v-.008z" /></svg>` },
+                { id: 'justice', name: 'Criminal Justice', icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" transform="scale(0.8) translate(3,3)"/> </svg>` },
+                { id: 'trade', name: 'Trade', icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h.01M12 7h.01M16 7h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m-7.072 0a5 5 0 010-7.072" /></svg>` },
+                { id: 'energy', name: 'Energy', icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>` },
+                { id: 'social_issues', name: 'Social Issues', icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.653-.122-1.28-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.653.122-1.28.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>` },
+            ];
+
+            const topicsGrid = document.getElementById('topics-grid');
+            const selectedTopicsContainer = document.getElementById('selected-topics-container');
+            const placeholderText = document.getElementById('placeholder-text');
+            const resetButton = document.getElementById('reset-button');
+            
+            let selectedTopics = new Set();
+
+            // Function to render the topic cards
+            const renderTopics = () => {
+                topicsGrid.innerHTML = ''; // Clear existing topics
+                topics.forEach(topic => {
+                    const card = document.createElement('div');
+                    card.className = 'topic-card bg-white p-4 rounded-lg shadow-sm border border-gray-200 cursor-pointer flex flex-col items-center justify-center text-center';
+                    card.dataset.topicId = topic.id;
+                    
+                    const iconContainer = document.createElement('div');
+                    iconContainer.className = 'text-gray-400 mb-2';
+                    iconContainer.innerHTML = topic.icon;
+                    
+                    const name = document.createElement('span');
+                    name.className = 'font-semibold text-sm text-gray-700';
+                    name.textContent = topic.name;
+                    
+                    card.appendChild(iconContainer);
+                    card.appendChild(name);
+                    
+                    // Add click listener
+                    card.addEventListener('click', () => toggleTopicSelection(topic.id));
+                    
+                    topicsGrid.appendChild(card);
+                });
+            };
+
+            // Function to render the selected topics list
+            const renderSelectedTopics = () => {
+                selectedTopicsContainer.innerHTML = ''; // Clear the list
+                if (selectedTopics.size === 0) {
+                    selectedTopicsContainer.appendChild(placeholderText);
+                } else {
+                    const list = document.createElement('ul');
+                    list.className = 'space-y-2';
+                    selectedTopics.forEach(topicId => {
+                        const topic = topics.find(t => t.id === topicId);
+                        const listItem = document.createElement('li');
+                        listItem.className = 'flex items-center bg-gray-100 p-2 rounded-md';
+                        listItem.innerHTML = `
+                            <span class="text-gray-500 mr-3">${topic.icon.replace('h-8 w-8', 'h-5 w-5')}</span>
+                            <span class="text-gray-800 font-medium text-sm">${topic.name}</span>
+                        `;
+                        list.appendChild(listItem);
+                    });
+                    selectedTopicsContainer.appendChild(list);
+                }
+            };
+            
+            // Function to handle topic selection
+            const toggleTopicSelection = (topicId) => {
+                const card = document.querySelector(`.topic-card[data-topic-id="${topicId}"]`);
+                if (selectedTopics.has(topicId)) {
+                    selectedTopics.delete(topicId);
+                    card.classList.remove('selected');
+                } else {
+                    selectedTopics.add(topicId);
+                    card.classList.add('selected');
+                }
+                renderSelectedTopics();
+            };
+
+            // Reset functionality
+            resetButton.addEventListener('click', () => {
+                selectedTopics.clear();
+                document.querySelectorAll('.topic-card.selected').forEach(card => {
+                    card.classList.remove('selected');
+                });
+                renderSelectedTopics();
+            });
+
+            // Initial render
+            renderTopics();
+            renderSelectedTopics();
+        });
+    </script>
+
+</body>
+</html>
   
