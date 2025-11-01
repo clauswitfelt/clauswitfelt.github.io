@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Reaction Time Test</title>
+    <style>
+        /* Make the game full-screen and center content */
+        html, body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden; /* Hide scrollbars */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            color: white;
+            -webkit-user-select: none; /* Disable text selection on mobile */
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* The main game screen that changes color */
+        #game-screen {
+            display: flex;
+            flex-direction: column; /* Stack text on top of buttons */
+            justify-content: space-between; /* Push text to top, buttons to bottom */
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            /* Default "waiting" state */
+            background-color: #333;
+            /* Smooth transition between colors */
+            transition: background-color 0.1s ease-in-out;
+        }
+
+        /* Text display area */
+        #status-text {
+            flex: 1; /* Take up remaining space */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem; /* Large, readable text */
+            font-weight: 600;
+            text-align: center;
+            padding: 2rem;
+            line-height: 1.5;
+        }
+
+        /* Container for the two touch/mouse buttons */
+        #button-container {
+            display: flex;
+            width: 100%;
+            height: 35vh; /* Buttons take up bottom 35% of screen */
+        }
+
+        /* Individual player button styling */
+        .player-btn {
+            flex: 1; /* Each button takes 50% width */
+            /* Make buttons slightly visible for mouse users */
+            background-color: rgba(0, 0, 0, 0.1);
+            border-top: 2px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+        }
+
+        /* Add a subtle divider */
+        #player1-btn {
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        #player2-btn {
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* --- STATE CLASSES --- */
+        /* JS will add these classes to #game-screen */
+
+        /* "Wait for green" state */
+        .state-waiting {
+            background-color: #e74c3c; /* Red */
+        }
+        /* "Go" state */
+        .state-go {
+            background-color: #2ecc71; /* Green */
+        }
+        /* "Game over" state */
+        .state-game-over {
+            background-color: #3498db; /* Blue */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main game container -->
+    <div id="game-screen">
+        <!-- Status text display -->
+        <div id="status-text">
+            <!-- Initial message set by JS -->
+        </div>
+
+        <!-- On-screen button container -->
+        <div id="button-container">
+            <div id="player1-btn" class="player-btn"></div>
+            <div id="player2-btn" class="player-btn"></div>
+        </div>
+    </div>
+
+    <script>
+        // Get references to the HTML elements
+        const gameScreen = document.getElementById('game-screen');
+        const statusText = document.getElementById('status-text');
+        const p1Button = document.getElementById('player1-btn');
+        const p2Button = document.getElementById('player2-btn');
+
+        // --- Game State Variables ---
+        let gameState = 'WAIT_TO_START'; // 'WAIT_TO_START', 'WAITING', 'GO', 'GAME_OVER'
+        let timerId = null;       // Stores the ID of the setTimeout
+        let startTime = 0;        // Stores the high-precision timestamp when the 'GO' state starts
+
+        /**
+         * Main function to control the UI and game state
+         * @param {string} state - The new state to transition to
+         * @param {string} message - The text to display (supports <br>)
+         */
+        function setScreenState(state, message) {
+            gameState = state;
+            statusText.innerHTML = message;
+
+            // Update the background color by changing the class
+            gameScreen.className = ''; // Clear all old state classes
+            if (state === 'WAITING' || state === 'GO' || state === 'GAME_OVER') {
+                gameScreen.classList.add('state-' + state.toLowerCase());
+            }
+        }
+
+        /**
+         * Resets the game to the initial starting screen
+         */
+        function initGame() {
+            // Clear any lingering timers
+            if (timerId) {
+                clearTimeout(timerId);
+            }
+            setScreenState(
+                'WAIT_TO_START',
+                "Reaction Test<br><br>Player 1: 'A' | Player 2: 'B'<br><br>Press 'S' to Start"
+            );
+        }
+
+        /**
+         * Starts a new round
+         */
+        function startGame() {
+            // Only start if in the correct state
+            if (gameState === 'WAIT_TO_START' || gameState === 'GAME_OVER') {
+                setScreenState('WAITING', "Wait for green...");
+
+                // Set a random timeout between 2 and 5 seconds
+                const randomTime = Math.random() * 3000 + 2000; 
+                
+                timerId = setTimeout(go, randomTime);
+            }
+        }
+
+        /**
+         * Transitions to the 'GO' state
+         */
+        function go() {
+            setScreenState('GO', "GO!");
+            // Get the high-precision timestamp
+            startTime = performance.now();
+        }
+
+        /**
+         * Called when a player presses their button/key
+         * @param {number} playerNum - 1 or 2
+         */
+        function playerPressed(playerNum) {
+            // Check if they pressed too soon
+            if (gameState === 'WAITING') {
+                const winner = (playerNum === 1) ? 2 : 1;
+                endGame(`Player ${playerNum} pressed too soon!<br>Player ${winner} wins!`);
+            }
+            // Check for a valid press
+            else if (gameState === 'GO') {
+                const endTime = performance.now();
+                const reactionTime = (endTime - startTime).toFixed(0); // Get time in ms
+
+                endGame(`Player ${playerNum} wins!<br>Time: ${reactionTime} ms`);
+            }
+        }
+
+        /**
+         * Ends the game and displays the result
+         * @param {string} message - The final message to show
+         */
+        function endGame(message) {
+            // Clear the "go" timer (in case this was a "too soon" press)
+            if (timerId) {
+                clearTimeout(timerId);
+                timerId = null;
+            }
+            setScreenState('GAME_OVER', message + "<br><br>Press 'S' to Play Again");
+        }
+
+        // --- Event Listeners ---
+
+        // Listen for keyboard presses
+        document.addEventListener('keydown', (e) => {
+            const key = e.key.toLowerCase();
+
+            if (key === 's') {
+                startGame();
+            } else if (key === 'a') {
+                playerPressed(1);
+            } else if (key === 'b') {
+                playerPressed(2);
+            }
+        });
+
+        // Listen for mouse clicks
+        p1Button.addEventListener('mousedown', () => playerPressed(1));
+        p2Button.addEventListener('mousedown', () => playerPressed(2));
+
+        // Listen for touch events (for mobile)
+        // 'touchstart' is the equivalent of 'mousedown'
+        p1Button.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Prevent "click" event from firing too
+            playerPressed(1);
+        });
+        p2Button.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            playerPressed(2);
+        });
+
+        // Start the game when the page is first loaded
+        document.addEventListener('DOMContentLoaded', initGame);
+
+    </script>
+</body>
+</html>
