@@ -4,13 +4,25 @@
 
 function koeb(k)
 {
-if(k=="Krypto")
-{
-alert("Du køber krypto-valuta!");
-  
-}
+  if(k=="Krypto")
+  {
+    alert("Du køber krypto-valuta!");
+  }
 
-  
+  if(k=="Index")
+  {
+    alert("Du køber indexfonde!");
+  }
+
+  if(k=="Reits")
+  {
+    alert("Du køber Reits!");
+  }
+
+   if(k=="ETF")
+  {
+    alert("Du køber ETF'ere!");
+  }
 
 
   
@@ -34,10 +46,10 @@ alert("Du køber krypto-valuta!");
       
     </legend>
 
-    <button>Køb ETF'er</button><br>
+    <button onclick="koeb("ETF")>Køb ETF'er</button><br>
     <button onclick="koeb("Krypto")">Køb Krypto-valuta</button><br>
-    <button>Køb Reits</button><br>
-    <button>Køb index-fonde</button><br>
+    <button onclick="koeb("Reits")>Køb Reits</button><br>
+    <button onclick="koeb("Index")>Køb index-fonde</button><br>
     <button>Vent</button><br>
   </fieldset>  
 <p></p>
