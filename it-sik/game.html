@@ -18,6 +18,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 function room1()
 {
   alert("Velkommen til rum 1");
+  document.getElementById("ruminfo").innerHTML="Du er i rum 1";
 }
 
 function room2()
@@ -56,13 +57,16 @@ function room3()
   <div class="w3-content">
     
  
-<button onclick="room1()">RUM 1</button><br>
-<button onclick="room2()">RUM 2</button><br>
-<button onclick="room3()">RUM 3</button><br> 
-<button onclick="room4()">RUM 4</button><br>
-<button onclick="room5()">RUM 5</button><br>
+<button onclick="room1()">RUM 1</button><p>
+<button onclick="room2()">RUM 2</button><p>
+<button onclick="room3()">RUM 3</button><p> 
+<button onclick="room4()">RUM 4</button><p>
+<button onclick="room5()">RUM 5</button><p>
       
+<div id="ruminfo">
 
+  
+</div>
       
     </div>
   </div>
