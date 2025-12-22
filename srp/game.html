@@ -1,0 +1,77 @@
+let state = "START"; 
+let startTime;
+let reactionTime;
+let timer;
+let highScore = Infinity; // Start with Infinity so any first score is lower
+
+function setup() {
+  createCanvas(400, 400);
+  textAlign(CENTER, CENTER);
+}
+
+function draw() {
+  if (state === "START") {
+    background(100, 150, 250);
+    fill(255);
+    textSize(24);
+    text("Reaction Timer\nClick to Start", width / 2, height / 2);
+  } 
+  
+  else if (state === "WAIT") {
+    background(255, 100, 100);
+    fill(255);
+    textSize(24);
+    text("Wait for Green...", width / 2, height / 2);
+    
+    if (millis() > timer) {
+      state = "CLICK";
+      startTime = millis();
+    }
+  } 
+  
+  else if (state === "CLICK") {
+    background(100, 255, 100);
+    fill(0);
+    textSize(32);
+    text("CLICK NOW!", width / 2, height / 2);
+  } 
+  
+  else if (state === "RESULT") {
+    background(240);
+    fill(0);
+    textSize(24);
+    text("Time: " + reactionTime + (typeof reactionTime === 'number' ? " ms" : ""), width / 2, height / 2 - 20);
+    
+    // Display High Score
+    fill(100);
+    textSize(18);
+    let highDisplay = (highScore === Infinity) ? "None" : highScore + " ms";
+    text("Personal Best: " + highDisplay, width / 2, height / 2 + 30);
+    
+    fill(50);
+    text("Click to try again", width / 2, height / 2 + 80);
+  }
+}
+
+function mousePressed() {
+  if (state === "START" || state === "RESULT") {
+    state = "WAIT";
+    timer = millis() + random(2000, 5000);
+  } 
+  
+  else if (state === "WAIT") {
+    reactionTime = "TOO EARLY!";
+    state = "RESULT";
+  } 
+  
+  else if (state === "CLICK") {
+    reactionTime = floor(millis() - startTime);
+    
+    // Update High Score if current time is lower
+    if (reactionTime < highScore) {
+      highScore = reactionTime;
+    }
+    
+    state = "RESULT";
+  }
+}
