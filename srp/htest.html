@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Response Time Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        button {
+            padding: 15px 25px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Reaction Time Test</h1>
+    <p>Click the button as fast as you can!</p>
+
+    <button id="clickBtn">Click Me</button>
+
+    <p id="result"></p>
+
+    <script>
+        let startTime = performance.now();
+
+        document.getElementById("clickBtn").addEventListener("click", () => {
+            const endTime = performance.now();
+            const responseTime = endTime - startTime;
+
+            document.getElementById("result").textContent =
+                `Your response time is ${responseTime.toFixed(2)} milliseconds`;
+
+            // Reset timer if you want to try again
+            startTime = performance.now();
+        });
+    </script>
+
+</body>
+</html>
+
+
+
+
+ 
