@@ -12,6 +12,68 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
 .fa-anchor,.fa-coffee {font-size:200px}
 </style>
+
+
+<script>
+const eliza = {
+    // Words to flip when mirroring the user
+    reflections: {
+        "am": "are",
+        "was": "were",
+        "i": "you",
+        "i'm": "you are",
+        "my": "your",
+        "are": "am",
+        "you're": "i am",
+        "your": "my",
+        "yours": "mine",
+        "me": "you"
+    },
+
+    // Pattern-Response pairs
+    scripts: [
+        [/(.*) (?:hello|hi|hey)(.*)/i, ["Hello! How are you feeling today?", "Hi there. What's on your mind?"]],
+        [/(.*) feel (.*)/i, ["Why do you feel $2?", "Does feeling $2 happen often?"]],
+        [/(.*) mother(.*)/i, ["Tell me more about your mother.", "What was your relationship like?"]],
+        [/(.*) (?:can't|cannot) (.*)/i, ["How do you know you can't $2?", "What if you could $2?"]],
+        [/(.*) (?:stressed|anxious|sad)(.*)/i, ["I'm sorry to hear that. What is making you feel that way?", "How do you cope with those feelings?"]],
+        [/(.*) (?:yes|yeah|yep)(.*)/i, ["You seem quite sure.", "Can you elaborate on that?"]],
+        [/(.*)/i, ["Tell me more.", "I see. And how does that make you feel?", "Why do you say that?"]]
+    ],
+
+    reflect: function(text) {
+        return text.toLowerCase().split(/\s+/).map(word => {
+            return this.reflections[word] || word;
+        }).join(" ");
+    },
+
+    getResponse: function(input) {
+        for (let [pattern, responses] of this.scripts) {
+            let match = input.match(pattern);
+            if (match) {
+                // Pick a random response from the matches
+                let response = responses[Math.floor(Math.random() * responses.length)];
+                
+                // If there's a captured group (the mirror part), reflect it
+                if (match.length > 1 && response.includes("$2")) {
+                    let captured = this.reflect(match[2]);
+                    response = response.replace("$2", captured);
+                }
+                return response;
+            }
+        }
+    }
+};
+
+// Example Usage:
+// console.log(eliza.getResponse("I feel tired")); 
+// Outputs: "Why do you feel tired?"
+
+  
+</script>
+
+
+  
 <body>
 
 <!-- Navbar -->
