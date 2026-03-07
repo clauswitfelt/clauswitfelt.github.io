@@ -6,8 +6,13 @@
 [http://www.dr.dk]
 
 ## Hvad er symbols og subsymbolsk AI
++ symbolsk
++ subsymbolsk
+
 
 ## Hvad er træning 
+[Se denne video]
+
 
 Dette er en demo
 
