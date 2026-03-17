@@ -9,6 +9,10 @@ Ny version 2.0 her: [https://beta.p5js.org/]
 Hvad vil det sige at programmere?
 Man skal skrive instruktioner, som kan kan følge en algoritme, en rækkefølge, der løser et problem
 
+
+## P5JS og javaScript
+P5JS er en begyndervenligt sprog som man kan bruge til at lave kreativ programmering. JavaScript er et sprog og P5JS et bibliotek,som give ekstra mulighed for at være kreativ.
+
 Standard-ORDRER
 
 SYNTAKS
