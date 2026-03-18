@@ -31,7 +31,9 @@ Alle P5JS-programmer består af en setup del og en draw-del. Setup udføres en g
 ### Løkker
 
 ### Funktioner
-funktiontioner er 
+Funktiontioner er "blokke af koder", som du kan give et navn, en overskrift og så kalde mange gange med et funktionskalde
+
+function tjekcpr()
 
 
 
