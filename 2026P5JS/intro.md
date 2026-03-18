@@ -21,10 +21,13 @@ SYNTAKS
 Alle P5JS-programmer består af en setup del og en draw-del. Setup udføres en gang i starten og DRAW-delen gentages indtil programmet lukkes.
 
 # Standard ordrer i P5JS
+De allerfleste progtrammeringssprog indeholder de samme ordrer, men (den svære) kunst er, at kombinere dem rigtigt. Nedenfor forklares disse ordre
 
 ### Variable
+Variable er en del af de vi kalde datastrukukturer, der hvor vi gemmer det data, vi arbejder på. Datastrukturer omfatter også list og databaser. Variable og lister er midlertidige, dvs. data slettes, når programmet lukker, hvor databaser gemmes data permanent.
 
-### Inddata uddata 
+### Inddata/uddata 
+Alle programmer har brug for at få noget data ind fra brugere og levere noget resultat tilbage  
 
 ### Betingelser
 
@@ -39,7 +42,7 @@ function tjekcpr()
 
 
 
-
+## 3-lags modellen
 
 
 # Arbejd sammen om P5JS med VSCODE eller OPENPROCESSING
