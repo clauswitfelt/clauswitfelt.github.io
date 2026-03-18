@@ -30,6 +30,13 @@ Variable er en del af de vi kalde datastrukukturer, der hvor vi gemmer det data,
 Alle programmer har brug for at få noget data ind fra brugere og levere noget resultat tilbage  
 
 ### Betingelser
+Betingelser, forgreninger eller if-sætninger er noget af det aller mest centrale.
+
+En betingelse skal indeholde et kriterium, der kan være sandt eller falsk.
+
+
+
+
 
 ### Løkker
 
