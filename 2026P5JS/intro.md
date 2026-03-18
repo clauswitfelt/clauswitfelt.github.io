@@ -20,6 +20,20 @@ SYNTAKS
 ## Det første program, setup og draw
 Alle P5JS-programmer består af en setup del og en draw-del. Setup udføres en gang i starten og DRAW-delen gentages indtil programmet lukkes.
 
+# Standard ordrer i P5JS
+
+### Variable
+
+### Inddata uddata 
+
+### Betingelser
+
+### Løkker
+
+### Funktioner
+funktiontioner er 
+
+
 
 
 
