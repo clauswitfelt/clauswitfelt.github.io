@@ -100,7 +100,29 @@ Her kan står al
 
 ### Standardordrer i programmering
 
-# Øvelse: Gensyn med de interaktive test.
+## Øvelse: Gensyn med de interaktive test.
+Lad os se på, hvordan man kan gentage de interaktive tests, nu i HTML og JS.
+
+
+
+```
+
+function itest()
+{
+let svar1=prompt("Er det valgsprog VI DVÆRGE LØBER IKKE, VI ER FARLIGE PÅ KORT AFSTAND? (j/n)")
+if(svar1=="j")
+{
+  alert("Du må være GIMLI");
+}
+
+
+
+}
+
+
+```
+
+
 
 
 
