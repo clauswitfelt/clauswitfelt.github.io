@@ -12,11 +12,13 @@ Fremover vil vi kun have det i starten af en webside,
 
 Når du vil have et JS i starten af en fil, skal du inkludere en SCRIPT sektion.
 
+```
 <SCRIPT>
 
 .. her skriver du din JS-kode
   
 </SCRIPT>
+```
 
 Bemærk, at HTML, CSS og JS er 3 forskellige sprog med 3 forskellige syntakser (dvs. måde at udforme korrekte sætninger i hvert sprog.
 
