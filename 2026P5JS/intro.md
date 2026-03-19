@@ -13,9 +13,9 @@ Man skal skrive instruktioner, som kan kan følge en algoritme, en rækkefølge,
 ## P5JS og javaScript
 P5JS er en begyndervenligt sprog som man kan bruge til at lave kreativ programmering. JavaScript er et sprog og P5JS et bibliotek,som give ekstra mulighed for at være kreativ.
 
-Standard-ORDRER
 
-SYNTAKS
+
+## SYNTAKS
 
 ## Det første program, setup og draw
 Alle P5JS-programmer består af en setup del og en draw-del. Setup udføres en gang i starten og DRAW-delen gentages indtil programmet lukkes.
