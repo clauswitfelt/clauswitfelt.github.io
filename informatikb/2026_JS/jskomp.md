@@ -73,11 +73,15 @@ Lad os nu prøve at få en funktion til at åbne en simpel alert funktion
 
 function mindemofunktion()
 {
+  alert("Dette er en alert-doks");
+
 
 }
 
 </script>
 ```
+
+HUSK: I SKAL HAVE en BUTTON fra HTML
 
 Og nu en simpel dialogboks, hvor man kan svare på noget....
 
