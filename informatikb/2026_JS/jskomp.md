@@ -26,7 +26,9 @@ Bemærk, at HTML, CSS og JS er 3 forskellige sprog med 3 forskellige syntakser (
 ### Skab en knap
 Der findes en funktion i HTML, så man kan skabe knapper og med disse kan man så kalde funktioner i JS, så man gøre aktive ting.
 
+```
 <BUTTON onclick="demofunc()">Her er et eksempel på en knap</BUTTON>
+```
 
 Dette skal læses sådan: 
 
