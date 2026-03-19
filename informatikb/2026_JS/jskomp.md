@@ -9,7 +9,10 @@ Disse 3 teknilogier er ved at smelte sammen
 Der findes en funktion i HTML, så man kan skabe knapper og med disse kan man så kalde funktioner i JS, så man gøre aktive ting.
 
 
-### Funktioner``
+### Funktioner
+En funktion 
+
+Standard-funktioner
 
 ### Kald en funktion 
 
@@ -18,7 +21,7 @@ Hvad er DOM?
 
 ### Standardordrer i programmering
 
-#Øvelse: Gensyn med 
+# Øvelse: Gensyn med 
 
 
 
