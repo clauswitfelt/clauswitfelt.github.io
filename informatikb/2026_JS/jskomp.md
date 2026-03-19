@@ -1,4 +1,4 @@
-# Javascript, CCS og HTML
+# Javascript, CSS og HTML
 Disse 3 teknologier er ved at smelte sammen
 * HTML er til at skrive struktur på websider/hjemmesider
 * CSS er til at layoute/"style" websider
