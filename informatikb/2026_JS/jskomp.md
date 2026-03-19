@@ -52,11 +52,14 @@ Hvad er DOM? Dom (_document object model_) er et smart system, så man kan få f
 
 ### Standardordrer i programmering
 
-# Øvelse: Gensyn med de interaktive teste
+# Øvelse: Gensyn med de interaktive test.
 
 
 
 # Debugging / Skridtvis forfinelse
+Skridtvis forfinelse er en princip, der minder lidt om den iterative model. Man står over for en opgave, fx at lave et spil eller en app. Gå frem i meget, meget små skrift, skriv en lille smule kode, test, ret og hvis det ikke går som forventet, "spol tilbage" og skrive koden om.
+
+
 
 
 
