@@ -1,8 +1,8 @@
 # Javascript, CCS og HTML
-Disse 3 teknilogier er ved at smelte sammen
-* HTML er til at skrive struktur på websider
-* CSS er til at layoute websider
-* JavaScript er til at tilføje aktiv funktionalitet på websider, fx tjekke en farmular, mindre spil eller lign.
+Disse 3 teknologier er ved at smelte sammen
+* HTML er til at skrive struktur på websider/hjemmesider
+* CSS er til at layoute/"style" websider
+* JavaScript er til at tilføje aktiv funktionalitet på websider, fx tjekke en formular, mindre spil eller lign.
 
 
 ### Skab en knap
@@ -21,7 +21,13 @@ Hvad er DOM?
 
 ### Standardordrer i programmering
 
-# Øvelse: Gensyn med 
+# Øvelse: Gensyn med de interaktive teste
+
+
+
+# Debugging / Skridtvis forfinelse
+
+
 
 
 
