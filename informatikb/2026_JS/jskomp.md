@@ -50,6 +50,37 @@ En funktion
 Standard-funktioner
 
 ### Kald en funktion 
+JS funtioner skal stå i en SCRIPT-sektion
+
+fx
+```
+<script>
+
+function mindemofunktion()
+{
+
+}
+
+</script>
+```
+
+### Den første demo-funktion
+
+Lad os nu prøve at få en funktion til at åbne en simpel alert funktion
+
+```
+<script>
+
+function mindemofunktion()
+{
+
+}
+
+</script>
+```
+
+Og nu en simpel dialogboks, hvor man kan svare på noget....
+
 
 ### Skriv til et DOM-element
 Hvad er DOM? Dom (_document object model_) er et smart system, så man kan få fat i et hvilket som helst element på en webside og ændre det fx fra en JavaScript-script. 
