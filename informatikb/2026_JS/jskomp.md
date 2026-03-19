@@ -48,7 +48,7 @@ Standard-funktioner
 ### Kald en funktion 
 
 ### Skriv til et DOM-element
-Hvad er DOM?
+Hvad er DOM? Dom (_document object model_) er et smart system, så man kan få fat i et hvilket som helst element på en webside og ændre det fx fra en JavaScript-script. 
 
 ### Standardordrer i programmering
 
