@@ -98,9 +98,10 @@ Her kan står al
 
 Nu har vi skabt et DIV-element i vores HTML og navngivet det ved hjælp af DOM. 
 
-Vi kan nu ændre HTML'en ved følgende (ret kryptiske funktion). pas på. Det skal skrives præcist som det så med store og små bogstaver m.m.
+Vi kan nu ændre HTML'en ved følgende (ret kryptiske funktion) i en JS-funktion. Pas på. Det skal skrives præcist som det så med store og små bogstaver m.m.
 
 ```
+
 document.getElementById("mitfelt").innerHTML="Nu skriver jeg i feltet";
 
 
