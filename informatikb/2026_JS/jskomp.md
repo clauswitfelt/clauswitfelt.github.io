@@ -125,8 +125,10 @@ if(svar1=="j")
 
 
 
-# Debugging / Skridtvis forfinelse
+## Debugging / Skridtvis forfinelse
 Skridtvis forfinelse er en princip, der minder lidt om den iterative model. Man står over for en opgave, fx at lave et spil eller en app. Gå frem i meget, meget små skrift, skriv en lille smule kode, test, ret og hvis det ikke går som forventet, "spol tilbage" og skrive koden om.
+Debugging = kunsten at rette fejl.
+
 
 
 
