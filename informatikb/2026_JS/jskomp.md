@@ -96,6 +96,19 @@ Her kan står al
 </div
 ```
 
+Nu har vi skabt et DIV-element i vores HTML og navngivet det ved hjælp af DOM. 
+
+Vi kan nu ændre HTML'en ved følgende (ret kryptiske funktion). pas på. Det skal skrives præcist som det så med store og små bogstaver m.m.
+
+```
+document.getElementById("mitfelt").innerHTML="Nu skriver jeg i feltet";
+
+
+```
+Husk også, at alle vigtige sætninger i JS skal slutte med ;
+
+
+
 
 ### Standardordrer i programmering
 
@@ -121,20 +134,6 @@ if(svar1=="j")
 
 ```
 
-
-
-
-
 ## Debugging / Skridtvis forfinelse
 Skridtvis forfinelse er en princip, der minder lidt om den iterative model. Man står over for en opgave, fx at lave et spil eller en app. Gå frem i meget, meget små skrift, skriv en lille smule kode, test, ret og hvis det ikke går som forventet, "spol tilbage" og skrive koden om.
 Debugging = kunsten at rette fejl.
-
-
-
-
-
-
-
-
-
-  
