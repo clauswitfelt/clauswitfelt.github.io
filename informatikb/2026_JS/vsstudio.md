@@ -1,5 +1,5 @@
 # Udvikling af HTML-kode
-
+Et hvert værktøj, som man kan skrive ren tekst i, kan bruges til at lave HTML-filer, altså websider.
 
 # Samarbejde om at udvikle HTML-filer
 Man kan gøre det på flere måder. Man kan bruge ATOM og Teletype eller i VSStudio Code, kan man se denne film
