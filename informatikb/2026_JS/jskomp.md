@@ -182,6 +182,28 @@ Se det her: https://clauswitfelt.github.io/informatikb/2026html/
 
 ```
 
+## Løkker og lister 
+I dette næste eksempel skal vi se på løkker, gentagelser eller for-loops.
+Overalt i IT bruger man løkker, fx når man søger på Google, Spotify, Bibliotek.dk eller lign.
+
+I liste er en variabel, der kan have flere elementer.
+I den nedenstående eksempel har vi defineret en liste over danske konger i vikingetiden.
+Elementer
+
+
+```
+liste=["Gorm","Harald", "Svend", "Knud", "Harde-Knud"];
+
+for(t=0, t<len(liste), t++
+{
+print(liste[t]);
+}
+
+
+```
+
+
+
 
 ## Debugging / Skridtvis forfinelse
 Skridtvis forfinelse er en princip, der minder lidt om den iterative model. Man står over for en opgave, fx at lave et spil eller en app. Gå frem i meget, meget små skrift, skriv en lille smule kode, test, ret og hvis det ikke går som forventet, "spol tilbage" og skrive koden om.
