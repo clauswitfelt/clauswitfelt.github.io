@@ -1,1 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Login Form</title>
+    <style>
+        /* General form styles */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
 
+        .login-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-form h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                padding: 20px;
+            }
+
+            .input-group input, .btn {
+                font-size: 14px;
+                padding: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 15px;
+            }
+
+            .login-form h2 {
+                font-size: 18px;
+            }
+
+            .input-group input, .btn {
+                font-size: 12px;
+                padding: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Step 1: Login form -->
+    <div class="login-container">
+        <form class="login-form" id="loginForm">
+            <h2>Login</h2>
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="Enter your username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="btn">Login</button>
+        </form>
+    </div>
+
+    <script>
+        // Step 3: Handle form submission
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from refreshing the page
+
+            // Capture the input values
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Print the values to the console
+            console.log('Username:', username);
+            console.log('Password:', password);
+        });
+    </script>
+
+</body>
+</html>
+  
+  
+
+  
+</htmkl>
