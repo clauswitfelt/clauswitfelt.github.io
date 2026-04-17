@@ -137,7 +137,7 @@ if(svar1=="j")
 
 ## En simpel login-funktion
 JS kan også bruges til at validere input-felter, fx tjekke om man har skrevet det rigtig login-info i et felt.
-Sikkerheden ved sådanne er dog virkeligt dårlig, idet man kan går in og læse login'et direkte i browseren.
+Sikkerheden ved sådanne er dog virkeligt dårlig, idet man kan gå in og læse login'et direkte i browseren.
 
 Lad os alligevel se på, hvordan kan kan lave et simpelt login-system.
 
@@ -149,3 +149,14 @@ Lad os alligevel se på, hvordan kan kan lave et simpelt login-system.
 ## Debugging / Skridtvis forfinelse
 Skridtvis forfinelse er en princip, der minder lidt om den iterative model. Man står over for en opgave, fx at lave et spil eller en app. Gå frem i meget, meget små skrift, skriv en lille smule kode, test, ret og hvis det ikke går som forventet, "spol tilbage" og skrive koden om.
 Debugging = kunsten at rette fejl.
+
+## Standard-ordretyper i alle programmeringssprog
+
+
+
+* datastrukturer (variable, lister og databaser)
+* betingelser
+* Løkker
+* Inddata / uddata
+* sekvenser
+* funktioner
