@@ -111,7 +111,6 @@ Husk også, at alle vigtige sætninger i JS skal slutte med ;
 
 
 
-### Standardordrer i programmering
 
 ## Øvelse: Gensyn med de interaktive test.
 Lad os se på, hvordan man kan gentage de interaktive tests, nu i HTML og JS.
@@ -142,6 +141,14 @@ Sikkerheden ved sådanne er dog virkeligt dårlig, idet man kan gå in og læse 
 Lad os alligevel se på, hvordan kan kan lave et simpelt login-system.
 
 ```
+<script>
+
+</script>
+
+<form>
+
+</form>
+
 
 ```
 
@@ -151,6 +158,7 @@ Skridtvis forfinelse er en princip, der minder lidt om den iterative model. Man 
 Debugging = kunsten at rette fejl.
 
 ## Standard-ordretyper i alle programmeringssprog
+
 
 
 
