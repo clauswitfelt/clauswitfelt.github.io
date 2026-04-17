@@ -109,8 +109,36 @@ document.getElementById("mitfelt").innerHTML="Nu skriver jeg i feltet";
 Husk også, at alle vigtige sætninger i JS skal slutte med ;
 
 
+## betingelser, forgreninger eller if-sætninger
+En af de mest centrale ordrer i programmering overhovedet er betingelsen, også tit kaldt forgreningern, if-sætningen eller hvis-så-sætningen. 
+
+if-sætningen bestå af et id og et kriterie, noget, der kal være enten sandt eller falsk.
+Hvis kriteriet er sandt, udføres det, der står nedenfor imellem de krøllede paranteser, ellers hopper programmet videre.
+I nedenstående eksempel, hvis t er 6 (husk, der skal 2 lighedstegn for at sammenligne i JS)
+
+```
+if (t1==6)
+{
+alert("Du fik en sekser, du har vundet!");
+}
+```
+
+Den findes også i en íf-then-else
+
+```
+if (t1==6)
+{
+alert("Du fik en sekser, du har vundet!");
+}
+else
+{
+
+alert("Du vandt ikke noget denne gang!");
+}
 
 
+
+```
 
 ## Øvelse: Gensyn med de interaktive test.
 Lad os se på, hvordan man kan gentage de interaktive tests, nu i HTML og JS.
