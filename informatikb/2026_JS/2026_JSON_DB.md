@@ -16,7 +16,7 @@ P5JS er et nemt JavaScript-bibliotek (en variant eller dialekt). Man kan skrive 
 
 
 ## Hvad er et webrequest og API?
-
+API betyder Application Programming Interface og er en måde, hvor 2 forskellige systemer kan bruge hinandens data og ressourcer. Se mere her: 
 
 
 
@@ -28,9 +28,11 @@ I kan se eksempler på JSON-data her: https://www.w3schools.com/js/js_json.asp
 https://thecodingtrain.com/tracks/data-and-apis-in-javascript/data/1-client-side/4-json
 
 CSV betyder blot komma-separeret fil og er endnu et dataformat, hvor man blot adskiller værdierne med kommaer
+Se mere her: https://lex.dk/filformat
+JSON https://lex.dk/json_-_JavaScript_Object_Notation
 
 ## Hvordan kan man hente JSON-data ind i JS?
 Eksempel på, hvordan man kan arbejde sig igennem et Json-objekt https://editor.p5js.org/cwitfelt/sketches/p7EM4M1xx
 
-Opgave
-I skal hente noget data vha en webrequest og gemme det som JSON og visualisere det fx i P5JS
+## Opgave
+I skal hente noget data vha en webrequest, skabe et udtræk fra en SQL-database med InnerJoins og gemme det som JSON og visualisere det fx i P5JS. Vær kreative
