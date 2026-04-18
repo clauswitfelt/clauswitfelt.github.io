@@ -1,12 +1,16 @@
 # Fagets dimensioner og centrale modeller
 
 * Konstruktion af IT-system som løsning på et problem
-* It og samfund
+* It og samfunds gensidige påvirkning
 * Interaktionsdesign
 * Netværk og IT-sikkerhed
 * Data
 * Programmering
 * Innovation
+
+### Uddybning af dimensioner
+KAISSLPEP #1 Denne dimension er helt overordnet for faget og handler om alle de aktiviteter, som man kan foretage for at komme fra et problem i virkeligheden til et velfungerende IT-system. Det er fx systemudvikling, rutediagrammer, use-cases og meget mere.
+
 
 # Den iterative model
 
