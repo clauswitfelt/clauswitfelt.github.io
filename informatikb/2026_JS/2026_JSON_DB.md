@@ -5,10 +5,14 @@
 En relationel database er en database, der består af flere forskellige tabeller med forbindelser (relationer) imellem. 
 Dette sikrer god integritet (=datakvalitet) og mindsker redundans (gentagne data).
 
-### OPGAVE: Undersøg bilbasen (http://www.bilbasen.dk ). Er der tale om en relationel database og i så fald hvorfor? 
+### OPGAVE: 
+Undersøg bilbasen (http://www.bilbasen.dk ). Er der tale om en relationel database og i så fald hvorfor? 
 
 ## Hvad er P5JS?
-P5JS er et nemt JavaScript
+P5JS er et nemt JavaScript-bibliotek (en variant eller dialekt). Man kan skrive kode direkte https://editor.p5js.org/ eller man kan benytte Atom eller Visual Studio Code, hvis man vi arbejde sammen. 
+
+* https://code.visualstudio.com/download 
+* https://thecodingtrain.com/
 
 
 ## Hvad er et webrequest og API?
