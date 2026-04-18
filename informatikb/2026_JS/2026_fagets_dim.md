@@ -11,9 +11,12 @@
 ### Uddybning af dimensioner
 KAISSLPEP #1 Denne dimension er helt overordnet for faget og handler om alle de aktiviteter, som man kan foretage for at komme fra et problem i virkeligheden til et velfungerende IT-system. Det er fx systemudvikling, rutediagrammer, use-cases og meget mere.
 
+# Centrale teorier
 
-# Den iterative model
+### Den iterative model
 
-# KlientY/server
+### Klient/server-modellen
 
-# 3 lags modellen
+### 3 lags modellen
+
+### Nielsens principper for brugervenlighed modellen
