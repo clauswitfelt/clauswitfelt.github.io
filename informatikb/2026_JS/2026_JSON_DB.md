@@ -9,9 +9,15 @@ Dette sikrer god integritet (=datakvalitet) og mindsker redundans (gentagne data
 
 ## Hvad er P5JS?
 
-## Hvad er et webrequest?
+## Hvad er et webrequest og API?
+
+
+
 
 ## Hvad er Json?
+JSON står for _JavaScript Object Notation_ og betyder blot en struktur, man kan gemme data, fx data fra en webrequest eller en database.
+
+I kan se eksempler på JSON-data her: https://www.w3schools.com/js/js_json.asp 
 
 
 ## Hvordan kan man hente JSON-data ind i JS?
