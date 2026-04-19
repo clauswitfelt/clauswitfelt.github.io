@@ -11,10 +11,8 @@ HTML-ordrer kalder vi tags
 Man kan 
 style een tag fx 
 
-´´´
-
-
-
-´´´´
+```
+<body style="background-color:powderblue;">
+```
 
 ## Skrifttyper
