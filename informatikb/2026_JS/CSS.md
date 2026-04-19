@@ -35,7 +35,8 @@ Dette læses sådan: I style-sektionen står der en række tags/HTML-kommandoer,
 I eksemplet ovenfor er det kun Headline 1, H1 og det eneste ekstra, der gøres ved det er det, der står mellem de krøllede parenteser - at tekstfarven sættes til grøn.
 
 
-3. 
+3. En sidste måde er, at man skrive al css i en ekstern fil som man så kan linke til fra alle sine HTML-dokumenter. Se mere om dette her: https://www.w3schools.com/css/css_external.asp
+
 
 
 ## Skrifttyper
