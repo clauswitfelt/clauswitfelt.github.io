@@ -4,7 +4,7 @@ CSS er et program, til at layoute websider, meget mere detaljeret end i HTML, hv
 CSS er et omfattende emne og at blive god til alt i CSS tager lang tind. 
 Vi vil her kun komme ind på nogle få, men centrale ting.
 
-# ord og begreber
+# Ord og begreber
 HTML-ordrer kalder vi tags.
 Når vi bruger CSS siger vi, at vi "styler"
 CSS tilføjer ekstra muligheder til vores basale HTML.
@@ -24,13 +24,15 @@ CSS tilføjer ekstra muligheder til vores basale HTML.
 <STYLE>
 h1
 {
-
+  color: green;
 }
 
 </STYLE>
 
 ```
-Dette læses sådan: I style-sektionen står der en række tags/HTML-kommandoer, som bliver redefineret/stylet
+
+Dette læses sådan: I style-sektionen står der en række tags/HTML-kommandoer, som bliver redefineret/stylet.
+I eksemplet ovenfor er det kun Headline 1, H1 og det eneste ekstra, der gøres ved det er det, der står mellem de krøllede parenteser - at tekstfarven sættes til grøn.
 
 
 3. 
