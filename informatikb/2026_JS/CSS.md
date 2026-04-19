@@ -16,7 +16,24 @@ CSS tilføjer ekstra muligheder til vores basale HTML.
 <body style="background-color:powderblue;">
 ```
 
-2. Man kan skrive al sin 
+<body></body> er en standard-HTML-tag, men CSS'en: style="background-color:powderblue;", kvalificerer denne kommando og tilføjer er powderblue-farve. Det er en ret besværlig måde at style på!
+
+2. Man kan skrive al sin CSS i en STYLE-sektion, fx i toppen af sit HTML-dokument
+
+```
+<STYLE>
+h1
+{
+
+}
+
+</STYLE>
+
+```
+Dette læses sådan: I style-sektionen står der en række tags/HTML-kommandoer, som bliver redefineret/stylet
+
+
+3. 
 
 
 ## Skrifttyper
