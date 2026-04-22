@@ -1,1 +1,41 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoneyCoin Store | Fremtidens Shopping</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
 
+    <nav>
+        <div class="logo">Money<span>Coin</span></div>
+        <div class="cart-icon" onclick="toggleCart()">
+            🛒 <span id="cart-count">0</span>
+        </div>
+    </nav>
+
+    <header>
+        <h1>Eksklusivt Gear. Betal med <span>MoneyCoin</span>.</h1>
+        <p>Hurtigt, sikkert og decentraliseret.</p>
+    </header>
+
+    <main id="product-grid">
+        </main>
+
+    <div id="cart-sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h2>Din Kurv</h2>
+            <button onclick="toggleCart()">✕</button>
+        </div>
+        <div id="cart-items"></div>
+        <div class="cart-footer">
+            <div class="total">Total: <span id="cart-total">0</span> MC</div>
+            <button class="checkout-btn" onclick="checkout()">Betal nu</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
