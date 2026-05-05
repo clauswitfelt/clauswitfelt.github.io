@@ -1,14 +1,13 @@
 # It-sikkerhed 
 
 ### Diverse modeller om IT-sikkerhed  
-•	CIA-modellen
-Risko-styring: https://informationsteknologi.wdfiles.com/local--files/it-sikkerhed-it-politik-og-risikostyring/Trusselsanalyse.png 
-•	
-IT-sikkerhedsområder: https://informationsteknologi.wdfiles.com/local--files/it-sikkerhed-it-politik-og-risikostyring/Div_itsikkerhed.png 
+* CIA-modellen 
+* Risko-styring: https://informationsteknologi.wdfiles.com/local--files/it-sikkerhed-it-politik-og-risikostyring/Trusselsanalyse.png 
+* IT-sikkerhedsområder: https://informationsteknologi.wdfiles.com/local--files/it-sikkerhed-it-politik-og-risikostyring/Div_itsikkerhed.png 
+* IT-sikkerhedsmatricen: https://informationsteknologi.wdfiles.com/local--files/it-sikkerhed-it-politik-og-risikostyring/Heatmap.png
 
-•	IT-sikkerhedsmatricen: https://informationsteknologi.wdfiles.com/local--files/it-sikkerhed-it-politik-og-risikostyring/Heatmap.png
-
-•	Morfar-videoen https://www.facebook.com/dr2tv/videos/843439735834014/
+### Hacker-typer
+* Morfar-videoen https://www.facebook.com/dr2tv/videos/843439735834014/
 
 
 
