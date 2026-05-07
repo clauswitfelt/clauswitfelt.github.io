@@ -10,6 +10,10 @@ Stride er et akronym for
 * Elevation of Privilege
 
 
+Spoofing: e-mail karantæne
+Tampering
+
+
 https://dk.linkedin.com/pulse/what-stride-model-darlisha-campbell-audxe?tl=da
 
 
