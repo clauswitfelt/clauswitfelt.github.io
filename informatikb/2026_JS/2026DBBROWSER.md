@@ -1,0 +1,4 @@
+# Relationelle databaser med DBBROWSER SQL 2026
+
+Intro til DBBrowserSQL
+Hent det her: https://sqlitebrowser.org/?fbclid=IwY2xjawRpfYhleHRuA2FlbQIxMABicmlkETBRR2s3Z2FJQXg3QW5QY0U5c3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHmm1O6agbE_0noIyOJTcSyGB8WYXhGmcxREzu7vT93Sbz1uWb9USJgSi-L5y_aem_PPX295xpOIcv4UIbnleZQA
