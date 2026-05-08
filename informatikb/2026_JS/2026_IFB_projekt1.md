@@ -15,4 +15,22 @@ Må gerne lave en normal version og en hvor I tænker helt ud af boksen.
 
 ### Desk research
 * https://www.viten.no/nob/
+
+### Ideer I *kan* bruge af
+* storyline
+* En sjov fortæller, fx Sokrates
+* En tilfældighedsgenerator
+* Andre spil mekanikker
+* EN GPS safari
+* Et 3D univers
+* Et adventure eller gåde spil
+
+### Cases
+Se 
+
+### Bruger undersøgelses metoder
+
+### Ide-udviklins metoder
+* Minerva
+* Sketches
 * 
