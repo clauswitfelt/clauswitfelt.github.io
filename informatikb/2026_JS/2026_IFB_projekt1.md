@@ -18,7 +18,8 @@ Kernestof
 6. Interaktionsdesign: I skal tænke Don Normans ideer om UX ind i jeres design.
 7. I skal både lave desk-research og en målgruppe-analyse
 
-### Desk research
+### Cases
+Se 
 * https://www.viten.no/nob/
 * DTU Hi samling https://historie.dtu.dk/-/media/subsites/historie/nyt-design/formidling/undervisningsmateriale/tilgangeteknologihistorie_dtu.pdf
 
@@ -31,10 +32,12 @@ Kernestof
 * Et 3D univers
 * Et adventure eller gåde spil
 
-### Cases
-Se 
-
 ### Bruger undersøgelses metoder
+* interview
+* Statistik
+* Desk research
+* Persona
+* Minerva/Gallup
 
 ### Ide-udviklings metoder
 * Mindmap
@@ -43,3 +46,4 @@ Se
 
 ## Interaktionsdesign 
 * UX
+* Almene regler for design
