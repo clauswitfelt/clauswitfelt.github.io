@@ -44,6 +44,18 @@ Se
 * Minerva
 * Sketches/skitser
 
-## Interaktionsdesign 
+### Interaktionsdesign 
 * UX
 * Almene regler for design
+
+### Faglighed 
+* Opgavestruktur
+* Videnskabelig metode
+* Teori - Empiri
+* induktion / deduktion/ hypotetisk deduktiv metode
+* Forsøg - data - observationer - databehandling - laboratorier 
+
+### Historiske 
+* Simmelweis historie https://lex.dk/Ignaz_Philipp_Semmelweis
+* "Skruen uden ende" - kildesamling https://bibliotek.dk/materiale/skruen-uden-ende-kildesamling_keld-nielsen-f-1948-/work-of%3A870970-basis%3A07194145?tid=V1DKO1778309544503329947084&type=bog 
+  
