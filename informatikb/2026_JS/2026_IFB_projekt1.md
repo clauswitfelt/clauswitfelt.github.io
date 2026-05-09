@@ -1,4 +1,4 @@
-# Projekt 1: Et digitalt miljø
+# Projekt 1: Et digitalt, levende miljø til metode-undervisning i 3g for science-fagene
 
 Kernestof
 * Prototyping
