@@ -1,4 +1,6 @@
-# Projekt 1: Et digitalt, levende miljø til metode-undervisning i 3g for science-fagene
+# Projekt 1: Et digitalt, levende miljø til metode-undervisning i 3g i science-fagene
+## Mantra: Vi gør metode både nødvendigt og interessant! 
+## Mantra: Rygraden i alle dine fremtidige opgaver
 
 Kernestof
 * Prototyping
