@@ -22,6 +22,9 @@ Kernestof
 Se 
 * https://www.viten.no/nob/
 * DTU Hi samling https://historie.dtu.dk/-/media/subsites/historie/nyt-design/formidling/undervisningsmateriale/tilgangeteknologihistorie_dtu.pdf
+* https://danske-dyr.dk/
+* Marke basen
+Find gerne selv andre eksempler på måder, man har undervist i SCI-metode
 
 ### Ideer I *kan* bruge af
 * storyline
