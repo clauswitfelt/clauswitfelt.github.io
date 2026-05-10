@@ -1,8 +1,9 @@
 # Projekt 1: Et digitalt, levende miljø til metode-undervisning i 3g i science-fagene
-## Mantra: Vi gør metode både nødvendigt og interessant! 
-## Mantra: Rygraden i alle dine fremtidige opgaver
+* Mantra: Vi gør _metode_ både nødvendigt og interessant!
+* Mantra: Rygraden i alle dine fremtidige opgaver
+* Mantra Den _gode_ vej til, hvordan din SRP bliver en succes!
 
-Kernestof
+### Kernestof
 * Prototyping
 * Deskresearch
 * Målgruppe-analyse
