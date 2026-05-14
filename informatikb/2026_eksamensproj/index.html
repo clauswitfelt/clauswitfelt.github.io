@@ -31,7 +31,9 @@
     resultDisplay.textContent = index;
     console.log("The selected index is:", index);
     let minval="https://api.thingspeak.com/update?api_key=MWOW2BT6UX1MK4R6&field1="+index;
-    document.getElementById("mitlink").innerHTML=minval;
+    let minval2='<a href="'+minval+'">klik her</a>';
+    alert(minval2);
+    document.getElementById("mitlink").innerHTML=minval2;
     
 
 
