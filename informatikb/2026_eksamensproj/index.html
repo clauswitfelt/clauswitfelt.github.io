@@ -57,14 +57,21 @@ function myFunction() {
   let val=document.getElementById("myDropdown").value;
   alert(val);
 
+
+  
+   
+}
+
+function myfunc2()
+{
   var e = document.getElementById("ddlViewBy");
 function onChange() {
   var value = e.value;
   var text = e.options[e.selectedIndex].text;
   console.log(value, text);
   
-   
 }
+  
 
 // Close the dropdown if the user clicks outside of it
 window.onclick = function(event) {
@@ -88,7 +95,8 @@ window.onclick = function(event) {
 <p>
 <p>
 <div class="dropdown">
-  <button onclick="myFunction()" class="dropbtn">Dropdown</button>
+  <select id="ddlViewBy">
+  <button onclick="myfunc2()" class="dropbtn">Dropdown</button>
   <div id="myDropdown" class="dropdown-content">
     <a href="#home">Radikale Venstre</a>
     <a href="#home">Socialdemokratiet</a>
