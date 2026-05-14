@@ -1,0 +1,26 @@
+<!-- The Form -->
+<form id="menuForm">
+  <label for="myMenu">Choose an option:</label>
+  <select id="myMenu">
+    <option>First Option</option>
+    <option>Second Option</option>
+    <option>Third Option</option>
+  </select>
+</form>
+
+<p>Selected Index: <span id="result">0</span></p>
+
+<script>
+  const menu = document.getElementById('myMenu');
+  const resultDisplay = document.getElementById('result');
+
+  // Listen for changes
+  menu.addEventListener('change', () => {
+    // Get the index
+    const index = menu.selectedIndex;
+    
+    // Output the result
+    resultDisplay.textContent = index;
+    console.log("The selected index is:", index);
+  });
+</script>
