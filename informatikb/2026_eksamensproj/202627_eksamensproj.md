@@ -16,6 +16,7 @@ Webrequest vil sige, at man kan sene data eller læse data igennem adresseruden 
 Opgave: Tjek adresseruden i LECTIO. Hvordan ser den ud? Tror I der sendes noget data med?
 
 ### Hvad er ThingSpeak?
+Thingspeak er en meget simpel database, faciliteret af MathLabs, som typisk kan burge til IOT, fx en maskine sender noget data til databasen, som et andet system så kan opsamle og præsentere.
 
 ### Skriv fra web til TSDB
 Her er et (ikke særligt pænt) eksempel på et webside, der skriver ned i et TSDB
