@@ -2,6 +2,9 @@
 
 Formålet med dette projekt er at arbejde med data på en avanceret måde, fx ved at skrive een værdi fra eet system ned i en åben database med webrequests og læse den 
 
+### Hvad er GITHUB?
+Github et en cloud-platform, hvo alle kan lægge kode, websider m.m. op, som programmerne kan køres fra. Det er altså både en host og samarbejdsplatform.
+
 ### Hvad er et API?
 
 ### Hvad er en webrequest
