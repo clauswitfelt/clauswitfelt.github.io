@@ -6,6 +6,9 @@ Formålet med dette projekt er at arbejde med data på en avanceret måde, fx ve
 Github et en cloud-platform, hvo alle kan lægge kode, websider m.m. op, som programmerne kan køres fra. Det er altså både en host og samarbejdsplatform.
 
 ### Hvad er et API?
+API betyder Application Programmig Interface og dette betyder, at et system stiller tjenester og data til rådighed på en bestemt måde, så andre systemer, kan tilgå og bruge disse data.
+Prøv at undersøge 
+Rejseplane, Wikipedia eller lign systemer. Kan andre få adgang til deres data og tjenester?
 
 ### Hvad er en webrequest
 
