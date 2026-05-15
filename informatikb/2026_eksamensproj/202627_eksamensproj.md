@@ -10,7 +10,10 @@ API betyder Application Programmig Interface og dette betyder, at et system stil
 Prøv at undersøge 
 Rejseplane, Wikipedia eller lign systemer. Kan andre få adgang til deres data og tjenester?
 
-### Hvad er en webrequest
+### Hvad er en webrequest?
+Webrequest vil sige, at man kan sene data eller læse data igennem adresseruden i browseren. 
+
+Opgave: Tjek adresseruden i LECTIO. Hvordan ser den ud? Tror I der sendes noget data med?
 
 ### Hvad er ThingSpeak?
 
