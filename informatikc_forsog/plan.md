@@ -18,9 +18,15 @@ Pizza-app med
 
 Arbejd med robotter/Microbits
 
+Forundersøgelse
+Produktion
+Afprøvning
+
 
 Vigtige begreber
 * iterativ model
 * Design
+* Use-modify-create
+* 
 
 
