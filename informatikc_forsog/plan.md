@@ -14,14 +14,14 @@ gennem brugerorienterede teknikker”
  
 
 
-8 ekstra 
-•	Etiske forhold i forbindelse med brug af data og It-systemers intentionalitet
-•	Designprocesser
-•	Algoritmebegrebet og dets rolle i forbindelse med modellering af processer
-•	Fejlfinding i forbindelse med programmering
-•	Simple metoder til maskinlæring
-<img width="499" height="106" alt="image" src="https://github.com/user-attachments/assets/d77f54ac-510d-4104-b029-dd3efc751ba4" />
+##  ekstra 
+* Etiske forhold i forbindelse med brug af data og It-systemers intentionalitet
+* Designprocesser
+* Algoritmebegrebet og dets rolle i forbindelse med modellering af processer
+* Fejlfinding i forbindelse med programmering
+* Simple metoder til maskinlæring
 
+ 
 
 
 ## Projekter
