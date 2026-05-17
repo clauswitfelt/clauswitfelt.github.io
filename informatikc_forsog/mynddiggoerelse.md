@@ -7,7 +7,8 @@
 ## Digital myndiggørelse
 ```
 
-Digital myndiggørelse handler om at beskrive, analysere og vurdere it-systemers intentionalitet og anvendelse, samt deres etiske og sociale konsekvenser
+Digital myndiggørelse handler om at beskrive, analysere og vurdere it-systemers
+intentionalitet og anvendelse, samt deres etiske og sociale konsekvenser
 
 ```
 
