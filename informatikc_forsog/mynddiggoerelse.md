@@ -28,7 +28,7 @@ I undervisningen arbejdes der med, at eleverne skal kunne undersøge konkrete it
 miljømæssigt.
 
 ### Analyse model
-´´´
+```
 Hvilke perspektiver har en given digital tjeneste, fx socialt medie, spil, website eller lign.?
 Analyser ud fra følgende perspektiver:
 * Etisk
@@ -38,4 +38,4 @@ Analyser ud fra følgende perspektiver:
 * Kulturelt
 * Miljømæssigt
 
-´´´
+```
