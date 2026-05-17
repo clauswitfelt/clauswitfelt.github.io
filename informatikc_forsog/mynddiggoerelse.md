@@ -39,3 +39,8 @@ Analyser ud fra følgende perspektiver:
 * Miljømæssigt
 
 ```
+
+| First Header  | Second Header |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
