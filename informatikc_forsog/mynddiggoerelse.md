@@ -46,7 +46,7 @@ Analyser ud fra følgende perspektiver:
 
 
 
-| Perspektiv    |                                                        |
+| Perspektiv    |    Jeres noter her:                                                    |
 | ------------- | ------------------------------------------------------------------------ |
 | Etisk         |                                                                          |
 | Socialt       |                                                                          |
