@@ -44,14 +44,13 @@ Analyser ud fra følgende perspektiver:
 
 ```
 
- 
 
 
-| Perspektiv    |                                       |
-| ------------- | ------------------------------------- |
-| Etisk         |                                       |
-| Socialt       |                                       |
-| Teknisk       |                                       |
-| Økonomisk     |                                       |
-| Kulturelt     |                                       |
-|  Miljømæssig  |                                       |
+| Perspektiv    |                                                                          |
+| ------------- | ------------------------------------------------------------------------ |
+| Etisk         |                                                                          |
+| Socialt       |                                                                          |
+| Teknisk       |                                                                          |
+| Økonomisk     |                                                                          |
+| Kulturelt     |                                                                          |
+|  Miljømæssig  |                                                                          |
