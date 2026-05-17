@@ -26,3 +26,16 @@ på hvilke tilsigtede og/eller utilsigtede konsekvenser et it-system kan have fo
 samfund.
 I undervisningen arbejdes der med, at eleverne skal kunne undersøge konkrete it-systemer og identificere it-systemets betydning ud fra flere perspektiver fx etisk, socialt, teknisk, økonomisk, kulturelt eller
 miljømæssigt.
+
+### Analyse model
+´´´
+Hvilke perspektiver har en given digital tjeneste, fx socialt medie, spil, website eller lign.?
+Analyser ud fra følgende perspektiver:
+* Etisk
+* Socialt
+* Teknisk
+* Økonomisk
+* Kulturelt
+* Miljømæssigt
+
+´´´
