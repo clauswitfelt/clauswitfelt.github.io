@@ -5,8 +5,9 @@ Analyse
 
 
 Digital myndiggørelse
-”Beskrive, analysere og vurdere it-systemers intentionalitet og anvendelse, samt deres etiske og sociale
-konsekvenser”
+´´´”Beskrive, analysere og vurdere it-systemers intentionalitet og anvendelse, samt deres etiske og sociale
+konsekvenser”´´´
+
 Eleverne skal kunne skelne mellem it-systemets tilsigtede formål og dets faktiske brug på baggrund af
 viden om kernestoffet og derigennem vurdere, hvordan forskelle mellem intention og anvendelse kan
 skabe nye betydninger, muligheder eller dilemmaer. Med intentionalitet forstås de holdninger, værdier
