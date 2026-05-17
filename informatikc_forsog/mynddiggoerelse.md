@@ -1,13 +1,14 @@
 # Digital myndiggørelse
 
 
-Analyse 
+ 
 
 
 ## Digital myndiggørelse
 ```
-Beskrive, analysere og vurdere it-systemers intentionalitet og anvendelse, samt deres etiske og sociale
-konsekvenser
+
+Digital myndiggørelse handler om at beskrive, analysere og vurdere it-systemers intentionalitet og anvendelse, samt deres etiske og sociale konsekvenser
+
 ```
 
 Eleverne skal kunne skelne mellem it-systemets tilsigtede formål og dets faktiske brug på baggrund af
