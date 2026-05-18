@@ -1,13 +1,14 @@
 # Enkle principper for design 
 
 
-## Den iterative model 
+### Den iterative model 
 
-## 3-lags modellen 
+### 3-lags modellen 
 
-## Farver, skrifttype og balance
+### Farver, skrifttype og balance
 
-## Rammer, lighed og nærhed 
+### Rammer, lighed og nærhed 
 
-## Symboler, konotation og denotation
+### Symboler, konotation og denotation
 
+### Simple principper for målgruppe-analyse
