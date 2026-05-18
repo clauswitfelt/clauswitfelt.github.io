@@ -17,11 +17,13 @@ Lad os forestille os, at vi skal lave en pizza-app, hvor man kan vælge mellem 5
 
 ```
 
+
 Husk: Rutediagrammer beskriver *processer*, altså hvad skal gøres i hvilke rækkefølge.
+
 
 ```
 
-### afprøvning
+### Afprøvning
 af løsningen refereres både til 
 
 ```
