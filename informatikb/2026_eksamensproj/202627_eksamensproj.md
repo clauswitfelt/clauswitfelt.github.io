@@ -5,8 +5,15 @@ Formålet med dette projekt er at arbejde med data på en avanceret måde, fx ve
 ### Hvad er GITHUB?
 Github et en cloud-platform, hvo alle kan lægge kode, websider m.m. op, som programmerne kan køres fra. Det er altså både en host og samarbejdsplatform.
 
+* Opret en profil på GITHUB
+* Læg HTML-filer på
+* Opret en JS-funktion på WEBSIDE
+* Læs fra en FORM
+* Se den i en BROWSER
+
 ### Hvad er et API?
-API betyder Application Programmig Interface og dette betyder, at et system stiller tjenester og data til rådighed på en bestemt måde, så andre systemer, kan tilgå og bruge disse data.
+API betyder Application Programming Interface og dette betyder, at et system stiller tjenester og data til rådighed på en bestemt måde, så andre systemer, kan tilgå og bruge disse data.
+
 Prøv at undersøge 
 Rejseplane, Wikipedia eller lign systemer. Kan andre få adgang til deres data og tjenester?
 
@@ -26,7 +33,9 @@ https://clauswitfelt.github.io/informatikb/2026_eksamensproj/
 Her er en app, der læser fra TSDB.
 https://studio.code.org/projects/applab/8002475b-824a-481f-8b89-63cc9c3e95c6
 
-
+### Eksamensopgave
+Prøv nu at ide-udvikle, skitser og implementere et system, hvor der skrive data fra et system, som genbruges i et andet via THINGSPEAK og WEBREQUESTS.
+Brug systemudviklingsmetoder og datamodellering
 
 
 
