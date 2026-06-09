@@ -1,1 +1,640 @@
   
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GEM DB | Visual Database Studio</title>
+    <style>
+        /* --- HIGH-CONTRAST CLEAN LIGHT THEME --- */
+        :root {
+            --bg-main: #f8fafc;
+            --bg-surface: #ffffff;
+            --bg-input: #f1f5f9;
+            --accent: #7c3aed; /* Vibrant Violet */
+            --accent-hover: #6d28d9;
+            --success: #059669;
+            --info: #0284c7;
+            --border: #e2e8f0;
+            --border-dark: #cbd5e1;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: var(--font);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- MINI-HEADER --- */
+        header {
+            background-color: var(--bg-surface);
+            border-bottom: 1px solid var(--border);
+            padding: 0.75rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        .logo { font-size: 1.3rem; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px; }
+        .logo span { color: var(--accent); }
+
+        /* Navigation Menu Tabs */
+        .nav-tabs { display: flex; gap: 0.25rem; }
+        .tab-btn {
+            background-color: transparent;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            padding: 0.5rem 1rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .tab-btn:hover { color: var(--text-main); background-color: var(--bg-input); }
+        .tab-btn.active {
+            color: var(--accent);
+            background-color: #f5f3ff;
+            border-color: #ddd6fe;
+        }
+
+        /* --- MAIN REGION PANEL --- */
+        main { flex-grow: 1; overflow: hidden; position: relative; }
+        .view-panel { display: none; height: 100%; padding: 1.5rem 2rem; overflow-y: auto; }
+        .view-panel.active { display: block; }
+
+        /* --- STRUCTURAL VIEW CONFIGURATION --- */
+        .design-workspace { display: grid; grid-template-columns: 280px 1fr; gap: 1.5rem; height: 100%; }
+        
+        .control-panel {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            overflow-y: auto;
+        }
+        .panel-section h3 { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; }
+        
+        label { display: block; font-size: 0.8rem; margin-bottom: 0.25rem; color: var(--text-main); font-weight: 500; }
+        .form-input, select {
+            width: 100%; background-color: var(--bg-input); border: 1px solid var(--border);
+            color: var(--text-main); padding: 0.4rem 0.5rem; border-radius: 6px; outline: none; margin-bottom: 0.5rem;
+            font-size: 0.85rem; transition: border-color 0.15s;
+        }
+        .form-input:focus, select:focus { border-color: var(--accent); background-color: #fff; }
+        
+        .btn {
+            width: 100%; padding: 0.5rem; border-radius: 6px; border: none; font-weight: 600; font-size: 0.85rem;
+            cursor: pointer; transition: opacity 0.15s; text-align: center;
+        }
+        .btn-primary { background-color: var(--accent); color: #fff; }
+        .btn-secondary { background-color: #f1f5f9; color: var(--text-main); border: 1px solid var(--border-dark); }
+        .btn:hover { opacity: 0.9; }
+
+        /* Clean Minimal Blueprint Canvas Grid */
+        .canvas-area {
+            display: flex; flex-wrap: wrap; gap: 1.25rem; align-content: flex-start;
+            background-color: var(--bg-surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem;
+            overflow-y: auto;
+        }
+        
+        /* Microsoft Access Minimal Table Layout Blueprint Boxes */
+        .access-table-box {
+            background-color: var(--bg-surface); border: 1px solid var(--border-dark);
+            border-radius: 6px; width: 220px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            overflow: hidden; height: fit-content;
+        }
+        .table-box-header {
+            background-color: #f8fafc; padding: 0.4rem 0.75rem;
+            font-weight: 700; font-size: 0.85rem; border-bottom: 1px solid var(--border);
+            color: var(--text-main);
+        }
+        .table-box-fields { padding: 0.25rem 0; }
+        .field-row {
+            padding: 0.3rem 0.75rem; font-size: 0.8rem;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .field-row.pk { color: var(--accent); font-weight: 700; background-color: #faf5ff; }
+        .field-type { color: var(--text-muted); font-size: 0.75rem; }
+
+        /* Relationship Mapping Summary */
+        .relations-deck { display: flex; flex-direction: column; gap: 0.4rem; }
+        .relation-tag {
+            background-color: var(--bg-main); border: 1px solid var(--border);
+            padding: 0.35rem 0.5rem; border-radius: 4px; font-size: 0.75rem;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        /* --- SIMPLIFIED DATASHEET GRID PANELS --- */
+        .datasheet-container { display: flex; flex-direction: column; gap: 1rem; height: 100%; }
+        .selector-bar { display: flex; gap: 0.75rem; align-items: center; background-color: var(--bg-surface); padding: 0.75rem 1rem; border-radius: 8px; border: 1px solid var(--border); }
+        .access-grid-wrapper { flex-grow: 1; overflow: auto; background-color: var(--bg-surface); border: 1px solid var(--border); border-radius: 8px; }
+        
+        .access-grid { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem; }
+        .access-grid th { background-color: #f8fafc; color: var(--text-main); font-weight: 700; padding: 0.6rem 0.75rem; border: 1px solid var(--border); position: sticky; top: 0; }
+        .access-grid td { padding: 0.5rem 0.75rem; border: 1px solid var(--border); color: var(--text-main); }
+        .access-grid tr:hover { background-color: #f8fafc; }
+
+        /* Dynamic Line Addition Setup Form */
+        .grid-entry-row { background-color: #fdfaff !important; }
+        .grid-entry-row input {
+            width: 100%; background: transparent; border: none; color: var(--text-main); font-family: var(--font); outline: none; font-size: 0.85rem;
+        }
+        .grid-entry-row input::placeholder { color: var(--text-muted); font-style: italic; opacity: 0.7; }
+
+        /* --- CODE VIEWER (SQL PREVIEW) --- */
+        .code-container { background-color: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; height: 100%; overflow: auto; }
+        pre { font-family: 'Courier New', Courier, monospace; color: #1e293b; line-height: 1.4; font-size: 0.9rem; white-space: pre-wrap; }
+
+        /* --- CLEAN EXPORT SECTOR PANELS --- */
+        .export-card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 720px; margin: 0 auto; padding-top: 1rem; }
+        .export-card {
+            background-color: var(--bg-surface); border: 1px solid var(--border); border-radius: 8px;
+            padding: 1.5rem; text-align: center; display: flex; flex-direction: column; gap: 0.75rem;
+        }
+        .export-card h4 { font-size: 1.1rem; color: var(--text-main); font-weight: 700; }
+        .export-card p { color: var(--text-muted); font-size: 0.85rem; line-height: 1.4; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">💎 GEM <span>DB Studio</span></div>
+        <div class="nav-tabs">
+            <button class="tab-btn active" id="tab-design" onclick="switchTab('design')">📐 Design View</button>
+            <button class="tab-btn" id="tab-data-entry" onclick="switchTab('data-entry')">📝 Datasheet Entry</button>
+            <button class="tab-btn" id="tab-sql-view" onclick="switchTab('sql-view')">💻 SQL Output</button>
+            <button class="tab-btn" id="tab-export" onclick="switchTab('export')">💾 Export Data</button>
+        </div>
+    </header>
+
+    <main>
+
+        <div id="view-design" class="view-panel active">
+            <div class="design-workspace">
+                <div class="control-panel">
+                    
+                    <div class="panel-section">
+                        <h3>Create Table</h3>
+                        <label>Table Name</label>
+                        <input type="text" id="tableName" class="form-input" placeholder="e.g., customers">
+                        <button class="btn btn-primary" onclick="addTable()">Instantiate Table</button>
+                    </div>
+                    
+                    <div class="panel-section">
+                        <h3>Add Fields</h3>
+                        <label>Target Table</label>
+                        <select id="fieldTargetTable"></select>
+                        <label>Field Name</label>
+                        <input type="text" id="fieldName" class="form-input" placeholder="e.g., email_address">
+                        <label>Data Type</label>
+                        <select id="fieldType">
+                            <option value="INT">INT (Integer)</option>
+                            <option value="VARCHAR">VARCHAR (Text)</option>
+                            <option value="DECIMAL">DECIMAL (Decimal)</option>
+                        </select>
+                        <label style="display:inline-flex; align-items:center; gap:0.4rem; cursor:pointer; margin-bottom:0.5rem;">
+                            <input type="checkbox" id="fieldIsPK"> Mark Primary Key (PK)
+                        </label>
+                        <button class="btn btn-secondary" onclick="addFieldToTable()">Append Field</button>
+                    </div>
+
+                    <div class="panel-section">
+                        <h3>Link Relations</h3>
+                        <label>Parent Table Field</label>
+                        <select id="relParent" onchange="populateRelFields('parent')"></select>
+                        <select id="relParentField"></select>
+                        
+                        <label>Child Table Relation Field</label>
+                        <select id="relChild" onchange="populateRelFields('child')"></select>
+                        <select id="relChildField"></select>
+                        
+                        <button class="btn btn-primary" onclick="createRelationship()">Enforce Relation</button>
+                    </div>
+                </div>
+
+                <div class="canvas-area" id="canvasArea"></div>
+            </div>
+        </div>
+
+        <div id="view-data-entry" class="view-panel">
+            <div class="datasheet-container">
+                <div class="selector-bar">
+                    <label style="margin:0;">Select Datasheet Target:</label>
+                    <select id="dataEntryTableSelector" style="margin:0; width:200px;" onchange="loadDatasheetGrid()"></select>
+                </div>
+
+                <div class="access-grid-wrapper">
+                    <table class="access-grid" id="datasheetGrid"></table>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-sql-view" class="view-panel">
+            <div class="code-container">
+                <pre id="sqlCodeBlock">-- Parsing schema tables output data structure packages...</pre>
+            </div>
+        </div>
+
+        <div id="view-export" class="view-panel">
+            <div class="export-card-grid">
+                <div class="export-card">
+                    <h4>Export Data Object JSON</h4>
+                    <p>Serialize schema architectural configurations and tracking record structures directly into system text arrays files packages.</p>
+                    <button class="btn btn-primary" onclick="exportData('json')">Download JSON</button>
+                </div>
+                <div class="export-card">
+                    <h4>Export Standard Tabular CSVs</h4>
+                    <p>Convert tables into cleanly separated, comma-delimited flat files ready to be imported directly into Excel.</p>
+                    <button class="btn btn-secondary" onclick="exportData('csv')">Download CSV Sheets</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // In-Memory Schema Mock Database State Arrays Management Trackers
+        let dbState = {
+            tables: [
+                {
+                    name: "users",
+                    fields: [
+                        { name: "id", type: "INT", isPK: true },
+                        { name: "username", type: "VARCHAR", isPK: false },
+                        { name: "role", type: "VARCHAR", isPK: false }
+                    ],
+                    data: [
+                        { id: 1, username: "alex_dev", role: "Admin" },
+                        { id: 2, username: "db_wizard", role: "Instructor" },
+                        { id: 3, username: "clara_sky", role: "Student" }
+                    ]
+                },
+                {
+                    name: "products",
+                    fields: [
+                        { name: "product_id", type: "INT", isPK: true },
+                        { name: "title", type: "VARCHAR", isPK: false },
+                        { name: "price", type: "DECIMAL", isPK: false }
+                    ],
+                    data: [
+                        { product_id: 101, title: "Database Design 101", price: 49.99 },
+                        { product_id: 102, title: "SQL Mastery Handbook", price: 19.99 }
+                    ]
+                },
+                {
+                    name: "orders",
+                    fields: [
+                        { name: "order_id", type: "INT", isPK: true },
+                        { name: "user_id", type: "INT", isPK: false },
+                        { name: "product_id", type: "INT", isPK: false }
+                    ],
+                    data: [
+                        { order_id: 5001, user_id: 3, product_id: 101 },
+                        { order_id: 5002, user_id: 3, product_id: 102 }
+                    ]
+                }
+            ],
+            relationships: [
+                { parentTable: "users", parentField: "id", childTable: "orders", childField: "user_id" },
+                { parentTable: "products", parentField: "product_id", childTable: "orders", childField: "product_id" }
+            ]
+        };
+
+        // Standard Init LifeCycle Hooks Engine Mounting Loops
+        window.addEventListener('DOMContentLoaded', () => {
+            refreshWorkspaceUI();
+        });
+
+        // FIXED: The tab routing function now triggers refreshWorkspaceUI when moving back to 'design'
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.view-panel').forEach(panel => panel.classList.remove('active'));
+            
+            const activeTabButton = document.getElementById(`tab-${tabId}`);
+            if (activeTabButton) activeTabButton.classList.add('active');
+            
+            document.getElementById(`view-${tabId}`).classList.add('active');
+
+            if (tabId === 'design') refreshWorkspaceUI();
+            if (tabId === 'data-entry') loadDatasheetGrid();
+            if (tabId === 'sql-view') generateSQLPreview();
+        }
+
+        function refreshWorkspaceUI() {
+            renderDesignCanvas();
+            updateDropdownSelectors();
+        }
+
+        function renderDesignCanvas() {
+            const canvas = document.getElementById('canvasArea');
+            canvas.innerHTML = '';
+
+            dbState.tables.forEach(table => {
+                let cardHTML = `
+                    <div class="access-table-box">
+                        <div class="table-box-header">📋 ${table.name}</div>
+                        <div class="table-box-fields">
+                `;
+                table.fields.forEach(f => {
+                    cardHTML += `
+                        <div class="field-row ${f.isPK ? 'pk' : ''}">
+                            <span>${f.isPK ? '🔑 ' : ''}${f.name}</span>
+                            <span class="field-type">${f.type}</span>
+                        </div>
+                    `;
+                });
+                cardHTML += `</div></div>`;
+                canvas.innerHTML += cardHTML;
+            });
+
+            let activeRelationsHTML = `
+                <div class="access-table-box" style="width:100%; max-width:360px; margin-top:auto; border-color:var(--accent);">
+                    <div class="table-box-header" style="background-color:#faf5ff; color:var(--accent);">🔗 Enforced Relationships Map</div>
+                    <div class="relations-deck" style="padding:0.5rem;">
+            `;
+            dbState.relationships.forEach(r => {
+                activeRelationsHTML += `
+                    <div class="relation-tag">
+                        <span>${r.parentTable}.${r.parentField}</span>
+                        <span style="color:var(--accent); font-weight:700;">➔</span>
+                        <span>${r.childTable}.${r.childField}</span>
+                    </div>
+                `;
+            });
+            activeRelationsHTML += `</div></div>`;
+            canvas.innerHTML += activeRelationsHTML;
+        }
+
+        function updateDropdownSelectors() {
+            const tableTargets = ['fieldTargetTable', 'relParent', 'relChild', 'dataEntryTableSelector'];
+            tableTargets.forEach(id => {
+                const select = document.getElementById(id);
+                const cachedVal = select.value;
+                select.innerHTML = '';
+                dbState.tables.forEach(t => {
+                    select.innerHTML += `<option value="${t.name}">${t.name}</option>`;
+                });
+                if(cachedVal) select.value = cachedVal;
+            });
+
+            populateRelFields('parent');
+            populateRelFields('child');
+        }
+
+        function populateRelFields(type) {
+            const targetTable = document.getElementById(type === 'parent' ? 'relParent' : 'relChild').value;
+            const targetFieldSelect = document.getElementById(type === 'parent' ? 'relParentField' : 'relChildField');
+            
+            const tableObj = dbState.tables.find(t => t.name === targetTable);
+            if (!tableObj) return;
+
+            targetFieldSelect.innerHTML = '';
+            tableObj.fields.forEach(f => {
+                targetFieldSelect.innerHTML += `<option value="${f.name}">${f.name}</option>`;
+            });
+        }
+
+        function addTable() {
+            const nameInput = document.getElementById('tableName');
+            const name = nameInput.value.trim().toLowerCase().replace(/\s+/g, '_');
+
+            if (!name) return alert('Enter valid table name string format patterns.');
+            if (dbState.tables.some(t => t.name === name)) return alert('Identifier currently reserved.');
+
+            dbState.tables.push({ name: name, fields: [], data: [] });
+            nameInput.value = '';
+            refreshWorkspaceUI();
+        }
+
+        function addFieldToTable() {
+            const target = document.getElementById('fieldTargetTable').value;
+            const name = document.getElementById('fieldName').value.trim().toLowerCase().replace(/\s+/g, '_');
+            const type = document.getElementById('fieldType').value;
+            const isPK = document.getElementById('fieldIsPK').checked;
+
+            if(!name) return alert('Field name config cannot parse empty space strings.');
+            const table = dbState.tables.find(t => t.name === target);
+            
+            if(table.fields.some(f => f.name === name)) return alert('Column label already exists.');
+            if(isPK && table.fields.some(f => f.isPK)) return alert('Table cannot contain duplicate Primary key targets.');
+
+            table.fields.push({ name, type, isPK });
+            document.getElementById('fieldName').value = '';
+            document.getElementById('fieldIsPK').checked = false;
+            
+            refreshWorkspaceUI();
+        }
+
+        function createRelationship() {
+            const pTab = document.getElementById('relParent').value;
+            const pFld = document.getElementById('relParentField').value;
+            const cTab = document.getElementById('relChild').value;
+            const cFld = document.getElementById('relChildField').value;
+
+            if(pTab === cTab) return alert('Self loop maps logic patterns not allowed in sandbox state environments.');
+            
+            const exists = dbState.relationships.some(r => r.parentTable === pTab && r.parentField === pFld && r.childTable === cTab && r.childField === cFld);
+            if(exists) return alert('Relational map matrix currently live.');
+
+            dbState.relationships.push({ parentTable: pTab, parentField: pFld, childTable: cTab, childField: cFld });
+            refreshWorkspaceUI();
+        }
+
+        // --- SHEET RUNTIMES INTERACTIVE DATASHEET PORT WRITERS ---
+        function loadDatasheetGrid() {
+            const targetTable = document.getElementById('dataEntryTableSelector').value;
+            const grid = document.getElementById('datasheetGrid');
+            grid.innerHTML = '';
+
+            const table = dbState.tables.find(t => t.name === targetTable);
+            if (!table || table.fields.length === 0) {
+                grid.innerHTML = `<tr><td style="color:var(--text-muted); padding:1.5rem;">Initialize valid table fields in design view first to start writing records data.</td></tr>`;
+                return;
+            }
+
+            let headerHTML = '<thead><tr>';
+            table.fields.forEach(f => {
+                headerHTML += `<th>${f.name} ${f.isPK ? '🔑' : ''}</th>`;
+            });
+            headerHTML += '</tr></thead><tbody>';
+
+            table.data.forEach(row => {
+                headerHTML += '<tr>';
+                table.fields.forEach(f => {
+                    headerHTML += `<td>${row[f.name] !== undefined ? row[f.name] : '<span style="color:#ef4444;">NULL</span>'}</td>`;
+                });
+                headerHTML += '</tr>';
+            });
+
+            headerHTML += '<tr class="grid-entry-row">';
+            table.fields.forEach(f => {
+                headerHTML += `<td><input type="text" class="data-entry-field" data-fieldname="${f.name}" placeholder="Type ${f.type} value..."></td>`;
+            });
+            headerHTML += '</tr>';
+
+            headerHTML += `
+                <tr>
+                    <td colspan="${table.fields.length}" style="background-color:#fff; padding:0.5rem;">
+                        <button class="btn btn-primary" style="width:auto; font-size:0.8rem; padding:0.35rem 1rem;" onclick="executeDatasheetInsert('${table.name}')">
+                            💾 Commit New Record Row
+                        </button>
+                    </td>
+                </tr>
+            `;
+
+            headerHTML += '</tbody>';
+            grid.innerHTML = headerHTML;
+        }
+
+        function executeDatasheetInsert(tableName) {
+            const table = dbState.tables.find(t => t.name === tableName);
+            const inputs = document.querySelectorAll('.data-entry-field');
+            let newRecord = {};
+
+            let carriesData = false;
+            let validationError = false;
+
+            table.fields.forEach(field => {
+                const fieldInput = Array.from(inputs).find(i => i.getAttribute('data-fieldname') === field.name);
+                let val = fieldInput.value.trim();
+
+                if(val !== '') {
+                    carriesData = true;
+                    if(field.type === 'INT') {
+                        val = parseInt(val, 10);
+                        if(isNaN(val)) { alert(`Parse type error: Column "${field.name}" fields map matching require structured Integer values.`); validationError = true; }
+                    } else if(field.type === 'DECIMAL') {
+                        val = parseFloat(val);
+                        if(isNaN(val)) { alert(`Parse type error: Column "${field.name}" maps require valid floating decimals.`); validationError = true; }
+                    }
+                    newRecord[field.name] = val;
+                } else {
+                    if(field.isPK) {
+                        alert(`Constraint Integrity Error: Table Primary Key metadata fields cannot hold NULL values lines.`);
+                        validationError = true;
+                    }
+                    newRecord[field.name] = null;
+                }
+            });
+
+            if (validationError) return;
+            if (!carriesData) return alert('Transaction operation ignored: Empty array payloads.');
+
+            const pkField = table.fields.find(f => f.isPK);
+            if(pkField && table.data.some(r => r[pkField.name] === newRecord[pkField.name])) {
+                return alert(`Constraint Violation: Row matching primary key data values already committed inside engine tracking registers.`);
+            }
+
+            table.data.push(newRecord);
+            loadDatasheetGrid();
+        }
+
+        // --- COMPILING TEXT REVOLUTIONS FOR RAW SQL LOG PIPES ---
+        function generateSQLPreview() {
+            const output = document.getElementById('sqlCodeBlock');
+            let sql = `-- ================================================\n`;
+            sql += `-- GEM DB STUDIO AUTO-COMPILED DATABASE DDL LABELS\n`;
+            sql += `-- Compiled under Lightweight Sandbox Layout Mode\n`;
+            sql += `-- ================================================\n\n`;
+
+            dbState.tables.forEach(t => {
+                sql += `CREATE TABLE ${t.name} (\n`;
+                let definitions = [];
+                t.fields.forEach(f => {
+                    let line = `    ${f.name} ${f.type}`;
+                    if(f.isPK) line += ` PRIMARY KEY`;
+                    definitions.push(line);
+                });
+                
+                dbState.relationships.forEach(r => {
+                    if(r.childTable === t.name) {
+                        definitions.push(`    FOREIGN KEY (${r.childField}) REFERENCES ${r.parentTable}(${r.parentField})`);
+                    }
+                });
+
+                sql += definitions.join(',\n');
+                sql += `\n);\n\n`;
+            });
+
+            sql += `-- ================================================\n`;
+            sql += `-- TABLE RECORDS INSORTS PROCEDURES TRANSACTIONS\n`;
+            sql += `-- ================================================\n\n`;
+
+            dbState.tables.forEach(t => {
+                if(t.data.length === 0) return;
+                t.data.forEach(row => {
+                    let columns = [];
+                    let values = [];
+                    t.fields.forEach(f => {
+                        columns.push(f.name);
+                        let val = row[f.name];
+                        if(val === null) {
+                            values.push('NULL');
+                        } else if(typeof val === 'string') {
+                            values.push(`'${val.replace(/'/g, "''")}'`);
+                        } else {
+                            values.push(val);
+                        }
+                    });
+                    sql += `INSERT INTO ${t.name} (${columns.join(', ')}) VALUES (${values.join(', ')});\n`;
+                });
+                sql += `\n`;
+            });
+
+            output.textContent = sql;
+        }
+
+        // --- PLAIN PACK FILE PIPELINES TRIPPERS ---
+        function exportData(format) {
+            let dataString = '';
+            let mimeType = 'text/plain';
+            let extension = 'txt';
+
+            if(format === 'json') {
+                dataString = JSON.stringify(dbState, null, 4);
+                mimeType = 'application/json';
+                extension = 'json';
+            } else if(format === 'csv') {
+                dbState.tables.forEach(t => {
+                    dataString += `=== TABLE: ${t.name} ===\n`;
+                    if(t.fields.length === 0) return;
+                    
+                    const headers = t.fields.map(f => f.name).join(',');
+                    dataString += headers + '\n';
+                    
+                    t.data.forEach(row => {
+                        let line = t.fields.map(f => {
+                            let cell = row[f.name];
+                            return cell === null ? '' : `"${String(cell).replace(/"/g, '""')}"`;
+                        }).join(',');
+                        dataString += line + '\n';
+                    });
+                    dataString += '\n\n';
+                });
+                mimeType = 'text/csv';
+                extension = 'csv';
+            }
+
+            const blob = new Blob([dataString], { type: mimeType });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `gemdb_light_export_${Date.now()}.${extension}`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
