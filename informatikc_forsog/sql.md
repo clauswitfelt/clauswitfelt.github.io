@@ -21,11 +21,22 @@ SQL består at 3 "sprog"
 
 ## ANALYSE Modeller
 * Domæne analyse
-* E/R
+* E/R-model
 * Logisk model 
 * Tabelskitse
 
 ## Opret en simpel tabel i SQL
+Det er meget simpelt at oprette en tabel i SQL
+
+```
+CREATE TABLE venner(id int, navn varchar(35), by varchar(15));
+
+```
+
+Dette skaber en tabel venner, hvor der er 3 kolonner:
+* id (som har datatypen int, altaå heltal).
+
+
 
 #### TIP Drop if exist
 Det kan være rigtigt irriterende, når man arbejder i DBBROWSER at man konstant får en fejl meddelelse, når man køre en kode, der indeholder en CREATE TABLE og tabellen findes i forvejen
