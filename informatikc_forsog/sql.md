@@ -1,8 +1,10 @@
 # SQL med DBBROWSER
 
 ## Hvad er SQL 
+SQL er et sprog til at arbejde med databaser.
 
 ## Hvad er relationelle databaser
+En relationel database en en database, der består af flere tabeller med forbindelse i mellem. Det hjælper med at sikre god kvalitet og mindske redunans (data, der er gentaget flere gange) og fejltagelser. 
 
 ## Igang med SQL og relationelle databaser
 En relationel database er en database, der er opbygget af forskellige tabeller med forbindelser imellem
