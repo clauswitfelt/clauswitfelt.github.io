@@ -22,6 +22,24 @@
 
 ## Formularer
 
+### Knapper
+Man kan skabe knapper i HTML med følgende tags 
+
+´´´
+
+<button> Dette er en knap </button>
+
+´´´
+
+Hvis man vil tilknytte et JavaScript, der afvikles, når knappen trykkes, kan det gøres sådan
+
+´´´
+
+<button onclick="start()"> Dette er en knap </button>
+
+´´´
+
+
 
 ## JavaScript - gøre den interaktiv
 
