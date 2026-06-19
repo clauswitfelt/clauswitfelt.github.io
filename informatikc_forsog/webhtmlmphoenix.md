@@ -4,7 +4,17 @@
 
 ## Den første side - strukturen
 
-## Et knap panel og standard HTML5-elementer
+## Et knap panel, head&body og standard HTML5-elementer
+
+### Overskrifter
+
+### paragraf-text
+
+### Links
+
+### Billeder
+
+### bullet-lister
 
 ## box-modellen
 
