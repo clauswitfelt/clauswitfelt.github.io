@@ -4,6 +4,10 @@
 
 ## Den første side - strukturen
 
+## Et knap panel og standard HTML5-elementer
+
+## box-modellen
+
 ## At style en side 
 
 ## Formularer
