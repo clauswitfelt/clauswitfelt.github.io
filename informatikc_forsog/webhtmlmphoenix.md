@@ -55,7 +55,7 @@ I HTML kan man skabe div-tags. Det står for divisor og afgrænser et specielt o
 Hvis jeg nu vil ændre indholdet af et DIV-element, som det ovenstående, kan jeg gre det fra JavaScript med følgende noget kryptiske kommando.
 
 ```
-document.getElementById("").innerHTML="Jordbær er søde";
+document.getElementById("blomsterinfo").innerHTML="Jordbær er søde";
 
 ```
 
