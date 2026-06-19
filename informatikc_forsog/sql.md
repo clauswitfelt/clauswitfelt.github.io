@@ -8,6 +8,11 @@
 
 ## DML, DDL og DQL
 
+SQL består at 3 "sprog"
+* Data Definition Language - til at oprette tabeller i databaser
+* Data Modellering Language - til at indtaste og modificere data 
+* Data Query Language - til at søge i data
+
 ## ANALYSE Modeller
 * Domæne analyse
 * E/R
