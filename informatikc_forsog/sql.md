@@ -34,14 +34,39 @@ DROP TABLE IF EXISTS venner;
 ```
 
 ## Læg data ind i tabellen 
+Du kan lægge konkrete værdier (poster eller records) ind i tabellen med følgende kommando.
+
+
+```
+INSERT INTO venner VALUES (1,"Jens Hansen", "jh@mail.dk");
+
+```
 
 Import 
 
-## søg i tabellen 
+```
+....
 
+```
+
+## søg i tabellen 
+Du kan søge i en tabel med 
+
+```
+SELECT * from venner where by=="Vanløse";
+
+```
+Dette forudsætter, at din venner-tabel har en kolonne by, hvor mindst een af værdierne er Vanløse :-)
+
+Du kan nøjes med 
 
 
 ### JOIN
+
+```
+....
+
+```
 
 
 ## Videoer
