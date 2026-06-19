@@ -16,14 +16,34 @@
 
 ### bullet-lister
 
-## box-modellen
+
 
 ## At style en side 
 
+## Box-modellen
+Alle elementer i HTML kan styles i fx box-modellen. Denne omfatter
+
+* Omridset eller kassen uden om et element (kan være nul eller en bredde, kan også være hel eller stiplet)
+* "Luft" uden om omridset (kaldet spacing)
+* mellemrumme imellem elementet og kassen (kaldet padding)
+
+```
+h1
+
+```
+
 ## Formularer
+I HTML kan man skabe formularer, men vil man gøre noget ved disse, skal man bruge JavaScript eller lign.
+```
+<form>
+
+</form>
+
+```
 
 ### Knapper
 Man kan skabe knapper i HTML med følgende tags 
+
 
 ```
 
