@@ -23,6 +23,18 @@ SQL består at 3 "sprog"
 * Logisk model 
 * Tabelskitse
 
+## Opret en simpel tabel i SQL
+
+TIP Drop if exist
+
+## Læg data ind i tabellen 
+
+Import 
+
+## søg i tabellen 
+
+
+
 ### JOIN
 
 
