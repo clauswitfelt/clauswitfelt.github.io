@@ -44,6 +44,15 @@ Hvis man vil tilknytte et JavaScript, der afvikles, når knappen trykkes, kan de
 ### Brug HTML5 semantiske tags
 
 
+### DIV
+I HTML kan man skabe div-tags. Det står for divisor og afgrænser et specielt område. Det kan man fx bruge, når man vil skrive ned i et bestemt område.
+
+```
+<div id="blomsterinfo"> Violer er blå</div>
+
+```
+
+
 
 ## JavaScript - gøre den interaktiv
 
