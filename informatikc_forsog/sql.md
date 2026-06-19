@@ -25,7 +25,13 @@ SQL består at 3 "sprog"
 
 ## Opret en simpel tabel i SQL
 
-TIP Drop if exist
+#### TIP Drop if exist
+Det kan være rigtigt irriterende, når man arbejder i DBBROWSER at man konstant får en fejl meddelelse, når man køre en kode, der indeholder en CREATE TABLE og tabellen findes i forvejen
+
+```
+DROP TABLE IF EXISTS venner;
+
+```
 
 ## Læg data ind i tabellen 
 
