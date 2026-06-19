@@ -34,8 +34,9 @@ CREATE TABLE venner(id int, navn varchar(35), by varchar(15));
 ```
 
 Dette skaber en tabel venner, hvor der er 3 kolonner:
-* id (som har datatypen int, altaå heltal).
-
+* id (som har datatypen int, altså heltal).
+* navn (tekst med plads til 35 blandede tegn)
+* by (tekst med plads til 35 blandede tegn)
 
 
 #### TIP Drop if exist
@@ -55,7 +56,9 @@ INSERT INTO venner VALUES (1,"Jens Hansen", "jh@mail.dk");
 
 ```
 
-Import 
+### Import
+Man kan importere data 
+ 
 
 ```
 ....
@@ -71,10 +74,12 @@ SELECT * from venner where by=="Vanløse";
 ```
 Dette forudsætter, at din venner-tabel har en kolonne by, hvor mindst een af værdierne er Vanløse :-)
 
-Du kan nøjes med 
+Hvis man ønsker, kan man nøjes med visse kolonner.
 
 
 ### JOIN
+At joine vil sige at kombinere resultater fra 2 tabeller til een, typisk som resultat af en søgning.
+
 
 ```
 ....
