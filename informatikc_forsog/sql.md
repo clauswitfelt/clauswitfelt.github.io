@@ -82,13 +82,16 @@ Hvis man ønsker, kan man nøjes med visse kolonner.
 
 ### JOIN
 At joine vil sige at kombinere resultater fra 2 tabeller til een, typisk som resultat af en søgning.
+Inner join er fællesmængden imellem 2 tabeller
 
 
 ```
-....
+SELECT navn, Field3, sport.snavn
+FROM deltager
+INNER JOIN sport ON deltager.Field3 = sport.sid;
 
 ```
-
+I overstående eksempel ....
 
 ## Videoer
 https://www.youtube.com/watch?v=XWuHQ9mDoNQ
