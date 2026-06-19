@@ -3,6 +3,9 @@
 ## Hvad er SQL 
 SQL er et sprog til at arbejde med databaser.
 
+## DBBROWSER
+DBBROWSER er et meget enkelt værktøj til at arbejde med databaser i SQL. Det fået til Mac, Windows og Linux og er gratis på https://sqlitebrowser.org/dl/
+
 ## Hvad er relationelle databaser
 En relationel database en en database, der består af flere tabeller med forbindelse i mellem. Det hjælper med at sikre god kvalitet og mindske redunans (data, der er gentaget flere gange) og fejltagelser. 
 
