@@ -12,3 +12,8 @@
 ### Symboler, konotation og denotation
 
 ### Simple principper for målgruppe-analyse
+
+### Kiss og First things first
+
+### Gestalt reglerne
+
