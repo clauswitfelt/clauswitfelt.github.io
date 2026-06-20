@@ -6,6 +6,8 @@
 
 ## Et knap panel, head&body og standard HTML5-elementer
 
+Video om flex-box https://www.youtube.com/watch?v=j_zvkM1ZYHo
+
 ### Overskrifter
 
 ### paragraf-text
