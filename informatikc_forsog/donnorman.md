@@ -2,7 +2,9 @@
 
 ## Restaurant-metaforen
 
-## Steven Krug
+
+## Steve Krug
+Steve Krug er kendt for citatet: "Don't make me think" => systemer skal være så enkle og intuitive at bruge, at man skal kunne bruge dem uden at tænke.
 
 ## Don Norman
 Norman har skabt 6 principper for UX
@@ -13,4 +15,4 @@ Norman har skabt 6 principper for UX
 * Constraints
 * Consistancy
 
-Ad.1.
+
