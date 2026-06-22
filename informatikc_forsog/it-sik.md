@@ -10,6 +10,7 @@ Den fjollede video om passwords
 ComKean
 
 ### TRUSLER
-DDOS
-PHISHING/SMISHING
-DDOS-angreb
+* DDOS
+* PHISHING/SMISHING
+* DDOS-angreb
+* SQL-injections
