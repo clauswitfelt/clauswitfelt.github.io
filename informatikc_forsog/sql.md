@@ -27,7 +27,7 @@ En relationel database er en database, der er opbygget af forskellige tabeller m
 
 ## CRUD, DML, DDL og DQL
 CRUD er de 4 ting, man kan i alle databaser: Create, Read, Update og Delete.
-
+   
 
 SQL består at 3 "sprog"
 * Data Definition Language - til at oprette tabeller i databaser
