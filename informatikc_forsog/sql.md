@@ -1,5 +1,17 @@
 # SQL med DBBROWSER
 
+## Hvad er en database
+Vi er omgivet af data, lagret i databaser. 
+* Lectio
+* Spotify 
+* Youtube 
+* CPR-nummer-register
+* Instagram
+* Bibliotek.dk
+* Webshops
+
+I databaser lagres data i tabeller. Metadata beskriver data.
+
 ## Hvad er SQL 
 SQL er et sprog til at arbejde med databaser.
 
@@ -7,7 +19,7 @@ SQL er et sprog til at arbejde med databaser.
 DBBROWSER er et meget enkelt værktøj til at arbejde med databaser i SQL. Det fået til Mac, Windows og Linux og er gratis på https://sqlitebrowser.org/dl/
 
 ## Hvad er relationelle databaser
-En relationel database en en database, der består af flere tabeller med forbindelse i mellem. Det hjælper med at sikre god kvalitet og mindske redunans (data, der er gentaget flere gange) og fejltagelser. 
+En relationel database en en database, der består af flere tabeller med forbindelse i mellem (primary keys og foreign keys)). Det hjælper med at sikre god kvalitet og mindske redunans (data, der er gentaget flere gange) og fejltagelser. 
 
 ## Igang med SQL og relationelle databaser
 En relationel database er en database, der er opbygget af forskellige tabeller med forbindelser imellem
