@@ -12,6 +12,9 @@ Vi er omgivet af data, lagret i databaser.
 
 I databaser lagres data i tabeller. Metadata beskriver data.
 
+## Modellering og problemområder
+
+
 ## Hvad er SQL 
 SQL er et sprog til at arbejde med databaser.
 
