@@ -109,6 +109,6 @@ INNER JOIN sport ON deltager.Field3 = sport.sid;
 I overstående eksempel ....
 
 ## Videoer
-Aaron Olivers Intro https://www.youtube.com/watch?v=XWuHQ9mDoNQ
-Thomas Ratjes intro https://www.youtube.com/watch?v=ba1TUOXt7ms&t=5s
-CWI video om 3-lagsmodellen https://www.youtube.com/watch?v=OA7Z3piKELY
+* Aaron Olivers Intro https://www.youtube.com/watch?v=XWuHQ9mDoNQ
+* Thomas Ratjes intro https://www.youtube.com/watch?v=ba1TUOXt7ms&t=5s
+* CWI video om 3-lagsmodellen https://www.youtube.com/watch?v=OA7Z3piKELY
