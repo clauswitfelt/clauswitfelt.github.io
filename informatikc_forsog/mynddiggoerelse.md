@@ -54,3 +54,23 @@ Analyser ud fra følgende perspektiver:
 | Økonomisk     |                                                                          |
 | Kulturelt     |                                                                          |
 |  Miljømæssig  |                                                                          |
+
+```
+
+
+
+```
+| 1. hånd       |    2. hånd                                                     |
+| ------------- | ------------------------------------------------------------------------ |
+| Etisk         |                                                                          |
+| Socialt       |                                                                          |
+| Teknisk       |                                                                          |
+| Økonomisk     |                                                                          |
+| Kulturelt     |                                                                          |
+|  Miljømæssig  |                                                                          |
+
+```
+
+### Serendipitet
+
+
