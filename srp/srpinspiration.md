@@ -12,4 +12,5 @@ Christiansen, Henning: "Ai er en fis i en hornlugte" https://videnskab.dk/teknol
  
 
 # NLP
-Ulbæk/Bernsen
+Ulbæk/Bernsen: "Naturlig og kunstig intelligens : introduktion til kognitionsforskningen" https://bibliotek.dk/materiale/naturlig-og-kunstig-intelligens_niels-ole-bernsen/work-of:870970-basis:20221062
+
