@@ -15,4 +15,6 @@ Norman har skabt 6 principper for UX
 * Constraints
 * Consistancy
 
+Don Norman: "What is UX?" https://youtu.be/9BdtGjoIN4E?si=_M3VLLUsrzG1VuWh
+Don Norman: "Bad doors are everywhere" https://www.youtube.com/watch?v=yY96hTb8WgI
 
