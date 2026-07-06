@@ -1,6 +1,10 @@
 
 # Hvad er systemudvikling?
 
+Programudvikling handler om at udvikle programmer, men systemudvikling hanler om alle aspekter af at udvikle it-produkter, som kunderne bliver glade for. Det omfatter både forundersøgelser, kontraktskrivning, implementering/programudvikling, test, ibrugtagning m.m.
+
+Systemudvikling
+
 3 modeller
 * Den iterative 
 * Fasemodeller
