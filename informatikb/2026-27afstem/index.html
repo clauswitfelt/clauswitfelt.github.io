@@ -1,17 +1,32 @@
 <html>
 
-<h1>Årets begivenhed</h1>
+<script>
 
+function valg()
+{
+  alert("Resultat");
+}
   
-<label for="produkt">Vælg årets produkt:</label>
+</script>
+  
+<h1>Årets begivenhed</h1>
+<p></p>
+  
+<label for="produkt">Vælg årets begivenhed:</label>
 <form> 
 <select name="begiv" id="cars">
-  <option value="ros">Roskile festivalen 2026</option>
+  <option value="ros">Roskilde festivalen 2026</option>
   <option value="dyrskue">Roskilde Dyrskue 2026</option>
   <option value="hell">Copenhell 2026</option>
-  <option value="sommer">Min sommerferie</option>
+  <option value="sommer">Min private sommerferie</option>
 </select>
-<button>Vælg:</button>
+<p></p>
+<button onclick="valg()">Vælg:</button>
+<p></p>
 </form>
+
+<div id="res"></div> 
+  
+  
   
 </html>
