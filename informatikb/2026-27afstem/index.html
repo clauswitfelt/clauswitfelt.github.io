@@ -1,13 +1,31 @@
 <html>
    
 <script>
-
+   var ros=0;
+   var dyr=0;
+   var hell=0
+   var sommer=0;
 
  function valg()
  {
   const element = document.getElementById("begiv");
   alert(element.value);
-   
+   if(element.value=="Du stemte på: Roskilde Festival")
+   {
+      ros=ros+1;
+   }
+      if(element.value=="Du stemte på: Roskilde Dyrskue")
+   {
+      dyr=dyr+1;
+   }
+      if(element.value=="Du stemte på: CopenHell")
+   {
+      hell=hell+1;
+   }
+      if(element.value=="Du stemte på: Min egen sommerferie")
+   {
+      sommer=sommer+1;
+   }
    
  }
  
