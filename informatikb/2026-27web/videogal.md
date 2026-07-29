@@ -7,6 +7,8 @@
 * Phoenix #10 Start på JS https://youtu.be/eJ1w2aPe5MQ
 * Phoenix#11 DOM, LISTER og DEBUGGING https://youtu.be/5bj2hFfvVzg
 * Phoenix #12 if-sætninger og andre standardordrer i JS https://youtu.be/O_IitdKIwnY
+* Phoenix#13 Loops https://youtu.be/xooWzFG7Urg
+* 
 
 
 
