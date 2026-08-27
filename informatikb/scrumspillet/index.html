@@ -1,1 +1,185 @@
 
+ 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scrum Simulator</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f6f8; margin: 20px; color: #333; }
+    h1 { text-align: center; }
+    .stats { display: flex; justify-content: space-around; background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px; }
+    .board { display: flex; gap: 15px; }
+    .column { flex: 1; background: #ebecf0; border-radius: 8px; padding: 10px; min-height: 400px; }
+    .column h3 { text-align: center; margin-top: 0; }
+    .card { background: #fff; border-radius: 4px; padding: 10px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+    .card button { width: 100%; margin-top: 8px; padding: 6px; background: #0052cc; color: white; border: none; border-radius: 3px; cursor: pointer; }
+    .card button:hover { background: #00388b; }
+    .controls { text-align: center; margin-bottom: 20px; }
+    .controls button { padding: 10px 20px; font-size: 16px; background: #36b37e; color: white; border: none; border-radius: 4px; cursor: pointer; }
+    .controls button:disabled { background: #ccc; cursor: not-allowed; }
+    .log { background: #fff; padding: 10px; border-radius: 8px; height: 100px; overflow-y: scroll; font-family: monospace; }
+  </style>
+</head>
+<body>
+
+  <h1>Scrum Simulator</h1>
+
+  <div class="stats">
+    <div><strong>Sprint:</strong> <span id="sprint-num">1</span></div>
+    <div><strong>Days Left in Sprint:</strong> <span id="days-left">10</span></div>
+    <div><strong>Team Capacity:</strong> <span id="team-capacity">15</span> pts/sprint</div>
+    <div><strong>Delivered Points:</strong> <span id="total-points">0</span></div>
+  </div>
+
+  <div class="controls">
+    <button id="next-day-btn" onclick="nextDay()">Advance 1 Day</button>
+    <button id="start-sprint-btn" onclick="startSprint()" style="display:none;">Start Next Sprint</button>
+  </div>
+
+  <div class="board">
+    <div class="column">
+      <h3>Product Backlog</h3>
+      <div id="product-backlog"></div>
+    </div>
+    <div class="column">
+      <h3>Sprint Backlog</h3>
+      <div id="sprint-backlog"></div>
+    </div>
+    <div class="column">
+      <h3>In Progress</h3>
+      <div id="in-progress"></div>
+    </div>
+    <div class="column">
+      <h3>Done</h3>
+      <div id="done"></div>
+    </div>
+  </div>
+
+  <h3>Activity Log</h3>
+  <div class="log" id="log-output"></div>
+
+  <script>
+    const state = {
+      sprint: 1,
+      daysLeft: 10,
+      totalPoints: 0,
+      capacityPerSprint: 15,
+      selectedSprintPoints: 0,
+      tasks: [
+        { id: 1, title: "User Login", effort: 3, status: "backlog" },
+        { id: 2, title: "Database Setup", effort: 5, status: "backlog" },
+        { id: 3, title: "Payment Integration", effort: 8, status: "backlog" },
+        { id: 4, title: "Profile Page", effort: 2, status: "backlog" },
+        { id: 5, title: "Notification System", effort: 5, status: "backlog" },
+        { id: 6, title: "Analytics Dashboard", effort: 8, status: "backlog" }
+      ]
+    };
+
+    function log(message) {
+      const logDiv = document.getElementById("log-output");
+      logDiv.innerHTML += `> ${message}<br>`;
+      logDiv.scrollTop = logDiv.scrollHeight;
+    }
+
+    function render() {
+      document.getElementById("sprint-num").innerText = state.sprint;
+      document.getElementById("days-left").innerText = state.daysLeft;
+      document.getElementById("total-points").innerText = state.totalPoints;
+
+      const columns = {
+        backlog: document.getElementById("product-backlog"),
+        sprint: document.getElementById("sprint-backlog"),
+        progress: document.getElementById("in-progress"),
+        done: document.getElementById("done")
+      };
+
+      Object.values(columns).forEach(col => col.innerHTML = "");
+
+      state.tasks.forEach(task => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `<strong>${task.title}</strong><br>Effort: ${task.effort} pts`;
+
+        if (task.status === "backlog" && state.daysLeft === 10) {
+          const btn = document.createElement("button");
+          btn.innerText = "Add to Sprint";
+          btn.onclick = () => moveToSprint(task.id);
+          card.appendChild(btn);
+        } else if (task.status === "sprint" && state.daysLeft < 10) {
+          const btn = document.createElement("button");
+          btn.innerText = "Start Task";
+          btn.onclick = () => startTask(task.id);
+          card.appendChild(btn);
+        }
+
+        columns[task.status].appendChild(card);
+      });
+    }
+
+    function moveToSprint(taskId) {
+      const task = state.tasks.find(t => t.id === taskId);
+      if (state.selectedSprintPoints + task.effort > state.capacityPerSprint) {
+        log(`Cannot add "${task.title}". Exceeds team capacity of ${state.capacityPerSprint} points!`);
+        return;
+      }
+      task.status = "sprint";
+      state.selectedSprintPoints += task.effort;
+      log(`Added "${task.title}" (${task.effort} pts) to Sprint Backlog.`);
+      render();
+    }
+
+    function startTask(taskId) {
+      const task = state.tasks.find(t => t.id === taskId);
+      task.status = "progress";
+      log(`Started working on "${task.title}".`);
+      render();
+    }
+
+    function nextDay() {
+      if (state.daysLeft <= 0) return;
+
+      state.daysLeft--;
+      log(`Day ${10 - state.daysLeft} of Sprint ${state.sprint} completed.`);
+
+      // Simulate team progress on 'in-progress' items
+      const activeTasks = state.tasks.filter(t => t.status === "progress");
+      if (activeTasks.length > 0) {
+        // Randomly complete one active task per day
+        const completedTask = activeTasks[Math.floor(Math.random() * activeTasks.length)];
+        completedTask.status = "done";
+        state.totalPoints += completedTask.effort;
+        log(`SUCCESS: Team completed "${completedTask.title}"! (+${completedTask.effort} pts)`);
+      }
+
+      if (state.daysLeft === 0) {
+        log(`--- Sprint ${state.sprint} Ended ---`);
+        document.getElementById("next-day-btn").style.display = "none";
+        document.getElementById("start-sprint-btn").style.display = "inline-block";
+      }
+
+      render();
+    }
+
+    function startSprint() {
+      state.sprint++;
+      state.daysLeft = 10;
+      state.selectedSprintPoints = 0;
+
+      // Carry unfinished items back or leave them in progress
+      state.tasks.forEach(t => {
+        if (t.status === "sprint") t.status = "backlog";
+      });
+
+      document.getElementById("next-day-btn").style.display = "inline-block";
+      document.getElementById("start-sprint-btn").style.display = "none";
+      log(`--- Started Sprint ${state.sprint} --- Plan your sprint backlog!`);
+      render();
+    }
+
+    log("Game started. Select tasks from Product Backlog to add to Sprint 1, then advance days.");
+    render();
+  </script>
+</body>
+</html>
