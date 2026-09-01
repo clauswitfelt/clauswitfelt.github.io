@@ -4,11 +4,13 @@
 
 function beregnk()
 {
-  let kal=document.getElementById("antal").value;
+  let antalsodavanner=document.getElementById("antal").value;
+  let kal2=antalsodavanner*135;
   
+  document.getElementById("res").innerHTML=kal2;
 
   
-alert(kal);
+ 
   
 }
   
@@ -25,11 +27,13 @@ Dåse (33 cl / 330 ml): ca. 132-138 kcal
 <input type="text" name="antal" id="antal"> 
 <button onclick="beregnk()">Beregn kalorie-forbrug</button>  
 </form>
-
+<p></p>
+<h2>Antal kalorier</h2>
+  
 <div id="res">
 
 
-  
+
 </div>
   
 
