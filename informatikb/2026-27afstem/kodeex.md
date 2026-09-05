@@ -12,4 +12,4 @@
 * Grafisk fremstilling https://studio.code.org/projects/applab/ec7105be-fb57-4d81-ade1-bcb930fa5d05
 * Slider https://studio.code.org/projects/applab/a306afab-57fc-442a-92f8-5b1e036fa383
 
-!sjov.png
+! sjov.png
