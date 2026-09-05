@@ -2,10 +2,9 @@
 
 ### Kodeeksempler
 
-Simpel afstemning: https://studio.code.org/projects/applab/646e3520-cb67-454c-a6ad-aba42866aa43
-Lidt mere kompleks https://studio.code.org/projects/applab/87a61209-3a67-4c1b-836b-7c879270cbc3
-Simpel login: https://studio.code.org/projects/applab/699b7365-6a8b-47ba-943c-64c911f691db
-Simpel Nominering https://studio.code.org/projects/applab/21615844-61a2-40d6-8f93-b776bb744e73
-Minifolketingsvalg m Database: 	createRecord("fvalg27", {parti:'Socialdmokratiet'}, function(record) {
-	});
-Grafisk fremstilling https://studio.code.org/projects/applab/ec7105be-fb57-4d81-ade1-bcb930fa5d05 
+* Simpel afstemning: https://studio.code.org/projects/applab/646e3520-cb67-454c-a6ad-aba42866aa43
+* Lidt mere kompleks https://studio.code.org/projects/applab/87a61209-3a67-4c1b-836b-7c879270cbc3
+* Simpel login: https://studio.code.org/projects/applab/699b7365-6a8b-47ba-943c-64c911f691db
+* Simpel Nominering https://studio.code.org/projects/applab/21615844-61a2-40d6-8f93-b776bb744e73
+* Minifolketingsvalg m Database: https://studio.code.org/projects/applab/8b4c4803-9501-453e-ba9e-b75c311f1212
+* Grafisk fremstilling https://studio.code.org/projects/applab/ec7105be-fb57-4d81-ade1-bcb930fa5d05 
