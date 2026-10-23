@@ -1,9 +1,12 @@
 
 
-+ Lær mere om LEGO-ROBOTTERNE
+# Lær mere om LEGO-ROBOTTERNE
 
-+ Begynde at programmere
+# Begynde at programmere
+https://code.legoeducation.com/en-us/word
+
+# Videoer
 
 
-+ Videoer
-+ 
+
+ # Andet godt
