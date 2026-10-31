@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ud af hulen – et spil om Platons hulelignelse</title>
+<style>
+  body {
+    font: 17px/1.5 system-ui, sans-serif;
+    color: #f4f0e8;
+    background: #171626;
+    max-width: 760px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+  .card {
+    background: #27263a;
+    border: 1px solid #49475d;
+    border-radius: 16px;
+    padding: 1.5rem;
+  }
+  h1 { color: #ffd477; }
+  .progress { color: #c9c5dc; }
+  .bar {
+    height: 10px;
+    background: #49475d;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 1rem 0;
+  }
+  #fill { height: 100%; width: 0; background: #ffd477; transition: width .3s; }
+  #answers { display: grid; gap: .7rem; margin: 1.2rem 0; }
+  button {
+    font: inherit;
+    cursor: pointer;
+    border: 1px solid #77738d;
+    border-radius: 10px;
+    padding: .8rem 1rem;
+    color: #f4f0e8;
+    background: #35334a;
+    text-align: left;
+  }
+  button:hover:not(:disabled) { background: #46435d; }
+  button:disabled { cursor: default; opacity: .8; }
+  #feedback { min-height: 3.5em; }
+  #next, #restart {
+    background: #ffd477;
+    color: #211d18;
+    border: 0;
+    font-weight: 700;
+    text-align: center;
+  }
+  #next { display: none; }
+  .hidden { display: none; }
+  .ending { font-size: 1.1rem; }
+</style>
+</head>
+<body>
+  <main class="card">
+    <h1>Ud af hulen</h1>
+    <p>Hjælp fangen med at forstå, hvad der er virkeligt – og nå ud i lyset.</p>
+
+    <section id="game">
+      <div class="progress">
+        <span id="round"></span> · Point: <strong id="score">0</strong>
+      </div>
+      <div class="bar"><div id="fill"></div></div>
+      <h2 id="question"></h2>
+      <div id="answers"></div>
+      <p id="feedback" aria-live="polite"></p>
+      <button id="next">Næste spørgsmål</button>
+    </section>
+
+    <section id="end" class="hidden">
+      <h2>Du er kommet ud af hulen!</h2>
+      <p id="result" class="ending"></p>
+      <p id="summary"></p>
+      <button id="restart">Spil igen</button>
+    </section>
+  </main>
+
+<script>
+const questions = [
+  {
+    q: "Hvad ser fangerne på hulens væg?",
+    answers: ["Skygger, som de tror er virkelige", "Solens direkte lys", "Billeder af guderne"],
+    correct: 0,
+    explain: "Fangerne ser skygger kastet på væggen og tager dem for hele virkeligheden."
+  },
+  {
+    q: "Hvad skaber skyggerne i hulen?",
+    answers: ["En ild og genstande, der føres forbi den", "Månens lys gennem en åbning", "Fangernes drømme"],
+    correct: 0,
+    explain: "Ilden oplyser genstande, som kaster skygger på væggen."
+  },
+  {
+    q: "Hvad sker der, da en fange bliver løst og ført ud?",
+    answers: [
+      "Han vænner sig gradvist til lyset og ser mere af virkeligheden",
+      "Han forstår straks alt uden besvær",
+      "Han vender tilbage til hulens skygger med det samme"
+    ],
+    correct: 0,
+    explain: "Overgangen er vanskelig. Øjnene må vænne sig til lyset, før fangen kan se klart."
+  },
+  {
+    q: "Hvad symboliserer solen i Platons fortælling?",
+    answers: [
+      "Det godes idé og det, der gør erkendelse mulig",
+      "En fjendtlig magt, der holder mennesker fanget",
+      "Den almindelige verden, som sanserne viser os"
+    ],
+    correct: 0,
+    explain: "Solen forbindes med det godes idé, som gør viden og erkendelse mulig."
+  },
+  {
+    q: "Hvorfor vil den frigivne fange måske vende tilbage til hulen?",
+    answers: [
+      "For at fortælle de andre om det, han har set",
+      "Fordi han ikke kan huske vejen ud",
+      "For at bevise, at skyggerne er stærkere end solen"
+    ],
+    correct: 0,
+    explain: "Fortællingen rejser spørgsmålet om filosofens ansvar for at vende tilbage og hjælpe andre."
+  },
+  {
+    q: "Hvad kan hulen overordnet være et billede på?",
+    answers: [
+      "En begrænset forståelse af virkeligheden",
+      "Et sted, hvor al læring er umulig",
+      "Et samfund uden regler"
+    ],
+    correct: 0,
+    explain: "Hulen kan læses som et billede på at forveksle sanseindtryk og vaner med fuld erkendelse."
+  }
+];
+
+let index = 0;
+let score = 0;
+let answered = false;
+
+const questionEl = document.getElementById("question");
+const answersEl = document.getElementById("answers");
+const feedbackEl = document.getElementById("feedback");
+const nextButton = document.getElementById("next");
+
+function showQuestion() {
+  answered = false;
+  const item = questions[index];
+  document.getElementById("round").textContent =
+    `Spørgsmål ${index + 1} af ${questions.length}`;
+  document.getElementById("score").textContent = score;
+  document.getElementById("fill").style.width =
+    `${(index / questions.length) * 100}%`;
+  questionEl.textContent = item.q;
+  feedbackEl.textContent = "";
+  nextButton.style.display = "none";
+  answersEl.replaceChildren();
+
+  item.answers.forEach((answer, i) => {
+    const button = document.createElement("button");
+    button.textContent = answer;
+    button.addEventListener("click", () => chooseAnswer(i));
+    answersEl.appendChild(button);
+  });
+}
+
+function chooseAnswer(choice) {
+  if (answered) return;
+  answered = true;
+
+  const item = questions[index];
+  const buttons = [...answersEl.querySelectorAll("button")];
+  buttons.forEach(button => button.disabled = true);
+
+  if (choice === item.correct) {
+    score++;
+    feedbackEl.textContent = `Rigtigt! ${item.explain}`;
+  } else {
+    feedbackEl.textContent = `Ikke helt. ${item.explain}`;
+  }
+
+  document.getElementById("score").textContent = score;
+  buttons[item.correct].style.borderColor = "#8ee0a1";
+  buttons[item.correct].style.background = "#264332";
+  nextButton.textContent =
+    index === questions.length - 1 ? "Se resultat" : "Næste spørgsmål";
+  nextButton.style.display = "inline-block";
+}
+
+nextButton.addEventListener("click", () => {
+  index++;
+  if (index < questions.length) {
+    showQuestion();
+  } else {
+    document.getElementById("game").classList.add("hidden");
+    document.getElementById("end").classList.remove("hidden");
+    document.getElementById("fill").style.width = "100%";
+    document.getElementById("result").textContent =
+      `Du fik ${score} ud af ${questions.length} point.`;
+    document.getElementById("summary").textContent =
+      score === questions.length
+        ? "Stærkt gået – du har styr på fortællingens centrale symboler."
+        : "Prøv igen, eller tal med en makker om, hvad hulen, lyset og solen kan symbolisere.";
+  }
+});
+
+document.getElementById("restart").addEventListener("click", () => {
+  index = 0;
+  score = 0;
+  document.getElementById("end").classList.add("hidden");
+  document.getElementById("game").classList.remove("hidden");
+  showQuestion();
+});
+
+showQuestion();
+</script>
+</body>
+</html>
