@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Newtons 2. lov</title>
+<style>
+  body {
+    font: 16px/1.5 system-ui, sans-serif;
+    max-width: 760px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    color: #172033;
+  }
+  .panel {
+    background: #f3f6fb;
+    border-radius: 14px;
+    padding: 1rem 1.25rem;
+  }
+  .control { margin: 1rem 0; }
+  label { display: flex; justify-content: space-between; gap: 1rem; }
+  input[type="range"] { width: 100%; }
+  svg { display: block; width: 100%; margin: 1rem 0; }
+  button {
+    padding: .6rem 1rem;
+    border: 0;
+    border-radius: 8px;
+    background: #2457c5;
+    color: white;
+    font: inherit;
+    cursor: pointer;
+  }
+  .results { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+  .results strong { color: #2457c5; }
+</style>
+</head>
+<body>
+  <h1>Newtons 2. lov</h1>
+  <p><strong>Resultant kraft = masse × acceleration</strong>, altså
+    <strong>F = m · a</strong>.</p>
+
+  <div class="panel">
+    <div class="control">
+      <label for="force">Kraft, F <span><b id="forceValue"></b> N</span></label>
+      <input id="force" type="range" min="0" max="20" value="10" step="1">
+    </div>
+
+    <div class="control">
+      <label for="mass">Masse, m <span><b id="massValue"></b> kg</span></label>
+      <input id="mass" type="range" min="1" max="10" value="2" step="1">
+    </div>
+
+    <div class="results">
+      <div>Acceleration: <strong id="acceleration"></strong> m/s²</div>
+      <div>Udregning: <strong id="equation"></strong></div>
+    </div>
+
+    <svg viewBox="0 0 700 190" role="img" aria-label="En klods med en kraftpil mod højre">
+      <line x1="30" y1="145" x2="670" y2="145" stroke="#9aa6b8" stroke-width="3"/>
+      <rect id="block" x="100" y="85" width="90" height="60" rx="8" fill="#75a7f7" stroke="#2457c5" stroke-width="3"/>
+      <text id="blockLabel" x="145" y="122" text-anchor="middle" font-size="18" fill="#172033"></text>
+      <line id="arrow" x1="205" y1="105" x2="350" y2="105" stroke="#e34b4b" stroke-width="6"/>
+      <polygon id="arrowHead" points="350,105 333,95 333,115" fill="#e34b4b"/>
+      <text id="forceLabel" x="278" y="85" text-anchor="middle" font-size="17" fill="#b42323"></text>
+      <text x="350" y="178" text-anchor="middle" font-size="14" fill="#4b5563">Klodsen bevæger sig mod højre</text>
+    </svg>
+
+    <button id="toggle">Start bevægelse</button>
+  </div>
+
+<script>
+  const forceSlider = document.getElementById("force");
+  const massSlider = document.getElementById("mass");
+  const block = document.getElementById("block");
+  const arrow = document.getElementById("arrow");
+  const arrowHead = document.getElementById("arrowHead");
+  const forceLabel = document.getElementById("forceLabel");
+  const button = document.getElementById("toggle");
+
+  let position = 100;
+  let velocity = 0;
+  let running = false;
+  let lastTime = 0;
+
+  function update() {
+    const F = Number(forceSlider.value);
+    const m = Number(massSlider.value);
+    const a = F / m;
+
+    document.getElementById("forceValue").textContent = F;
+    document.getElementById("massValue").textContent = m;
+    document.getElementById("acceleration").textContent = a.toFixed(2);
+    document.getElementById("equation").textContent =
+      `${F} N ÷ ${m} kg = ${a.toFixed(2)} m/s²`;
+    document.getElementById("blockLabel").textContent = `${m} kg`;
+
+    const arrowLength = 35 + F * 8;
+    const startX = position + 105;
+    const endX = startX + arrowLength;
+    arrow.setAttribute("x1", startX);
+    arrow.setAttribute("x2", endX);
+    arrowHead.setAttribute("points",
+      `${endX},105 ${endX - 17},95 ${endX - 17},115`);
+    forceLabel.setAttribute("x", (startX + endX) / 2);
+    forceLabel.textContent = `${F} N`;
+  }
+
+  function animate(time) {
+    if (!running) return;
+    const dt = Math.min((time - lastTime) / 1000, 0.05);
+    lastTime = time;
+
+    const a = Number(forceSlider.value) / Number(massSlider.value);
+    velocity += a * dt * 12;
+    position += velocity * dt;
+
+    if (position > 500) {
+      position = 30;
+      velocity = 0;
+    }
+
+    block.setAttribute("x", position);
+    update();
+    requestAnimationFrame(animate);
+  }
+
+  forceSlider.addEventListener("input", update);
+  massSlider.addEventListener("input", update);
+
+  button.addEventListener("click", () => {
+    running = !running;
+    button.textContent = running ? "Stop bevægelse" : "Start bevægelse";
+    if (running) {
+      lastTime = performance.now();
+      requestAnimationFrame(animate);
+    }
+  });
+
+  update();
+</script>
+</body>
+</html>
