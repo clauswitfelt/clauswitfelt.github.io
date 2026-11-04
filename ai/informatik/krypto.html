@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kryptovaluta – interaktiv forklaring</title>
+  <style>
+    body {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 20px;
+      color: #182333;
+      background: #f4f7fb;
+      font: 17px/1.6 system-ui, sans-serif;
+    }
+    .kort {
+      padding: 24px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px #18233318;
+    }
+    .trin {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 20px 0;
+    }
+    button {
+      padding: 10px 14px;
+      border: 1px solid #aab8c8;
+      border-radius: 9px;
+      background: white;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+    }
+    button:hover, button[aria-pressed="true"] {
+      border-color: #315ee8;
+      background: #eaf0ff;
+    }
+    #forklaring {
+      min-height: 110px;
+      padding: 16px;
+      border-left: 4px solid #315ee8;
+      background: #f5f7ff;
+    }
+    .kontrol { margin-top: 18px; }
+    #status { margin-left: 10px; color: #526174; }
+    .advarsel { color: #704c00; }
+  </style>
+</head>
+<body>
+  <main class="kort">
+    <h1>Hvordan fungerer kryptovaluta?</h1>
+    <p>
+      Kryptovaluta er digitale værdier, der typisk sendes mellem brugere
+      uden en bank som mellemled. Vælg et trin for at se, hvad der sker.
+    </p>
+
+    <div class="trin" aria-label="Trin i en kryptotransaktion">
+      <button data-trin="0" aria-pressed="true">1. Afsender</button>
+      <button data-trin="1" aria-pressed="false">2. Signering</button>
+      <button data-trin="2" aria-pressed="false">3. Netværk</button>
+      <button data-trin="3" aria-pressed="false">4. Blockchain</button>
+      <button data-trin="4" aria-pressed="false">5. Modtager</button>
+    </div>
+
+    <section id="forklaring" aria-live="polite"></section>
+
+    <div class="kontrol">
+      <button id="forrige">← Forrige</button>
+      <button id="naeste">Næste →</button>
+      <span id="status"></span>
+    </div>
+
+    <h2>Vigtige begreber</h2>
+    <details>
+      <summary>Hvad er en blockchain?</summary>
+      <p>
+        En blockchain er en delt, digital logbog. Transaktioner samles i
+        blokke, som forbindes i rækkefølge. Mange computere i netværket
+        opbevarer eller kontrollerer en kopi.
+      </p>
+    </details>
+    <details>
+      <summary>Hvad er en wallet?</summary>
+      <p>
+        En wallet hjælper dig med at styre de kryptografiske nøgler, der
+        bruges til at modtage og godkende transaktioner. Værdierne ligger
+        normalt registreret på blockchainen – ikke fysisk inde i walleten.
+      </p>
+    </details>
+    <details>
+      <summary>Hvad er risikoen?</summary>
+      <p class="advarsel">
+        Kryptovaluta kan svinge kraftigt i værdi. Fejlsendte transaktioner
+        kan være svære eller umulige at få tilbage, og svindel forekommer.
+        Dette er en forklaring, ikke investeringsrådgivning.
+      </p>
+    </details>
+  </main>
+
+  <script>
+    const trin = [
+      {
+        titel: "1. Afsender opretter en transaktion",
+        tekst: "Afsenderen vælger en modtager og et beløb. En wallet hjælper med at klargøre oplysningerne til netværket."
+      },
+      {
+        titel: "2. Transaktionen signeres",
+        tekst: "Afsenderen godkender transaktionen med sin private nøgle. Signaturen viser, at afsenderen har ret til at bruge de relevante midler – uden at afsløre selve nøglen."
+      },
+      {
+        titel: "3. Netværket kontrollerer den",
+        tekst: "Transaktionen sendes til et netværk af computere. De kontrollerer blandt andet, at signaturen er gyldig, og at midlerne ikke allerede er brugt."
+      },
+      {
+        titel: "4. Den føjes til blockchainen",
+        tekst: "Netværket bliver enige om, hvilke transaktioner der skal registreres. Metoden varierer mellem kryptovalutaer; nogle bruger mining, andre staking eller andre mekanismer."
+      },
+      {
+        titel: "5. Modtageren kan se overførslen",
+        tekst: "Når transaktionen er registreret og har fået tilstrækkelig bekræftelse, vises den hos modtageren. Hvor hurtigt det sker, afhænger af netværket."
+      }
+    ];
+
+    let aktueltTrin = 0;
+    const forklaring = document.querySelector("#forklaring");
+    const status = document.querySelector("#status");
+    const knapper = [...document.querySelectorAll("[data-trin]")];
+
+    function visTrin(n) {
+      aktueltTrin = (n + trin.length) % trin.length;
+      forklaring.innerHTML =
+        `<h2>${trin[aktueltTrin].titel}</h2><p>${trin[aktueltTrin].tekst}</p>`;
+      status.textContent = `Trin ${aktueltTrin + 1} af ${trin.length}`;
+
+      knapper.forEach((knap, i) => {
+        knap.setAttribute("aria-pressed", i === aktueltTrin);
+      });
+    }
+
+    knapper.forEach(knap =>
+      knap.addEventListener("click", () => visTrin(Number(knap.dataset.trin)))
+    );
+    document.querySelector("#forrige").addEventListener("click", () =>
+      visTrin(aktueltTrin - 1)
+    );
+    document.querySelector("#naeste").addEventListener("click", () =>
+      visTrin(aktueltTrin + 1)
+    );
+
+    visTrin(0);
+  </script>
+</body>
+</html>
