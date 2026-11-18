@@ -1,1 +1,280 @@
    
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Puslespil: Bøjning af ir</title>
+  <style>
+    :root {
+      font-family: system-ui, sans-serif;
+      color: #18304b;
+      background: #f3f6fb;
+    }
+
+    body {
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    h1 { margin-bottom: 8px; }
+    .intro { color: #52657b; }
+
+    .question {
+      background: white;
+      border: 1px solid #dbe3ee;
+      border-radius: 12px;
+      padding: 16px;
+      margin: 14px 0;
+      box-shadow: 0 2px 6px #18304b0d;
+    }
+
+    .sentence { font-size: 1.1rem; }
+
+    .dropzone {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 110px;
+      min-height: 38px;
+      margin: 4px;
+      padding: 4px 10px;
+      border: 2px dashed #8ca1ba;
+      border-radius: 8px;
+      background: #f7f9fc;
+      color: #52657b;
+      vertical-align: middle;
+    }
+
+    .dropzone.over {
+      border-color: #3575c5;
+      background: #eaf3ff;
+    }
+
+    .dropzone.correct {
+      border-color: #25834a;
+      background: #e9f7ee;
+      color: #176334;
+    }
+
+    .dropzone.incorrect {
+      border-color: #c74444;
+      background: #fff0f0;
+      color: #922c2c;
+    }
+
+    .choices {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .card {
+      padding: 7px 13px;
+      border: 1px solid #a9bdd5;
+      border-radius: 8px;
+      background: #edf4fc;
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
+    }
+
+    .card:active { cursor: grabbing; }
+    .card.used { display: none; }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    #check { background: #245f9e; color: white; }
+    #reset { background: #e1e8f0; color: #18304b; }
+
+    #message {
+      min-height: 1.5em;
+      margin-top: 14px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <h1>Puslespil: Bøjning af ir</h1>
+  <p class="intro">Træk den rigtige form hen til hullet i hver sætning.</p>
+
+  <main id="game"></main>
+
+  <div class="controls">
+    <button id="check">Tjek svar</button>
+    <button id="reset">Start forfra</button>
+  </div>
+  <p id="message" aria-live="polite"></p>
+
+  <script>
+    const questions = [
+      {
+        sentence: "Yo ___ al instituto en autobús.",
+        answer: "voy",
+        choices: ["voy", "vas", "va"]
+      },
+      {
+        sentence: "¿Tú ___ al cine esta tarde?",
+        answer: "vas",
+        choices: ["vamos", "vas", "van"]
+      },
+      {
+        sentence: "Mis amigos ___ al centro.",
+        answer: "van",
+        choices: ["va", "vais", "van"]
+      },
+      {
+        sentence: "Nosotros ___ a la playa muchas veces.",
+        answer: "hemos ido",
+        choices: ["hemos ido", "habéis ido", "han ido"]
+      },
+      {
+        sentence: "¿Vosotros ___ al museo?",
+        answer: "habéis ido",
+        choices: ["habéis ido", "hemos ido", "has ido"]
+      },
+      {
+        sentence: "Mañana ella ___ a estudiar con Ana.",
+        answer: "va",
+        choices: ["voy", "va", "vamos"]
+      },
+      {
+        sentence: "Esta tarde, mis padres ___ a cocinar.",
+        answer: "van",
+        choices: ["vais", "van", "vamos"]
+      },
+      {
+        sentence: "Ayer yo ___ al médico.",
+        answer: "fui",
+        choices: ["fui", "fuiste", "fue"]
+      },
+      {
+        sentence: "El sábado pasado nosotros ___ a Madrid.",
+        answer: "fuimos",
+        choices: ["fuimos", "fueron", "fuisteis"]
+      }
+    ];
+
+    const game = document.querySelector("#game");
+    const message = document.querySelector("#message");
+    let draggedCard = null;
+
+    function makeGame() {
+      game.innerHTML = "";
+
+      questions.forEach((q, index) => {
+        const section = document.createElement("section");
+        section.className = "question";
+
+        const parts = q.sentence.split("___");
+        section.innerHTML = `
+          <div class="sentence">
+            ${parts[0]}
+            <span class="dropzone" data-question="${index}">Træk svar hertil</span>
+            ${parts[1]}
+          </div>
+          <div class="choices" aria-label="Svarmuligheder"></div>
+        `;
+
+        const choices = section.querySelector(".choices");
+
+        q.choices.forEach((choice, choiceIndex) => {
+          const card = document.createElement("span");
+          card.className = "card";
+          card.textContent = choice;
+          card.draggable = true;
+          card.dataset.question = index;
+          card.dataset.choice = choiceIndex;
+
+          card.addEventListener("dragstart", () => {
+            draggedCard = card;
+          });
+
+          choices.appendChild(card);
+        });
+
+        const zone = section.querySelector(".dropzone");
+
+        zone.addEventListener("dragover", event => {
+          event.preventDefault();
+          zone.classList.add("over");
+        });
+
+        zone.addEventListener("dragleave", () => {
+          zone.classList.remove("over");
+        });
+
+        zone.addEventListener("drop", event => {
+          event.preventDefault();
+          zone.classList.remove("over");
+
+          if (!draggedCard ||
+              draggedCard.dataset.question !== String(index)) return;
+
+          const oldCard = zone.querySelector(".card");
+          if (oldCard) oldCard.classList.remove("used");
+
+          zone.textContent = "";
+          zone.appendChild(draggedCard);
+          draggedCard.classList.add("used");
+          zone.dataset.answer = draggedCard.textContent;
+          zone.classList.remove("correct", "incorrect");
+        });
+
+        game.appendChild(section);
+      });
+    }
+
+    document.querySelector("#check").addEventListener("click", () => {
+      let correct = 0;
+      let answered = 0;
+
+      document.querySelectorAll(".dropzone").forEach((zone, index) => {
+        const answer = zone.dataset.answer;
+
+        zone.classList.remove("correct", "incorrect");
+        if (!answer) return;
+
+        answered++;
+        if (answer === questions[index].answer) {
+          correct++;
+          zone.classList.add("correct");
+        } else {
+          zone.classList.add("incorrect");
+        }
+      });
+
+      if (answered < questions.length) {
+        message.textContent =
+          `Du har svaret på ${answered} af ${questions.length}. Udfyld resten, og prøv igen.`;
+      } else if (correct === questions.length) {
+        message.textContent = `Flot! Alle ${correct} svar er rigtige.`;
+      } else {
+        message.textContent =
+          `Du har ${correct} af ${questions.length} rigtige. Prøv de røde felter igen.`;
+      }
+    });
+
+    document.querySelector("#reset").addEventListener("click", () => {
+      message.textContent = "";
+      makeGame();
+    });
+
+    makeGame();
+  </script>
+</body>
+</html>
