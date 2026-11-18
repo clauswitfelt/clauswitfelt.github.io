@@ -1,0 +1,204 @@
+<script>
+  const questions = [
+    {
+      sentence: "Yo ___ al instituto en autobús.",
+      answer: "voy",
+      choices: ["voy", "vas", "va"]
+    },
+    {
+      sentence: "¿Tú ___ al cine esta tarde?",
+      answer: "vas",
+      choices: ["vamos", "vas", "van"]
+    },
+    {
+      sentence: "Mis amigos ___ al centro.",
+      answer: "van",
+      choices: ["va", "vais", "van"]
+    },
+    {
+      sentence: "Nosotros ___ a la playa muchas veces.",
+      answer: "hemos ido",
+      choices: ["hemos ido", "habéis ido", "han ido"]
+    },
+    {
+      sentence: "¿Vosotros ___ al museo?",
+      answer: "habéis ido",
+      choices: ["habéis ido", "hemos ido", "has ido"]
+    },
+    {
+      sentence: "Mañana ella ___ a estudiar con Ana.",
+      answer: "va",
+      choices: ["voy", "va", "vamos"]
+    },
+    {
+      sentence: "Esta tarde, mis padres ___ a cocinar.",
+      answer: "van",
+      choices: ["vais", "van", "vamos"]
+    },
+    {
+      sentence: "Ayer yo ___ al médico.",
+      answer: "fui",
+      choices: ["fui", "fuiste", "fue"]
+    },
+    {
+      sentence: "El sábado pasado nosotros ___ a Madrid.",
+      answer: "fuimos",
+      choices: ["fuimos", "fueron", "fuisteis"]
+    }
+  ];
+
+  const game = document.querySelector("#game");
+  const message = document.querySelector("#message");
+  let draggedCard = null;
+  let previousResults = [];
+
+  // Laver lydene med browserens indbyggede lydfunktion.
+  function playTone(frequency, duration, type = "sine") {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+
+    const context = new AudioContext();
+    const oscillator = context.createOscillator();
+    const gain = context.createGain();
+
+    oscillator.type = type;
+    oscillator.frequency.value = frequency;
+    gain.gain.value = 0.12;
+
+    oscillator.connect(gain);
+    gain.connect(context.destination);
+
+    oscillator.start();
+    gain.gain.exponentialRampToValueAtTime(
+      0.001,
+      context.currentTime + duration
+    );
+    oscillator.stop(context.currentTime + duration);
+    oscillator.onended = () => context.close();
+  }
+
+  function playCorrectSound() {
+    playTone(660, 0.12);
+    setTimeout(() => playTone(880, 0.16), 110);
+  }
+
+  function playBuzzer() {
+    playTone(150, 0.35, "sawtooth");
+  }
+
+  function makeGame() {
+    game.innerHTML = "";
+    previousResults = Array(questions.length).fill(null);
+    message.textContent = "";
+
+    questions.forEach((q, index) => {
+      const section = document.createElement("section");
+      section.className = "question";
+
+      const parts = q.sentence.split("___");
+      section.innerHTML = `
+        <div class="sentence">
+          ${parts[0]}
+          <span class="dropzone" data-question="${index}">Træk svar hertil</span>
+          ${parts[1]}
+        </div>
+        <div class="choices" aria-label="Svarmuligheder"></div>
+      `;
+
+      const choices = section.querySelector(".choices");
+
+      q.choices.forEach((choice, choiceIndex) => {
+        const card = document.createElement("span");
+        card.className = "card";
+        card.textContent = choice;
+        card.draggable = true;
+        card.dataset.question = index;
+        card.dataset.choice = choiceIndex;
+
+        card.addEventListener("dragstart", () => {
+          draggedCard = card;
+        });
+
+        choices.appendChild(card);
+      });
+
+      const zone = section.querySelector(".dropzone");
+
+      zone.addEventListener("dragover", event => {
+        event.preventDefault();
+        zone.classList.add("over");
+      });
+
+      zone.addEventListener("dragleave", () => {
+        zone.classList.remove("over");
+      });
+
+      zone.addEventListener("drop", event => {
+        event.preventDefault();
+        zone.classList.remove("over");
+
+        if (!draggedCard ||
+            draggedCard.dataset.question !== String(index)) return;
+
+        // Giver et tidligere svar tilbage til svarmulighederne.
+        const oldCard = zone.querySelector(".card");
+        if (oldCard) {
+          oldCard.classList.remove("used");
+          choices.appendChild(oldCard);
+        }
+
+        zone.textContent = "";
+        zone.appendChild(draggedCard);
+        draggedCard.classList.add("used");
+        zone.dataset.answer = draggedCard.textContent;
+        zone.classList.remove("correct", "incorrect");
+        previousResults[index] = null;
+      });
+
+      game.appendChild(section);
+    });
+  }
+
+  document.querySelector("#check").addEventListener("click", () => {
+    let answered = 0;
+    let correct = 0;
+
+    document.querySelectorAll(".dropzone").forEach((zone, index) => {
+      const answer = zone.dataset.answer;
+      zone.classList.remove("correct", "incorrect");
+
+      if (!answer) return;
+
+      answered++;
+      const isCorrect = answer === questions[index].answer;
+
+      if (isCorrect) {
+        correct++;
+        zone.classList.add("correct");
+
+        // Spil kun den rigtige lyd, når svaret ændres fra forkert/ubesvaret til rigtigt.
+        if (previousResults[index] !== true) playCorrectSound();
+      } else {
+        zone.classList.add("incorrect");
+
+        if (previousResults[index] !== false) playBuzzer();
+      }
+
+      previousResults[index] = isCorrect;
+    });
+
+    const score = correct * 10;
+
+    if (answered < questions.length) {
+      message.textContent =
+        `Score: ${score} point. Du har svaret på ${answered} af ${questions.length}.`;
+    } else {
+      message.textContent =
+        `Spillet er færdigt! Din samlede score er ${score} ud af ${questions.length * 10} point.`;
+    }
+  });
+
+  document.querySelector("#reset").addEventListener("click", makeGame);
+
+  makeGame();
+</script>
