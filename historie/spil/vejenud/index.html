@@ -1,3 +1,2626 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vejen ud af enevælden – Interaktivt historiespil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-parchment: #f6efe2;
+      --bg-paper: #fbf7ef;
+      --bg-card: #fffdf9;
+      --ink-dark: #1f1b18;
+      --ink-muted: #574e46;
+      --accent-gold: #b8862d;
+      --accent-gold-light: #e7c882;
+      --accent-crimson: #8b1e24;
+      --accent-navy: #1d3557;
+      --accent-forest: #2d5a43;
+      --border-warm: #dccdb6;
+      --shadow-soft: 0 10px 30px rgba(31, 27, 24, 0.08);
+      --shadow-elevated: 0 18px 40px rgba(31, 27, 24, 0.14);
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+    }
 
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-parchment);
+      background-image:
+        radial-gradient(circle at 15% 15%, rgba(184, 134, 45, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 85% 85%, rgba(139, 30, 36, 0.07) 0%, transparent 45%);
+      color: var(--ink-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, .serif {
+      font-family: 'Playfair Display', Georgia, serif;
+    }
+
+    /* Top Navigation & Status Bar */
+    .topbar {
+      background: rgba(251, 247, 239, 0.94);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-warm);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 0.75rem 1.25rem;
+    }
+
+    .topbar-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--ink-dark);
+    }
+
+    .brand-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent-crimson), #5e1116);
+      color: #f8e7c1;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 3px 10px rgba(139, 30, 36, 0.25);
+      flex-shrink: 0;
+    }
+
+    .brand-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: -0.01em;
+    }
+
+    .brand-sub {
+      font-size: 0.72rem;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      display: block;
+    }
+
+    .level-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: center;
+    }
+
+    .nav-pill {
+      border: 1px solid var(--border-warm);
+      background: var(--bg-card);
+      color: var(--ink-dark);
+      padding: 0.42rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+    }
+
+    .nav-pill:hover {
+      border-color: var(--accent-gold);
+      transform: translateY(-1px);
+    }
+
+    .nav-pill.active {
+      background: var(--ink-dark);
+      color: #fbf7ef;
+      border-color: var(--ink-dark);
+    }
+
+    .nav-pill.completed {
+      border-color: var(--accent-forest);
+      background: rgba(45, 90, 67, 0.09);
+    }
+
+    .status-metrics {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .metric-chip {
+      background: var(--bg-card);
+      border: 1px solid var(--border-warm);
+      border-radius: 999px;
+      padding: 0.35rem 0.8rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* Main Container */
+    .main-wrap {
+      max-width: 1180px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 3rem;
+      flex: 1;
+    }
+
+    .screen {
+      display: none;
+      animation: fadeSlideIn 0.35s ease forwards;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Buttons */
+    .btn {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.72rem 1.35rem;
+      border-radius: var(--radius-md);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-crimson), #6d151a);
+      color: #fffaf0;
+      box-shadow: 0 6px 18px rgba(139, 30, 36, 0.26);
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #c69232, #9e6f1c);
+      color: #fffdf8;
+      box-shadow: 0 6px 18px rgba(184, 134, 45, 0.28);
+    }
+
+    .btn-gold:hover {
+      filter: brightness(1.06);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: var(--bg-card);
+      color: var(--ink-dark);
+      border: 1.5px solid var(--border-warm);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--ink-dark);
+      background: #f5ede0;
+    }
+
+    /* Start Screen */
+    .hero-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-warm);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+      padding: 2.25rem;
+      display: grid;
+      grid-template-columns: 1.25fr 0.95fr;
+      gap: 2rem;
+      align-items: center;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--accent-navy), var(--accent-crimson), var(--accent-gold));
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-crimson);
+      background: rgba(139, 30, 36, 0.08);
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 0.85rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 4vw, 3.1rem);
+      line-height: 1.12;
+      margin-bottom: 1rem;
+      color: var(--ink-dark);
+    }
+
+    .hero-desc {
+      color: var(--ink-muted);
+      font-size: 1.03rem;
+      margin-bottom: 1.5rem;
+      max-width: 58ch;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+    }
+
+    .hero-illustration {
+      background: linear-gradient(145deg, #f3e8d4, #e7d6b9);
+      border: 1px solid var(--border-warm);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .levels-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.35rem;
+    }
+
+    .level-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-warm);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .level-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-elevated);
+    }
+
+    .level-card-strip {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 6px;
+    }
+
+    .level-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .level-card h3 {
+      font-size: 1.35rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .level-card p {
+      font-size: 0.92rem;
+      color: var(--ink-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .level-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 0.9rem;
+      border-top: 1px dashed var(--border-warm);
+      gap: 0.5rem;
+    }
+
+    .stars-display {
+      color: #d49b2a;
+      font-size: 1.05rem;
+      letter-spacing: 2px;
+    }
+
+    /* Instruction Modal / Banner inside level */
+    .how-to-box {
+      background: var(--bg-card);
+      border: 1.5px solid var(--accent-gold);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .how-to-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .how-to-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 0.85rem;
+      margin-top: 0.85rem;
+    }
+
+    .how-step {
+      background: var(--bg-paper);
+      border: 1px solid var(--border-warm);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 0.9rem;
+      font-size: 0.88rem;
+    }
+
+    .how-step strong {
+      display: block;
+      margin-bottom: 0.2rem;
+      color: var(--ink-dark);
+    }
+
+    /* =========================================================
+       BANE 1: BEGYNDENDE URO (1830'erne - 1848)
+       Theme: 1800-tals gade- og avisfarver (pergament, mørkeblå, dyb rød)
+       ========================================================= */
+    .b1-theme {
+      background: linear-gradient(180deg, #1d3557 0%, #26436c 100%);
+      color: #f8f2e6;
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-elevated);
+      border: 2px solid #3c5a84;
+    }
+
+    .b1-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(248, 242, 230, 0.2);
+      margin-bottom: 1.25rem;
+    }
+
+    .b1-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .b1-stat-box {
+      background: rgba(15, 29, 48, 0.65);
+      border: 1px solid rgba(231, 200, 130, 0.35);
+      padding: 0.45rem 0.9rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .b1-workspace {
+      display: grid;
+      grid-template-columns: 1.35fr 0.85fr;
+      gap: 1.25rem;
+      align-items: start;
+    }
+
+    .b1-canvas-wrap {
+      background: #efe4cf;
+      border: 3px solid #8b1e24;
+      border-radius: var(--radius-md);
+      padding: 0.6rem;
+      position: relative;
+      box-shadow: inset 0 0 25px rgba(45, 30, 15, 0.25);
+    }
+
+    #b1Canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 6px;
+      cursor: pointer;
+      touch-action: none;
+    }
+
+    .b1-controls-pad {
+      display: grid;
+      grid-template-columns: repeat(3, 52px);
+      grid-template-rows: repeat(2, 46px);
+      gap: 6px;
+      justify-content: center;
+      margin-top: 0.75rem;
+    }
+
+    .dpad-btn {
+      background: #233b5d;
+      color: #f8f2e6;
+      border: 1px solid #e7c882;
+      border-radius: 8px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      user-select: none;
+    }
+
+    .dpad-btn:active {
+      background: #8b1e24;
+    }
+
+    .b1-sidebar {
+      background: #fbf7ef;
+      color: var(--ink-dark);
+      border-radius: var(--radius-md);
+      padding: 1.2rem;
+      border: 1px solid var(--border-warm);
+    }
+
+    .leaflet-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      margin-top: 0.75rem;
+    }
+
+    .leaflet-item {
+      padding: 0.75rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-warm);
+      background: #fffdf9;
+      font-size: 0.86rem;
+      transition: all 0.2s;
+    }
+
+    .leaflet-item.delivered {
+      border-color: var(--accent-forest);
+      background: rgba(45, 90, 67, 0.1);
+    }
+
+    .leaflet-item.locked {
+      opacity: 0.65;
+      background: #f0e8da;
+    }
+
+    /* Checkpoint Quiz Overlay inside Bane 1 */
+    .b1-modal-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(19, 32, 52, 0.88);
+      backdrop-filter: blur(4px);
+      border-radius: var(--radius-md);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+      z-index: 20;
+    }
+
+    .b1-modal-overlay.open {
+      display: flex;
+    }
+
+    .b1-modal-card {
+      background: #fbf7ef;
+      color: var(--ink-dark);
+      max-width: 460px;
+      width: 100%;
+      border-radius: var(--radius-md);
+      padding: 1.4rem;
+      border: 2px solid var(--accent-gold);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.4);
+    }
+
+    .quiz-opt-btn {
+      width: 100%;
+      text-align: left;
+      padding: 0.75rem 0.95rem;
+      margin-top: 0.55rem;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border-warm);
+      background: #fff;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .quiz-opt-btn:hover {
+      border-color: var(--accent-navy);
+      background: #f4ede0;
+    }
+
+    /* =========================================================
+       BANE 2: MØDET I CASINOTEATERET (20. marts 1848)
+       Theme: Røde plysgardiner, gyldne lamper, dramatisk teatersal
+       ========================================================= */
+    .b2-theme {
+      background: radial-gradient(circle at 50% 0%, #5a1218 0%, #2b070b 75%, #1a0406 100%);
+      color: #fdf6e9;
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      border: 2px solid #b8862d;
+      box-shadow: var(--shadow-elevated);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative Theater Curtains */
+    .curtain-top {
+      height: 18px;
+      background: repeating-linear-gradient(
+        90deg,
+        #7d161e 0px,
+        #a31f29 24px,
+        #590d13 48px
+      );
+      border-bottom: 3px solid #e7c882;
+      margin: -1.5rem -1.5rem 1.25rem -1.5rem;
+    }
+
+    .b2-stage-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .meter-card {
+      background: rgba(25, 5, 8, 0.72);
+      border: 1px solid rgba(231, 200, 130, 0.5);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1.1rem;
+      min-width: 260px;
+      flex: 1;
+      max-width: 420px;
+    }
+
+    .meter-label-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: #f3d692;
+    }
+
+    .meter-track {
+      height: 14px;
+      background: rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid rgba(231, 200, 130, 0.35);
+    }
+
+    .meter-fill {
+      height: 100%;
+      width: 50%;
+      background: linear-gradient(90deg, #d97724, #eab308, #4ade80);
+      transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .b2-theater-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.25fr;
+      gap: 1.35rem;
+      align-items: stretch;
+    }
+
+    .b2-podium-box {
+      background: rgba(38, 8, 12, 0.75);
+      border: 1px solid rgba(231, 200, 130, 0.35);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+    }
+
+    .crowd-reaction-bubble {
+      background: #fdf6e9;
+      color: var(--ink-dark);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1rem;
+      font-size: 0.9rem;
+      font-style: italic;
+      border-left: 4px solid #b8862d;
+      margin-top: 1rem;
+      text-align: left;
+    }
+
+    .b2-dilemma-card {
+      background: #fbf7ef;
+      color: var(--ink-dark);
+      border-radius: var(--radius-md);
+      padding: 1.45rem;
+      border: 2px solid #e7c882;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .b2-choices {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .b2-choice-btn {
+      background: #fffdf9;
+      border: 1.5px solid var(--border-warm);
+      border-radius: var(--radius-md);
+      padding: 0.95rem 1.1rem;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .b2-choice-btn:hover:not(:disabled) {
+      border-color: var(--accent-crimson);
+      background: #fdf3eb;
+      transform: translateX(4px);
+    }
+
+    .b2-choice-btn:disabled {
+      cursor: default;
+    }
+
+    .b2-choice-btn.chosen-best {
+      border-color: var(--accent-forest);
+      background: rgba(45, 90, 67, 0.12);
+    }
+
+    .b2-choice-btn.chosen-mid {
+      border-color: var(--accent-gold);
+      background: rgba(184, 134, 45, 0.12);
+    }
+
+    .b2-choice-btn.chosen-bad {
+      border-color: var(--accent-crimson);
+      background: rgba(139, 30, 36, 0.12);
+    }
+
+    .b2-feedback-box {
+      margin-top: 1rem;
+      padding: 0.95rem 1.1rem;
+      border-radius: var(--radius-sm);
+      background: #f2e8d5;
+      border-left: 4px solid var(--accent-navy);
+      font-size: 0.92rem;
+      display: none;
+    }
+
+    .b2-feedback-box.visible {
+      display: block;
+      animation: fadeSlideIn 0.25s ease;
+    }
+
+    /* =========================================================
+       BANE 3: DEMOKRATIDEBATTEN EFTER 2. VERDENSKRIG (1945-1946)
+       Theme: 1940'er radiostudie & oplysningsavis (varme trætoner, avisudklip)
+       ========================================================= */
+    .b3-theme {
+      background: linear-gradient(145deg, #3c2a1e 0%, #291c14 100%);
+      color: #f7efe2;
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      border: 2px solid #9c7248;
+      box-shadow: var(--shadow-elevated);
+    }
+
+    .b3-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(247, 239, 226, 0.2);
+      margin-bottom: 1.35rem;
+    }
+
+    .on-air-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: #8b1e24;
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid #f59e0b;
+    }
+
+    .on-air-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #fca5a5;
+      animation: pulseDot 1.3s infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(0.8); }
+    }
+
+    .b3-arena {
+      display: grid;
+      grid-template-columns: 1fr 1.25fr 1fr;
+      gap: 1.15rem;
+      align-items: stretch;
+    }
+
+    .thinker-card {
+      background: #f5ecdc;
+      color: var(--ink-dark);
+      border-radius: var(--radius-md);
+      padding: 1.2rem;
+      border: 2px solid #c9b393;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .thinker-card.ross {
+      border-top: 6px solid #1d3557;
+    }
+
+    .thinker-card.koch {
+      border-top: 6px solid #2d5a43;
+    }
+
+    .thinker-book {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      margin-bottom: 0.45rem;
+    }
+
+    .ross .thinker-book {
+      background: rgba(29, 53, 87, 0.12);
+      color: #1d3557;
+    }
+
+    .koch .thinker-book {
+      background: rgba(45, 90, 67, 0.14);
+      color: #2d5a43;
+    }
+
+    .thinker-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin: 0.75rem 0;
+    }
+
+    .t-tag {
+      font-size: 0.74rem;
+      background: #e9dcc6;
+      padding: 0.22rem 0.5rem;
+      border-radius: 5px;
+      font-weight: 600;
+    }
+
+    .b3-center-desk {
+      background: #fffdf8;
+      color: var(--ink-dark);
+      border-radius: var(--radius-md);
+      padding: 1.35rem;
+      border: 2px solid #b8862d;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .newspaper-clip {
+      background: #f7f1e3;
+      border: 1px dashed #9e8a6c;
+      padding: 1.1rem;
+      border-radius: var(--radius-sm);
+      margin: 0.85rem 0;
+      position: relative;
+    }
+
+    .newspaper-clip blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.12rem;
+      font-weight: 600;
+      line-height: 1.45;
+      color: #1f1b18;
+    }
+
+    .b3-assign-btns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+
+    .btn-ross {
+      background: #1d3557;
+      color: #fff;
+      padding: 0.85rem;
+      border-radius: var(--radius-sm);
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+
+    .btn-ross:hover:not(:disabled) {
+      background: #274875;
+      transform: translateY(-2px);
+    }
+
+    .btn-koch {
+      background: #2d5a43;
+      color: #fff;
+      padding: 0.85rem;
+      border-radius: var(--radius-sm);
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+
+    .btn-koch:hover:not(:disabled) {
+      background: #387053;
+      transform: translateY(-2px);
+    }
+
+    /* Moderator Round in Bane 3 */
+    .mod-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      margin-top: 0.8rem;
+    }
+
+    /* Diploma / Summary Screen */
+    .diploma-card {
+      background: #fffdf8;
+      border: 3px double var(--accent-gold);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem 2rem;
+      max-width: 820px;
+      margin: 0 auto;
+      box-shadow: var(--shadow-elevated);
+      text-align: center;
+      position: relative;
+    }
+
+    .diploma-seal {
+      width: 78px;
+      height: 78px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #d4a038, #9c6d19);
+      color: #fffaf0;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 1rem;
+      box-shadow: 0 6px 18px rgba(184, 134, 45, 0.35);
+      border: 3px solid #f7e3b5;
+    }
+
+    .diploma-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.75rem 0;
+      text-align: left;
+    }
+
+    .diploma-level-box {
+      background: var(--bg-paper);
+      border: 1px solid var(--border-warm);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+    }
+
+    .toast-msg {
+      position: fixed;
+      bottom: 1.25rem;
+      right: 1.25rem;
+      background: var(--ink-dark);
+      color: #fbf7ef;
+      padding: 0.8rem 1.2rem;
+      border-radius: var(--radius-md);
+      border-left: 4px solid var(--accent-gold);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      font-size: 0.9rem;
+      z-index: 100;
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: all 0.25s ease;
+    }
+
+    .toast-msg.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 960px) {
+      .hero-card,
+      .b1-workspace,
+      .b2-theater-grid,
+      .b3-arena {
+        grid-template-columns: 1fr;
+      }
+      .levels-grid,
+      .diploma-summary-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .topbar-inner {
+        justify-content: center;
+      }
+      .hero-card {
+        padding: 1.4rem;
+      }
+      .b3-assign-btns {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation & Progress Bar -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand" onclick="showScreen('start')" role="button" tabindex="0" aria-label="Gå til startskærm">
+        <div class="brand-badge">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div>
+          <span class="brand-title">Vejen ud af enevælden</span>
+          <span class="brand-sub">Danmarks demokratiske rejse</span>
+        </div>
+      </div>
+
+      <nav class="level-nav" aria-label="Banevælger">
+        <button class="nav-pill active" id="nav-start" onclick="showScreen('start')">Oversigt</button>
+        <button class="nav-pill" id="nav-b1" onclick="startLevel(1)">1. Begyndende uro</button>
+        <button class="nav-pill" id="nav-b2" onclick="startLevel(2)">2. Casinoteateret</button>
+        <button class="nav-pill" id="nav-b3" onclick="startLevel(3)">3. Ross &amp; Koch</button>
+        <button class="nav-pill" id="nav-diploma" onclick="showScreen('diploma')">Diplom</button>
+      </nav>
+
+      <div class="status-metrics">
+        <div class="metric-chip" title="Samlede point">
+          <span>Point:</span>
+          <strong id="totalScoreDisplay">0</strong>
+        </div>
+        <div class="metric-chip" title="Optjente stjerner">
+          <span>Stjerner:</span>
+          <strong id="totalStarsDisplay">0 / 9</strong>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-wrap">
+
+    <!-- =========================================================
+         STARTSKÆRM & BANEVÆLGER
+         ========================================================= -->
+    <section id="screen-start" class="screen active">
+      <div class="hero-card">
+        <div>
+          <span class="eyebrow">Interaktivt historisk læringsspil</span>
+          <h1 class="hero-title">Vejen ud af enevælden</h1>
+          <p class="hero-desc">
+            Træd ind i tre afgørende øjeblikke i dansk demokratihistorie: Fra de første kritiske flyveblade under enevældens censur i 1830’erne og 1840’erne, over det dramatiske folkemøde i Casinoteateret i marts 1848, til efterkrigstidens store ideologiske opgør mellem Alf Ross og Hal Koch om, hvad demokrati egentlig er.
+          </p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" onclick="startLevel(1)">
+              Start rejsen (Bane 1)
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+            <button class="btn btn-outline" onclick="showScreen('diploma')">Se dit diplom</button>
+          </div>
+        </div>
+
+        <div class="hero-illustration" aria-hidden="true">
+          <!-- Custom Editorial SVG Illustration -->
+          <svg viewBox="0 0 360 230" width="100%" height="auto">
+            <defs>
+              <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#d4a038"/>
+                <stop offset="100%" stop-color="#8c5f14"/>
+              </linearGradient>
+            </defs>
+            <!-- Background Arch -->
+            <rect x="18" y="14" width="324" height="202" rx="14" fill="#fbf7ef" stroke="#cbb899" stroke-width="2"/>
+            <!-- Broken Crown (End of Absolutism) -->
+            <g transform="translate(52, 42)">
+              <path d="M10 55 L18 22 L38 40 L55 15 L72 40 L92 22 L100 55 Z" fill="url(#goldGrad)" stroke="#5c3d0c" stroke-width="2"/>
+              <rect x="10" y="55" width="90" height="12" rx="3" fill="#8b1e24"/>
+              <circle cx="55" cy="12" r="4" fill="#8b1e24"/>
+              <text x="55" y="90" text-anchor="middle" font-family="Playfair Display, serif" font-size="12" font-weight="700" fill="#1f1b18">1834–1848</text>
+              <text x="55" y="105" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#574e46">Enevældens fald</text>
+            </g>
+            <!-- Arrow -->
+            <path d="M168 85 L194 85" stroke="#8b1e24" stroke-width="2.5" stroke-dasharray="4 3"/>
+            <polygon points="194,80 204,85 194,90" fill="#8b1e24"/>
+            <!-- Constitution / Debate Scroll & Microphone -->
+            <g transform="translate(212, 36)">
+              <rect x="8" y="12" width="76" height="62" rx="6" fill="#f3e6ce" stroke="#1d3557" stroke-width="2"/>
+              <line x1="20" y1="26" x2="72" y2="26" stroke="#1d3557" stroke-width="2.2"/>
+              <line x1="20" y1="38" x2="66" y2="38" stroke="#574e46" stroke-width="1.8"/>
+              <line x1="20" y1="49" x2="58" y2="49" stroke="#574e46" stroke-width="1.8"/>
+              <circle cx="66" cy="57" r="8" fill="#8b1e24"/>
+              <text x="46" y="96" text-anchor="middle" font-family="Playfair Display, serif" font-size="12" font-weight="700" fill="#1f1b18">1849 &amp; 1945</text>
+              <text x="46" y="111" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#574e46">Forfatning &amp; livsform</text>
+            </g>
+            <!-- Bottom Banner -->
+            <rect x="40" y="168" width="280" height="30" rx="15" fill="#1d3557"/>
+            <text x="180" y="187" text-anchor="middle" font-family="Inter, sans-serif" font-size="11.5" font-weight="600" fill="#fbf7ef">3 historiske baner · Vælg frit eller spil i rækkefølge</text>
+          </svg>
+        </div>
+      </div>
+
+      <h2 style="font-size: 1.6rem; margin-bottom: 1rem;">Vælg en historisk epoke</h2>
+      <div class="levels-grid">
+        <!-- Card 1 -->
+        <article class="level-card">
+          <div class="level-card-strip" style="background: linear-gradient(90deg, #1d3557, #8b1e24);"></div>
+          <div>
+            <div class="level-meta" style="color: #1d3557;">
+              <span>Bane 1 · 1830’erne–1848</span>
+              <span>Arkade &amp; Strategi</span>
+            </div>
+            <h3>Begyndende uro</h3>
+            <p>
+              Snig dig gennem Københavns brostensgader som redaktør. Uddel opråb om rådgivende stænderforsamlinger, bondevennerne, trykkefrihed og Slesvig-Holsten, mens du undgår kongens censurbetjente.
+            </p>
+          </div>
+          <div class="level-card-footer">
+            <span class="stars-display" id="card-stars-1">☆☆☆</span>
+            <button class="btn btn-outline" onclick="startLevel(1)">Spil Bane 1</button>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="level-card">
+          <div class="level-card-strip" style="background: linear-gradient(90deg, #8b1e24, #b8862d);"></div>
+          <div>
+            <div class="level-meta" style="color: #8b1e24;">
+              <span>Bane 2 · 20. marts 1848</span>
+              <span>Retorik &amp; Drama</span>
+            </div>
+            <h3>Mødet i Casinoteateret</h3>
+            <p>
+              Træd op på talerstolen i Amaliegade sammen med Orla Lehmann og H.N. Clausen. Formuler de afgørende resolutioner, der samler borgere og håndværkere uden at udløse blind vold.
+            </p>
+          </div>
+          <div class="level-card-footer">
+            <span class="stars-display" id="card-stars-2">☆☆☆</span>
+            <button class="btn btn-outline" onclick="startLevel(2)">Spil Bane 2</button>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="level-card">
+          <div class="level-card-strip" style="background: linear-gradient(90deg, #5c3d28, #2d5a43);"></div>
+          <div>
+            <div class="level-meta" style="color: #2d5a43;">
+              <span>Bane 3 · 1945–1946</span>
+              <span>Ideologi &amp; Debat</span>
+            </div>
+            <h3>Alf Ross og Hal Koch</h3>
+            <p>
+              Efter besættelsen mødes retsfilosoffen Alf Ross og højskolemanden Hal Koch i studiet. Placer deres kernesynspunkter om statsform vs. livsform, og styr debatrunden som ordstyrer.
+            </p>
+          </div>
+          <div class="level-card-footer">
+            <span class="stars-display" id="card-stars-3">☆☆☆</span>
+            <button class="btn btn-outline" onclick="startLevel(3)">Spil Bane 3</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         BANE 1: BEGYNDENDE URO (1830'erne - 1848)
+         ========================================================= -->
+    <section id="screen-b1" class="screen">
+      <div class="how-to-box" id="b1-howto">
+        <div class="how-to-header">
+          <div>
+            <span class="eyebrow" style="margin-bottom: 0.3rem;">Sådan spiller du · Bane 1</span>
+            <h3 style="font-size: 1.3rem;">Spred opråb &amp; undgå censuren i Københavns gader</h3>
+          </div>
+          <button class="btn btn-outline" onclick="toggleHowTo('b1-howto')">Skjul vejledning</button>
+        </div>
+        <div class="how-to-steps">
+          <div class="how-step">
+            <strong>1. Bevæg redaktøren</strong>
+            Brug <b>piletasterne / WASD</b>, klik direkte på gadekortet eller brug retningsknapperne under kortet.
+          </div>
+          <div class="how-step">
+            <strong>2. Uddel 4 opråb</strong>
+            Gå hen til borgerne (grønne/gyldne markører) for at uddele flyveblade om 1830’ernes og 1840’ernes mærkesager.
+          </div>
+          <div class="how-step">
+            <strong>3. Lås op &amp; undgå censur</strong>
+            Nogle budskaber kræver svar på et hurtigt historisk kontrolspørgsmål. Bliver du fanget af censurbetjentene, mister du et liv!
+          </div>
+        </div>
+      </div>
+
+      <div class="b1-theme">
+        <div class="b1-header">
+          <div>
+            <span style="font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: #e7c882; font-weight: 700;">Bane 1 · 1834 – begyndelsen af 1848</span>
+            <h2 style="font-size: 1.65rem; color: #fff;">Begyndende uro i København</h2>
+          </div>
+          <div class="b1-stats">
+            <div class="b1-stat-box">Opråb uddelt: <span id="b1-delivered-count" style="color:#4ade80;">0 / 4</span></div>
+            <div class="b1-stat-box">Trykkefrihed (Liv): <span id="b1-lives" style="color:#fca5a5;">♥♥♥</span></div>
+            <div class="b1-stat-box">Point: <span id="b1-score" style="color:#facc15;">0</span></div>
+            <button class="btn btn-gold" style="padding: 0.45rem 0.9rem; font-size: 0.85rem;" onclick="initBane1()">Genstart bane</button>
+          </div>
+        </div>
+
+        <div class="b1-workspace">
+          <div>
+            <div class="b1-canvas-wrap">
+              <canvas id="b1Canvas" width="640" height="440" aria-label="Interaktivt gadekort over København"></canvas>
+
+              <!-- Historical Checkpoint / Result Modal inside Canvas Area -->
+              <div class="b1-modal-overlay" id="b1Modal">
+                <div class="b1-modal-card">
+                  <span class="eyebrow" id="b1ModalTag">Trykkeriets kontrolspørgsmål</span>
+                  <h3 id="b1ModalTitle" style="font-size: 1.25rem; margin-bottom: 0.5rem;">Spørgsmål</h3>
+                  <p id="b1ModalText" style="font-size: 0.92rem; color: var(--ink-muted); margin-bottom: 0.75rem;"></p>
+                  <div id="b1ModalOptions"></div>
+                  <div id="b1ModalActions" style="margin-top: 1rem; display: flex; justify-content: flex-end; gap: 0.6rem;"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Touch / Mouse D-Pad -->
+            <div class="b1-controls-pad" aria-label="Retningsknapper">
+              <div></div>
+              <button class="dpad-btn" onclick="movePlayer(0, -1)" aria-label="Op">▲</button>
+              <div></div>
+              <button class="dpad-btn" onclick="movePlayer(-1, 0)" aria-label="Venstre">◄</button>
+              <button class="dpad-btn" onclick="movePlayer(0, 1)" aria-label="Ned">▼</button>
+              <button class="dpad-btn" onclick="movePlayer(1, 0)" aria-label="Højre">►</button>
+            </div>
+          </div>
+
+          <aside class="b1-sidebar">
+            <h3 style="font-size: 1.2rem; margin-bottom: 0.3rem;">Redaktionens opråb</h3>
+            <p style="font-size: 0.85rem; color: var(--ink-muted);">
+              Under Frederik 6. og Christian 8. voksede kravene om medbestemmelse. Uddel alle fire opråb til byens grupper:
+            </p>
+            <div class="leaflet-list" id="b1LeafletList"></div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         BANE 2: MØDET I CASINOTEATERET (20. marts 1848)
+         ========================================================= -->
+    <section id="screen-b2" class="screen">
+      <div class="how-to-box" id="b2-howto">
+        <div class="how-to-header">
+          <div>
+            <span class="eyebrow" style="margin-bottom: 0.3rem;">Sådan spiller du · Bane 2</span>
+            <h3 style="font-size: 1.3rem;">Tal til folkemødet i Casinoteateret</h3>
+          </div>
+          <button class="btn btn-outline" onclick="toggleHowTo('b2-howto')">Skjul vejledning</button>
+        </div>
+        <div class="how-to-steps">
+          <div class="how-step">
+            <strong>1. Læs salen og krisen</strong>
+            Efterretninger fra Rendsborg melder om oprør i Hertugdømmerne. Over 2.500 borgere er samlet i Casinoteateret i Amaliegade.
+          </div>
+          <div class="how-step">
+            <strong>2. Vælg den rette resolution</strong>
+            Vælg i 4 runder det argument, der forener nationalliberale, studenter og håndværkere om et fredeligt, men fast krav til kongen.
+          </div>
+          <div class="how-step">
+            <strong>3. Hold folkestemningen høj</strong>
+            Et stærkt argument løfter folkestemningen og udløser historisk indsigt; panik eller splittelse svækker opbakningen.
+          </div>
+        </div>
+      </div>
+
+      <div class="b2-theme">
+        <div class="curtain-top"></div>
+        <div class="b2-stage-header">
+          <div>
+            <span style="font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: #f3d692; font-weight: 700;">Bane 2 · Aftenen den 20. marts 1848</span>
+            <h2 style="font-size: 1.7rem; color: #fff;">Mødet i Casinoteateret</h2>
+          </div>
+
+          <div class="meter-card">
+            <div class="meter-label-row">
+              <span>Folkestemning &amp; Mobilisering</span>
+              <span id="b2-mood-text">55% · Afventende spænding</span>
+            </div>
+            <div class="meter-track">
+              <div class="meter-fill" id="b2-mood-bar" style="width: 55%;"></div>
+            </div>
+          </div>
+
+          <div class="b1-stat-box" style="border-color: #e7c882;">
+            Runde: <span id="b2-round-num" style="color:#f3d692;">1 / 4</span> · Point: <span id="b2-score" style="color:#4ade80;">0</span>
+          </div>
+        </div>
+
+        <div class="b2-theater-grid">
+          <!-- Left: Podium & Crowd SVG -->
+          <div class="b2-podium-box">
+            <div>
+              <span style="font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: #e7c882;">Talerstolen i Amaliegade</span>
+              <h3 style="font-size: 1.25rem; margin: 0.25rem 0 0.85rem; color: #fff;" id="b2-speaker-title">Orla Lehmann &amp; H.N. Clausen</h3>
+
+              <!-- Custom Theater Podium SVG -->
+              <svg viewBox="0 0 300 185" width="100%" height="auto" aria-hidden="true">
+                <!-- Warm Spotlight -->
+                <polygon points="150,5 45,175 255,175" fill="rgba(243, 214, 146, 0.13)"/>
+                <!-- Chandelier -->
+                <line x1="150" y1="0" x2="150" y2="22" stroke="#e7c882" stroke-width="2"/>
+                <ellipse cx="150" cy="26" rx="36" ry="7" fill="none" stroke="#e7c882" stroke-width="2"/>
+                <circle cx="122" cy="23" r="3" fill="#fde047"/>
+                <circle cx="150" cy="21" r="3.5" fill="#fde047"/>
+                <circle cx="178" cy="23" r="3" fill="#fde047"/>
+                <!-- Speaker Silhouette -->
+                <circle cx="150" cy="68" r="14" fill="#f3d692"/>
+                <path d="M126 112 C126 90, 174 90, 174 112 Z" fill="#1d3557"/>
+                <!-- Raised Arm -->
+                <path d="M170 96 L192 72" stroke="#f3d692" stroke-width="5" stroke-linecap="round"/>
+                <!-- Wooden Podium -->
+                <rect x="112" y="108" width="76" height="46" rx="4" fill="#6b3e26" stroke="#e7c882" stroke-width="1.5"/>
+                <rect x="106" y="104" width="88" height="8" rx="3" fill="#8c5334"/>
+                <!-- Crowd Silhouettes -->
+                <g fill="#160305">
+                  <circle cx="38" cy="156" r="11"/><path d="M20 185 C20 168, 56 168, 56 185 Z"/>
+                  <circle cx="78" cy="152" r="11"/><path d="M60 185 C60 165, 96 165, 96 185 Z"/>
+                  <circle cx="122" cy="158" r="10"/><path d="M105 185 C105 170, 139 170, 139 185 Z"/>
+                  <circle cx="178" cy="158" r="10"/><path d="M161 185 C161 170, 195 170, 195 185 Z"/>
+                  <circle cx="222" cy="152" r="11"/><path d="M204 185 C204 165, 240 165, 240 185 Z"/>
+                  <circle cx="262" cy="156" r="11"/><path d="M244 185 C244 168, 280 168, 280 185 Z"/>
+                </g>
+              </svg>
+            </div>
+
+            <div class="crowd-reaction-bubble" id="b2-crowd-quote">
+              “Salen summer af uro. Studenter på balkonen og håndværkere i parterret venter på, at I sætter ord på folkets krav!”
+            </div>
+          </div>
+
+          <!-- Right: Dilemma & Resolutions -->
+          <div class="b2-dilemma-card">
+            <div>
+              <span class="eyebrow" id="b2-topic-badge">Resolution 1 af 4</span>
+              <h3 id="b2-question-title" style="font-size: 1.35rem; margin-bottom: 0.45rem;">...</h3>
+              <p id="b2-question-context" style="font-size: 0.94rem; color: var(--ink-muted);"></p>
+
+              <div class="b2-choices" id="b2-choices"></div>
+
+              <div class="b2-feedback-box" id="b2-feedback"></div>
+            </div>
+
+            <div style="margin-top: 1.15rem; display: flex; justify-content: space-between; align-items: center; gap: 0.75rem;">
+              <button class="btn btn-outline" style="padding: 0.5rem 0.9rem; font-size: 0.85rem;" onclick="initBane2()">Start mødet forfra</button>
+              <button class="btn btn-primary" id="b2-next-btn" style="display: none;" onclick="nextB2Round()">Næste resolution →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         BANE 3: DEMOKRATIDEBATTEN EFTER 2. VERDENSKRIG (ROSS & KOCH)
+         ========================================================= -->
+    <section id="screen-b3" class="screen">
+      <div class="how-to-box" id="b3-howto">
+        <div class="how-to-header">
+          <div>
+            <span class="eyebrow" style="margin-bottom: 0.3rem;">Sådan spiller du · Bane 3</span>
+            <h3 style="font-size: 1.3rem;">Sortering &amp; debatduel: Alf Ross vs. Hal Koch</h3>
+          </div>
+          <button class="btn btn-outline" onclick="toggleHowTo('b3-howto')">Skjul vejledning</button>
+        </div>
+        <div class="how-to-steps">
+          <div class="how-step">
+            <strong>Del 1: Placer udsagnene (kort 1–5)</strong>
+            Afgør om citatet eller synspunktet hører til retsfilosoffen <b>Alf Ross</b> (statsform &amp; spilleregler) eller teologen <b>Hal Koch</b> (livsform &amp; samtale).
+          </div>
+          <div class="how-step">
+            <strong>Del 2: Ordstyrer i nutidsdebat (kort 6–7)</strong>
+            Kobl Ross’ og Kochs demokratiforståelse til konkrete demokratiske dilemmaer som ordstyrer i radiostudiet.
+          </div>
+        </div>
+      </div>
+
+      <div class="b3-theme">
+        <div class="b3-header">
+          <div>
+            <div class="on-air-badge" style="margin-bottom: 0.35rem;">
+              <span class="on-air-dot"></span> STATSRADIOFONIEN · 1945–1946
+            </div>
+            <h2 style="font-size: 1.65rem; color: #fff;">Demokratidebatten: Alf Ross &amp; Hal Koch</h2>
+          </div>
+
+          <div class="b1-stats">
+            <div class="b1-stat-box" style="border-color: #c9b393;">Kort: <span id="b3-progress" style="color:#f3d692;">1 / 7</span></div>
+            <div class="b1-stat-box" style="border-color: #c9b393;">Point: <span id="b3-score" style="color:#4ade80;">0</span></div>
+            <button class="btn btn-outline" style="padding: 0.45rem 0.9rem; font-size: 0.85rem;" onclick="initBane3()">Genstart debat</button>
+          </div>
+        </div>
+
+        <div class="b3-arena">
+          <!-- Left Thinker: Alf Ross -->
+          <div class="thinker-card ross">
+            <div>
+              <span class="thinker-book">“Hvorfor demokrati?” (1946)</span>
+              <h3 style="font-size: 1.35rem;">Alf Ross</h3>
+              <p style="font-size: 0.84rem; color: var(--ink-muted); margin-top: 0.25rem;">
+                Retsfilosof &amp; professor. Ser demokrati som en <strong>statsform</strong> – en politisk metode og et sæt spilleregler til fredelig konfliktløsning.
+              </p>
+              <div class="thinker-tags">
+                <span class="t-tag">Statsform</span>
+                <span class="t-tag">Flertalsstyre</span>
+                <span class="t-tag">Frie valg</span>
+                <span class="t-tag">Retsstat</span>
+                <span class="t-tag">Procedure</span>
+              </div>
+            </div>
+            <div style="font-size: 0.8rem; color: #1d3557; font-weight: 600; border-top: 1px solid #d5c7b0; padding-top: 0.6rem;">
+              Kernepointe: Demokratiet måles på, hvordan beslutninger træffes – ikke på en bestemt sindelagsmoral.
+            </div>
+          </div>
+
+          <!-- Center Radio Desk -->
+          <div class="b3-center-desk">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="eyebrow" id="b3-card-phase" style="margin-bottom: 0;">Del 1 · Hvem siger hvad?</span>
+                <span style="font-size: 0.8rem; color: var(--ink-muted); font-weight: 600;" id="b3-streak"></span>
+              </div>
+
+              <div class="newspaper-clip">
+                <blockquote id="b3-quote-text">...</blockquote>
+                <p id="b3-quote-sub" style="font-size: 0.85rem; color: var(--ink-muted); margin-top: 0.5rem;"></p>
+              </div>
+
+              <!-- Sorting Buttons (Phase 1) -->
+              <div class="b3-assign-btns" id="b3-sort-controls">
+                <button class="btn-ross" onclick="answerB3Sort('ross')">← Tilskriv Alf Ross<br><span style="font-size:0.75rem; font-weight:400; opacity:0.9;">(Statsform &amp; procedure)</span></button>
+                <button class="btn-koch" onclick="answerB3Sort('koch')">Tilskriv Hal Koch →<br><span style="font-size:0.75rem; font-weight:400; opacity:0.9;">(Livsform &amp; samtale)</span></button>
+              </div>
+
+              <!-- Moderator Choices (Phase 2) -->
+              <div class="mod-options" id="b3-mod-controls" style="display: none;"></div>
+
+              <div class="b2-feedback-box" id="b3-feedback"></div>
+            </div>
+
+            <div style="margin-top: 1rem; display: flex; justify-content: flex-end;">
+              <button class="btn btn-primary" id="b3-next-btn" style="display: none;" onclick="nextB3Card()">Næste indlæg →</button>
+            </div>
+          </div>
+
+          <!-- Right Thinker: Hal Koch -->
+          <div class="thinker-card koch">
+            <div>
+              <span class="thinker-book">“Hvad er demokrati?” (1945)</span>
+              <h3 style="font-size: 1.35rem;">Hal Koch</h3>
+              <p style="font-size: 0.84rem; color: var(--ink-muted); margin-top: 0.25rem;">
+                Teolog &amp; højskoleforstander. Ser demokrati som en <strong>livsform</strong> – en daglig kultur båret af samtale, kompromis og medmenneskelig respekt.
+              </p>
+              <div class="thinker-tags">
+                <span class="t-tag">Livsform</span>
+                <span class="t-tag">Samtalen</span>
+                <span class="t-tag">Folkeoplysning</span>
+                <span class="t-tag">Mindretalshensyn</span>
+                <span class="t-tag">Ansvar</span>
+              </div>
+            </div>
+            <div style="font-size: 0.8rem; color: #2d5a43; font-weight: 600; border-top: 1px solid #d5c7b0; padding-top: 0.6rem;">
+              Kernepointe: Uden levende samtale og dannelse bliver flertalsafgørelser blot et flertalsdiktatur.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         AFSLUTNINGSSKÆRM / DIPLOM
+         ========================================================= -->
+    <section id="screen-diploma" class="screen">
+      <div class="diploma-card">
+        <div class="diploma-seal">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="8" r="6"/>
+            <path d="M8.21 13.89L7 23l5-3 5 3-1.21-9.12"/>
+          </svg>
+        </div>
+        <span class="eyebrow">Historisk oversigt &amp; diplom</span>
+        <h2 style="font-size: 2.1rem; margin-bottom: 0.4rem;">Vejen ud af enevælden</h2>
+        <p style="color: var(--ink-muted); max-width: 56ch; margin: 0 auto;" id="diploma-subtitle">
+          Her kan du følge din samlede fremgang gennem Danmarks overgang fra enevælde til moderne folkestyre.
+        </p>
+
+        <div style="margin: 1.25rem 0; font-size: 1.25rem; font-weight: 700;">
+          Samlet resultat: <span id="diploma-total-score" style="color: var(--accent-crimson);">0</span> point ·
+          <span id="diploma-total-stars" style="color: var(--accent-gold);">0 / 9 stjerner</span>
+        </div>
+
+        <div class="diploma-summary-grid">
+          <div class="diploma-level-box">
+            <div style="font-size: 0.78rem; font-weight: 700; color: #1d3557; text-transform: uppercase;">Bane 1 · 1830–1848</div>
+            <h3 style="font-size: 1.15rem; margin: 0.25rem 0;">Begyndende uro</h3>
+            <p style="font-size: 0.85rem; color: var(--ink-muted); margin-bottom: 0.6rem;">
+              Stænderforsamlinger, bondevenner, trykkefrihed og Slesvig-Holsten.
+            </p>
+            <div style="font-weight: 700;" id="dip-b1-status">Ikke gennemført · ☆☆☆</div>
+          </div>
+
+          <div class="diploma-level-box">
+            <div style="font-size: 0.78rem; font-weight: 700; color: #8b1e24; text-transform: uppercase;">Bane 2 · 20. marts 1848</div>
+            <h3 style="font-size: 1.15rem; margin: 0.25rem 0;">Casinoteateret</h3>
+            <p style="font-size: 0.85rem; color: var(--ink-muted); margin-bottom: 0.6rem;">
+              Folkemødet i Amaliegade, ejderpolitikken og folketoget til Christiansborg.
+            </p>
+            <div style="font-weight: 700;" id="dip-b2-status">Ikke gennemført · ☆☆☆</div>
+          </div>
+
+          <div class="diploma-level-box">
+            <div style="font-size: 0.78rem; font-weight: 700; color: #2d5a43; text-transform: uppercase;">Bane 3 · 1945–1946</div>
+            <h3 style="font-size: 1.15rem; margin: 0.25rem 0;">Ross &amp; Koch</h3>
+            <p style="font-size: 0.85rem; color: var(--ink-muted); margin-bottom: 0.6rem;">
+              Demokrati som statsform og procedure over for demokrati som livsform.
+            </p>
+            <div style="font-weight: 700;" id="dip-b3-status">Ikke gennemført · ☆☆☆</div>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.85rem;">
+          <button class="btn btn-primary" onclick="showScreen('start')">Tilbage til oversigten</button>
+          <button class="btn btn-outline" onclick="resetAllProgress()">Nulstil alle fremskridt</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="toast-msg" id="toastMsg" role="status" aria-live="polite"></div>
+
+  <script>
+    /* =========================================================================
+       GLOBAL GAME STATE & NAVIGATION
+       ========================================================================= */
+    const gameState = {
+      scores: { 1: 0, 2: 0, 3: 0 },
+      stars: { 1: 0, 2: 0, 3: 0 },
+      completed: { 1: false, 2: false, 3: false }
+    };
+
+    function showToast(text) {
+      const el = document.getElementById('toastMsg');
+      el.textContent = text;
+      el.classList.add('show');
+      clearTimeout(el._timer);
+      el._timer = setTimeout(() => el.classList.remove('show'), 3200);
+    }
+
+    function toggleHowTo(id) {
+      const box = document.getElementById(id);
+      if (!box) return;
+      const steps = box.querySelector('.how-to-steps');
+      const btn = box.querySelector('button');
+      if (steps.style.display === 'none') {
+        steps.style.display = 'grid';
+        btn.textContent = 'Skjul vejledning';
+      } else {
+        steps.style.display = 'none';
+        btn.textContent = 'Vis vejledning';
+      }
+    }
+
+    function renderStars(count) {
+      return '★'.repeat(count) + '☆'.repeat(3 - count);
+    }
+
+    function updateGlobalUI() {
+      const totalScore = gameState.scores[1] + gameState.scores[2] + gameState.scores[3];
+      const totalStars = gameState.stars[1] + gameState.stars[2] + gameState.stars[3];
+
+      document.getElementById('totalScoreDisplay').textContent = totalScore;
+      document.getElementById('totalStarsDisplay').textContent = `${totalStars} / 9`;
+
+      for (let lvl of [1, 2, 3]) {
+        const cardStars = document.getElementById(`card-stars-${lvl}`);
+        if (cardStars) cardStars.textContent = renderStars(gameState.stars[lvl]);
+
+        const navBtn = document.getElementById(`nav-b${lvl}`);
+        if (navBtn) {
+          navBtn.classList.toggle('completed', gameState.completed[lvl]);
+        }
+
+        const dipStatus = document.getElementById(`dip-b${lvl}-status`);
+        if (dipStatus) {
+          dipStatus.textContent = gameState.completed[lvl]
+            ? `${gameState.scores[lvl]} point · ${renderStars(gameState.stars[lvl])}`
+            : `Ikke gennemført · ${renderStars(gameState.stars[lvl])}`;
+        }
+      }
+
+      document.getElementById('diploma-total-score').textContent = totalScore;
+      document.getElementById('diploma-total-stars').textContent = `${totalStars} / 9 stjerner`;
+
+      const subtitle = document.getElementById('diploma-subtitle');
+      if (gameState.completed[1] && gameState.completed[2] && gameState.completed[3]) {
+        subtitle.textContent = 'Tillykke! Du har gennemført alle tre historiske epoker og mestret rejsen fra enevælde til moderne folkestyre.';
+      }
+    }
+
+    function showScreen(name) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.nav-pill').forEach(p => p.classList.remove('active'));
+
+      if (name === 'start') {
+        document.getElementById('screen-start').classList.add('active');
+        document.getElementById('nav-start').classList.add('active');
+      } else if (name === 'diploma') {
+        updateGlobalUI();
+        document.getElementById('screen-diploma').classList.add('active');
+        document.getElementById('nav-diploma').classList.add('active');
+      } else if (name === 'b1' || name === 'b2' || name === 'b3') {
+        document.getElementById(`screen-${name}`).classList.add('active');
+        document.getElementById(`nav-${name}`).classList.add('active');
+      }
+    }
+
+    function startLevel(lvl) {
+      showScreen(`b${lvl}`);
+      if (lvl === 1) initBane1();
+      if (lvl === 2) initBane2();
+      if (lvl === 3) initBane3();
+    }
+
+    function resetAllProgress() {
+      gameState.scores = { 1: 0, 2: 0, 3: 0 };
+      gameState.stars = { 1: 0, 2: 0, 3: 0 };
+      gameState.completed = { 1: false, 2: false, 3: false };
+      updateGlobalUI();
+      showToast('Alle fremskridt og point er nulstillet.');
+    }
+
+    /* =========================================================================
+       BANE 1: BEGYNDENDE URO (1830'erne - 1848) – Gadekort & Censur-arkade
+       ========================================================================= */
+    const B1_COLS = 16;
+    const B1_ROWS = 11;
+    // 0 = brostensgade, 1 = bygning/karré
+    const B1_MAP = [
+      [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      [1,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1],
+      [1,0,1,1,0,1,0,1,1,1,0,1,0,1,0,1],
+      [1,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1],
+      [1,0,1,0,1,1,1,1,0,1,1,1,0,0,0,1],
+      [1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,1],
+      [1,0,1,1,0,1,1,0,1,1,0,1,0,1,0,1],
+      [1,0,0,0,0,1,0,0,0,1,0,1,0,0,0,1],
+      [1,0,1,1,0,1,0,1,0,0,0,1,1,1,0,1],
+      [1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1],
+      [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+    ];
+
+    const B1_LEAFLETS_TEMPLATE = [
+      {
+        id: 0,
+        title: '1. Rådgivende stænderforsamlinger (1834)',
+        targetGroup: 'Borgere ved Børsen',
+        x: 4, y: 1,
+        delivered: false,
+        locked: false,
+        desc: 'Krav om offentlighed i stænderforsamlingerne og indsigt i statens finanser.'
+      },
+      {
+        id: 1,
+        title: '2. Bondevennernes Selskab (1846)',
+        targetGroup: 'Fæstebønder ved Vesterport',
+        x: 1, y: 9,
+        delivered: false,
+        locked: false,
+        desc: 'Opråb for selveje, lige værnepligt og ophævelse af godsejernes hoveri.'
+      },
+      {
+        id: 2,
+        title: '3. Trykkefrihedsselskabet',
+        targetGroup: 'Studenter ved Frue Plads',
+        x: 14, y: 1,
+        delivered: false,
+        locked: true,
+        desc: 'Protest mod kongelig censur og bøder til kritiske redaktører som Orla Lehmann.',
+        quiz: {
+          question: 'Hvorfor oprettede borgere og professorer Selskabet for Trykkefrihedens rette Brug i 1835?',
+          options: [
+            'For at forsvare ytrings- og pressefriheden mod enevældens stramme censur',
+            'For at genindføre enevældens Kongelov uden ændringer',
+            'For at forbyde alle danske aviser uden for København'
+          ],
+          correct: 0,
+          explanation: 'Korrekt! Selskabet samlede tusindvis af medlemmer og udgav Dansk Folkeblad for at oplyse befolkningen og modvirke kongelig censur.'
+        }
+      },
+      {
+        id: 3,
+        title: '4. Slesvig-Holsten & Ejderprogrammet',
+        targetGroup: 'Håndværkere i Amaliegade',
+        x: 14, y: 9,
+        delivered: false,
+        locked: true,
+        desc: 'Nationalliberalt krav om et frit Danmark til Ejderen med en fælles grundlov.',
+        quiz: {
+          question: 'Hvad gik de nationalliberales "Ejderprogram" ud på i 1840’erne?',
+          options: [
+            'At knytte Slesvig tæt til Danmark under en fri forfatning, mens Holsten fik selvstændig status',
+            'At afstå både Jylland og Fyn til det Tyske Forbund',
+            'At lade kongen regere alene uden rådgivende forsamlinger'
+          ],
+          correct: 0,
+          explanation: 'Præcis! Ejderpolitikken ville forene kongeriget Danmark og Slesvig til Ejderen under en ny, fri forfatning.'
+        }
+      }
+    ];
+
+    let b1State = null;
+    let b1LoopTimer = null;
+
+    function initBane1() {
+      clearInterval(b1LoopTimer);
+      document.getElementById('b1Modal').classList.remove('open');
+
+      b1State = {
+        player: { x: 7, y: 5 },
+        lives: 3,
+        score: 0,
+        activeModal: false,
+        finished: false,
+        leaflets: JSON.parse(JSON.stringify(B1_LEAFLETS_TEMPLATE)),
+        guards: [
+          { x: 4, y: 3, dx: 1, dy: 0 },
+          { x: 10, y: 5, dx: 0, dy: 1 },
+          { x: 8, y: 9, dx: -1, dy: 0 }
+        ]
+      };
+
+      updateB1HUD();
+      renderB1Leaflets();
+      drawB1Canvas();
+
+      b1LoopTimer = setInterval(() => {
+        if (!document.getElementById('screen-b1').classList.contains('active')) return;
+        if (b1State.activeModal || b1State.finished) return;
+        stepB1Guards();
+        drawB1Canvas();
+      }, 620);
+    }
+
+    function updateB1HUD() {
+      const deliveredCount = b1State.leaflets.filter(l => l.delivered).length;
+      document.getElementById('b1-delivered-count').textContent = `${deliveredCount} / 4`;
+      document.getElementById('b1-lives').textContent = '♥'.repeat(Math.max(0, b1State.lives)) + '♡'.repeat(Math.max(0, 3 - b1State.lives));
+      document.getElementById('b1-score').textContent = b1State.score;
+    }
+
+    function renderB1Leaflets() {
+      const list = document.getElementById('b1LeafletList');
+      list.innerHTML = '';
+      b1State.leaflets.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'leaflet-item' + (item.delivered ? ' delivered' : item.locked ? ' locked' : '');
+        const badge = item.delivered
+          ? '<span style="color:#2d5a43; font-weight:700;">✓ Uddelt</span>'
+          : item.locked
+            ? '<span style="color:#8b1e24; font-weight:700;">🔒 Kontrolspørgsmål</span>'
+            : '<span style="color:#1d3557; font-weight:700;">● Klar til uddeling</span>';
+
+        div.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:0.4rem; margin-bottom:0.2rem;">
+            <strong>${item.title}</strong>
+            ${badge}
+          </div>
+          <div style="font-size:0.78rem; color:#8b1e24; font-weight:600; margin-bottom:0.2rem;">Mål: ${item.targetGroup}</div>
+          <div style="color:#574e46;">${item.desc}</div>
+        `;
+        list.appendChild(div);
+      });
+    }
+
+    function movePlayer(dx, dy) {
+      if (!b1State || b1State.activeModal || b1State.finished) return;
+      const nx = b1State.player.x + dx;
+      const ny = b1State.player.y + dy;
+      if (nx < 0 || nx >= B1_COLS || ny < 0 || ny >= B1_ROWS) return;
+      if (B1_MAP[ny][nx] === 1) return;
+
+      b1State.player.x = nx;
+      b1State.player.y = ny;
+
+      checkB1Interactions();
+      drawB1Canvas();
+    }
+
+    function stepB1Guards() {
+      const dirs = [
+        { dx: 1, dy: 0 },
+        { dx: -1, dy: 0 },
+        { dx: 0, dy: 1 },
+        { dx: 0, dy: -1 }
+      ];
+
+      b1State.guards.forEach(g => {
+        let nx = g.x + g.dx;
+        let ny = g.y + g.dy;
+        const canContinue = nx > 0 && nx < B1_COLS - 1 && ny > 0 && ny < B1_ROWS - 1 && B1_MAP[ny][nx] === 0 && Math.random() > 0.22;
+
+        if (!canContinue) {
+          const valid = dirs.filter(d => {
+            const tx = g.x + d.dx;
+            const ty = g.y + d.dy;
+            return tx > 0 && tx < B1_COLS - 1 && ty > 0 && ty < B1_ROWS - 1 && B1_MAP[ty][tx] === 0;
+          });
+          if (valid.length > 0) {
+            const pick = valid[Math.floor(Math.random() * valid.length)];
+            g.dx = pick.dx;
+            g.dy = pick.dy;
+          }
+        }
+
+        const tx = g.x + g.dx;
+        const ty = g.y + g.dy;
+        if (B1_MAP[ty][tx] === 0) {
+          g.x = tx;
+          g.y = ty;
+        }
+      });
+
+      checkB1Interactions();
+    }
+
+    function checkB1Interactions() {
+      // Check guard collision
+      const hitGuard = b1State.guards.some(g => g.x === b1State.player.x && g.y === b1State.player.y);
+      if (hitGuard) {
+        b1State.lives -= 1;
+        b1State.player = { x: 7, y: 5 };
+        updateB1HUD();
+        if (b1State.lives <= 0) {
+          openB1EndModal(false);
+          return;
+        } else {
+          showToast('Censurbetjentene beslaglagde dine papirer! Du mistede 1 liv og flygtede tilbage til trykkeriet.');
+        }
+      }
+
+      // Check leaflet delivery
+      const target = b1State.leaflets.find(l => !l.delivered && l.x === b1State.player.x && l.y === b1State.player.y);
+      if (target) {
+        if (target.locked) {
+          openB1QuizModal(target);
+        } else {
+          completeB1Leaflet(target, 100);
+        }
+      }
+    }
+
+    function completeB1Leaflet(leaflet, pts) {
+      leaflet.delivered = true;
+      leaflet.locked = false;
+      b1State.score += pts;
+      updateB1HUD();
+      renderB1Leaflets();
+      drawB1Canvas();
+      showToast(`Opråb uddelt til ${leaflet.targetGroup}! (+${pts} point)`);
+
+      if (b1State.leaflets.every(l => l.delivered)) {
+        setTimeout(() => openB1EndModal(true), 450);
+      }
+    }
+
+    function openB1QuizModal(leaflet) {
+      b1State.activeModal = true;
+      const modal = document.getElementById('b1Modal');
+      document.getElementById('b1ModalTag').textContent = 'Historisk kontrolspørgsmål · Lås opråbet op';
+      document.getElementById('b1ModalTitle').textContent = leaflet.title;
+      document.getElementById('b1ModalText').textContent = leaflet.quiz.question;
+
+      const optWrap = document.getElementById('b1ModalOptions');
+      const actWrap = document.getElementById('b1ModalActions');
+      optWrap.innerHTML = '';
+      actWrap.innerHTML = '';
+
+      leaflet.quiz.options.forEach((optText, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'quiz-opt-btn';
+        btn.textContent = optText;
+        btn.onclick = () => {
+          optWrap.querySelectorAll('button').forEach(b => b.disabled = true);
+          if (idx === leaflet.quiz.correct) {
+            btn.style.borderColor = '#2d5a43';
+            btn.style.background = 'rgba(45, 90, 67, 0.14)';
+            document.getElementById('b1ModalText').innerHTML = `<strong style="color:#2d5a43;">Rigtigt!</strong> ${leaflet.quiz.explanation}`;
+            const contBtn = document.createElement('button');
+            contBtn.className = 'btn btn-primary';
+            contBtn.textContent = 'Uddel opråbet (+150 point)';
+            contBtn.onclick = () => {
+              modal.classList.remove('open');
+              b1State.activeModal = false;
+              completeB1Leaflet(leaflet, 150);
+            };
+            actWrap.appendChild(contBtn);
+          } else {
+            btn.style.borderColor = '#8b1e24';
+            btn.style.background = 'rgba(139, 30, 36, 0.12)';
+            document.getElementById('b1ModalText').innerHTML = `<strong style="color:#8b1e24;">Ikke helt!</strong> ${leaflet.quiz.explanation}`;
+            const contBtn = document.createElement('button');
+            contBtn.className = 'btn btn-gold';
+            contBtn.textContent = 'Uddel opråbet (+80 point)';
+            contBtn.onclick = () => {
+              modal.classList.remove('open');
+              b1State.activeModal = false;
+              completeB1Leaflet(leaflet, 80);
+            };
+            actWrap.appendChild(contBtn);
+          }
+        };
+        optWrap.appendChild(btn);
+      });
+
+      modal.classList.add('open');
+    }
+
+    function openB1EndModal(victory) {
+      b1State.finished = true;
+      clearInterval(b1LoopTimer);
+      const modal = document.getElementById('b1Modal');
+      const optWrap = document.getElementById('b1ModalOptions');
+      const actWrap = document.getElementById('b1ModalActions');
+      optWrap.innerHTML = '';
+      actWrap.innerHTML = '';
+
+      if (victory) {
+        const lifeBonus = b1State.lives * 50;
+        b1State.score += lifeBonus;
+        updateB1HUD();
+
+        const earnedStars = b1State.lives === 3 ? 3 : b1State.lives === 2 ? 2 : 1;
+        gameState.completed[1] = true;
+        gameState.scores[1] = Math.max(gameState.scores[1], b1State.score);
+        gameState.stars[1] = Math.max(gameState.stars[1], earnedStars);
+        updateGlobalUI();
+
+        document.getElementById('b1ModalTag').textContent = `Bane 1 gennemført · ${renderStars(earnedStars)}`;
+        document.getElementById('b1ModalTitle').textContent = 'Pressen og borgerne vågner!';
+        document.getElementById('b1ModalText').textContent =
+          `Du fik uddelt alle 4 opråb i København og opnåede ${b1State.score} point (inkl. ${lifeBonus} bonuspoint for bevaret trykkefrihed). I marts 1848 kulminerer uroen i Casinoteateret!`;
+
+        const retryBtn = document.createElement('button');
+        retryBtn.className = 'btn btn-outline';
+        retryBtn.textContent = 'Spil igen';
+        retryBtn.onclick = () => initBane1();
+
+        const nextBtn = document.createElement('button');
+        nextBtn.className = 'btn btn-primary';
+        nextBtn.textContent = 'Gå til Bane 2: Casinoteateret →';
+        nextBtn.onclick = () => startLevel(2);
+
+        actWrap.appendChild(retryBtn);
+        actWrap.appendChild(nextBtn);
+      } else {
+        document.getElementById('b1ModalTag').textContent = 'Censuren slog til';
+        document.getElementById('b1ModalTitle').textContent = 'Trykkeriet er midlertidigt lukket';
+        document.getElementById('b1ModalText').textContent =
+          'Kongens politi beslaglagde alle dine flyveblade. Prøv igen og hold øje med betjentenes patruljeruter i gaderne.';
+
+        const retryBtn = document.createElement('button');
+        retryBtn.className = 'btn btn-primary';
+        retryBtn.textContent = 'Prøv Bane 1 igen';
+        retryBtn.onclick = () => initBane1();
+        actWrap.appendChild(retryBtn);
+      }
+
+      modal.classList.add('open');
+    }
+
+    function drawB1Canvas() {
+      const canvas = document.getElementById('b1Canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const cw = canvas.width / B1_COLS;
+      const ch = canvas.height / B1_ROWS;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw streets & 1800s Copenhagen blocks
+      for (let r = 0; r < B1_ROWS; r++) {
+        for (let c = 0; c < B1_COLS; c++) {
+          const x = c * cw;
+          const y = r * ch;
+          if (B1_MAP[r][c] === 1) {
+            ctx.fillStyle = '#263c5a';
+            ctx.fillRect(x, y, cw, ch);
+            ctx.strokeStyle = '#18283e';
+            ctx.lineWidth = 1.5;
+            ctx.strokeRect(x + 1, y + 1, cw - 2, ch - 2);
+            // Subtle roof highlight
+            ctx.fillStyle = 'rgba(231, 200, 130, 0.08)';
+            ctx.fillRect(x + 4, y + 4, cw - 8, 6);
+          } else {
+            ctx.fillStyle = '#efe4cf';
+            ctx.fillRect(x, y, cw, ch);
+            ctx.strokeStyle = 'rgba(139, 115, 85, 0.22)';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(x, y, cw, ch);
+          }
+        }
+      }
+
+      // Draw central print shop landmark (7,5)
+      const px0 = 7 * cw;
+      const py0 = 5 * ch;
+      ctx.fillStyle = 'rgba(184, 134, 45, 0.22)';
+      ctx.fillRect(px0 + 3, py0 + 3, cw - 6, ch - 6);
+      ctx.fillStyle = '#6e4e18';
+      ctx.font = 'bold 9px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('TRYKKERI', px0 + cw / 2, py0 + ch - 5);
+
+      // Draw Target Citizens / Delivery Zones
+      b1State.leaflets.forEach(l => {
+        if (l.delivered) return;
+        const cx = l.x * cw + cw / 2;
+        const cy = l.y * ch + ch / 2;
+
+        ctx.beginPath();
+        ctx.arc(cx, cy, 14, 0, Math.PI * 2);
+        ctx.fillStyle = l.locked ? '#b8862d' : '#2d5a43';
+        ctx.fill();
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#fffdf8';
+        ctx.stroke();
+
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 12px Inter, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(l.locked ? '?' : '✉', cx, cy + 1);
+      });
+
+      // Draw Censorship Guards
+      b1State.guards.forEach(g => {
+        const cx = g.x * cw + cw / 2;
+        const cy = g.y * ch + ch / 2;
+
+        ctx.beginPath();
+        ctx.arc(cx, cy, 13, 0, Math.PI * 2);
+        ctx.fillStyle = '#8b1e24';
+        ctx.fill();
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#facc15';
+        ctx.stroke();
+
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 11px Inter, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('⚔', cx, cy + 1);
+      });
+
+      // Draw Player (Editor)
+      const plX = b1State.player.x * cw + cw / 2;
+      const plY = b1State.player.y * ch + ch / 2;
+      ctx.beginPath();
+      ctx.arc(plX, plY, 14, 0, Math.PI * 2);
+      ctx.fillStyle = '#1d3557';
+      ctx.fill();
+      ctx.lineWidth = 2.5;
+      ctx.strokeStyle = '#facc15';
+      ctx.stroke();
+
+      ctx.fillStyle = '#fff';
+      ctx.font = 'bold 12px Playfair Display, serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('R', plX, plY + 1);
+    }
+
+    // Keyboard & Canvas Click listeners for Bane 1
+    window.addEventListener('keydown', e => {
+      if (!document.getElementById('screen-b1').classList.contains('active')) return;
+      const k = e.key.toLowerCase();
+      if (['arrowup', 'w'].includes(k)) { e.preventDefault(); movePlayer(0, -1); }
+      if (['arrowdown', 's'].includes(k)) { e.preventDefault(); movePlayer(0, 1); }
+      if (['arrowleft', 'a'].includes(k)) { e.preventDefault(); movePlayer(-1, 0); }
+      if (['arrowright', 'd'].includes(k)) { e.preventDefault(); movePlayer(1, 0); }
+    });
+
+    document.getElementById('b1Canvas').addEventListener('click', e => {
+      if (!b1State || b1State.activeModal || b1State.finished) return;
+      const rect = e.target.getBoundingClientRect();
+      const scaleX = e.target.width / rect.width;
+      const scaleY = e.target.height / rect.height;
+      const clickX = (e.clientX - rect.left) * scaleX;
+      const clickY = (e.clientY - rect.top) * scaleY;
+
+      const targetCol = Math.floor(clickX / (e.target.width / B1_COLS));
+      const targetRow = Math.floor(clickY / (e.target.height / B1_ROWS));
+
+      const dx = targetCol - b1State.player.x;
+      const dy = targetRow - b1State.player.y;
+      if (Math.abs(dx) >= Math.abs(dy) && dx !== 0) {
+        movePlayer(Math.sign(dx), 0);
+      } else if (dy !== 0) {
+        movePlayer(0, Math.sign(dy));
+      }
+    });
+
+    /* =========================================================================
+       BANE 2: MØDET I CASINOTEATERET (20. marts 1848)
+       ========================================================================= */
+    const B2_ROUNDS = [
+      {
+        badge: 'Resolution 1 af 4 · Efterretningerne fra Rendsborg',
+        speaker: 'Orla Lehmann træder frem på talerstolen',
+        title: 'Hvordan indleder vi mødet om krisen i Slesvig-Holsten?',
+        context: 'Dampskibet fra Kiel har bragt nyheden om, at slesvig-holstenerne vil sende en deputation til København med krav om en fælles slesvig-holstensk forfatning. Salen koger.',
+        choices: [
+          {
+            label: '“En slesvig-holstensk forfatning er en opgivelse af kronens ret over Slesvig – det kan det danske folk ikke tåle!”',
+            tone: 'Bestemt nationalt forsvar',
+            quality: 'best',
+            moodDelta: 15,
+            points: 150,
+            crowdReaction: '“Hør! Hør! Slesvig hører til Danmark!” runger det fra både galleriet og gulvet.',
+            feedback: 'Stærk åbning! Ved at formulere Slesvig-spørgsmålet som et fælles nationalt anliggende samler du både borgerskabet og de københavnske håndværkere.'
+          },
+          {
+            label: '“Lad os afvente og se, hvad kongens nuværende konservative ministre beslutter i næste måned.”',
+            tone: 'Passiv afventen',
+            quality: 'bad',
+            moodDelta: -15,
+            points: 40,
+            crowdReaction: 'Der lyder højlydt piften og utålmodig mumlen: “Vi har ventet længe nok!”',
+            feedback: 'Situationen den 20. marts 1848 kræver øjeblikkelig handling. Passivitet får forsamlingen til at miste troen på ledelsen.'
+          },
+          {
+            label: '“Vi bør straks opgive hele Slesvig til det Tyske Forbund for at undgå enhver uro.”',
+            tone: 'Eftergivenhed',
+            quality: 'mid',
+            moodDelta: -5,
+            points: 75,
+            crowdReaction: 'Forvirring breder sig i salen – mange ryster på hovedet over forslaget.',
+            feedback: 'Dette strider imod Ejderprogrammet, som netop var drivkraften bag Martsbevægelsen.'
+          }
+        ]
+      },
+      {
+        badge: 'Resolution 2 af 4 · Regeringens ansvar',
+        speaker: 'H.N. Clausen & Tscherning drøfter ministrene',
+        title: 'Hvilket krav stiller vi til Frederik 7. om hans nuværende ministre?',
+        context: 'Kong Frederik 7. har netop overtaget tronen i januar 1848, men regerer stadig med sin fars konservative enevældige ministre. Hvordan formuleres mistilliden?',
+        choices: [
+          {
+            label: '“De nuværende ministre besidder ikke folkets tillid – vi beder kongen udnævne mænd med indsigt og handlekraft!”',
+            tone: 'Konstitutionelt krav om ansvarlige ministre',
+            quality: 'best',
+            moodDelta: 15,
+            points: 150,
+            crowdReaction: 'Tordnende bifald! Salen rejser sig i enighed om kravet om regeringsskifte.',
+            feedback: 'Historisk pletskud! Netop formuleringen om, at ministrene ikke har folkets tillid, var kernen i Casino-resolutionerne.'
+          },
+          {
+            label: '“Vi kræver kongen afsat i aften og udråber straks en væbnet republik i gaderne!”',
+            tone: 'Radikal opstand',
+            quality: 'bad',
+            moodDelta: -18,
+            points: 35,
+            crowdReaction: 'Uro og panik breder sig ved udgangene – borgerskabet frygter blodsudgydelser som i Paris.',
+            feedback: 'De nationalliberale ønskede et konstitutionelt monarki gennem pres – ikke en blodig revolution mod kongen.'
+          },
+          {
+            label: '“Ministrene kan blive siddende, hvis blot de lover at læse vores avisartikler.”',
+            tone: 'Uforpligtende ønske',
+            quality: 'mid',
+            moodDelta: 0,
+            points: 80,
+            crowdReaction: 'Høfligt, men lunkent bifald. Håndværkerne råber på reel forandring.',
+            feedback: 'Uden udskiftning af de enevældige ministre ville en fri forfatning aldrig blive gennemført.'
+          }
+        ]
+      },
+      {
+        badge: 'Resolution 3 af 4 · Folket og forfatningen',
+        speaker: 'Orla Lehmann løfter blikket mod de fremmødte håndværkere',
+        title: 'Hvordan sikrer vi opbakning fra både borgere, bønder og håndværkere?',
+        context: 'I salen står både velhavende grosserere, studenter og københavnske håndværkersvende. Hvad skal binde dem sammen i kravet om en fri forfatning?',
+        choices: [
+          {
+            label: '“En fri forfatning skal hvile på en sand folkevæbning og almindelig valgret – nationen kalder på alle samfundslag!”',
+            tone: 'Bred folkelig appel',
+            quality: 'best',
+            moodDelta: 15,
+            points: 150,
+            crowdReaction: 'Jubelbrøl fra balkonen! Håndværkere og studenter slår taktfast i gulvet.',
+            feedback: 'Ved at koble den nationale sag med politisk frihed og folkets medbestemmelse skabes den brede alliance, som bar Martsrevolutionen.'
+          },
+          {
+            label: '“Kun universitetsuddannede embedsmænd og godsejere bør have stemmeret i det nye Danmark.”',
+            tone: 'Snæver elitær linje',
+            quality: 'bad',
+            moodDelta: -15,
+            points: 40,
+            crowdReaction: 'Vrede tilråb fra parterret: “Skal vi kæmpe for Slesvig uden at få stemmeret?”',
+            feedback: 'En udelukkelse af almindelige borgere og håndværkere ville have splittet folkemødet på stedet.'
+          },
+          {
+            label: '“Vi udsætter spørgsmålet om valgret og forfatning i ti år, til tiderne er roligere.”',
+            tone: 'Udsættelse',
+            quality: 'mid',
+            moodDelta: -5,
+            points: 75,
+            crowdReaction: 'Skuffet mumlen breder sig i teatersalen.',
+            feedback: 'Det var netop forfatningskravet, der gjorde 1848 til et historisk vendepunkt.'
+          }
+        ]
+      },
+      {
+        badge: 'Resolution 4 af 4 · Afslutningen og næste træk',
+        speaker: 'Lehmanns berømte slutappel til forsamlingen',
+        title: 'Mødet nærmer sig midnat – hvad opfordrer vi forsamlingen til at gøre?',
+        context: 'Resolutionerne er vedtaget under stor begejstring. Nu skal beslutningen omsættes til handling over for kongen på Christiansborg.',
+        choices: [
+          {
+            label: '“Lad os gå hjem i ro og orden i aften – og mødes i morgen kl. 11 på Gammeltorv for i samlet optog at gå til kongen!”',
+            tone: 'Disciplineret folketog (21. marts 1848)',
+            quality: 'best',
+            moodDelta: 15,
+            points: 150,
+            crowdReaction: '“Til Christiansborg i morgen! Leve fædrelandet og friheden!” Salen tømmes i fast, beslutsom orden.',
+            feedback: 'Fuldstændig historisk korrekt! Den 21. marts 1848 gik omkring 15.000 borgere i et fredeligt men markant folketog til Christiansborg, hvor Frederik 7. meddelte, at ministeriet allerede var afskediget – og enevælden var forbi!'
+          },
+          {
+            label: '“Storm Christiansborg med fakler og brosten lige nu midt om natten!”',
+            tone: 'Natlig voldelig storm',
+            quality: 'bad',
+            moodDelta: -20,
+            points: 30,
+            crowdReaction: 'Kaos og frygt i salen – militæret vil slå et natligt opløb ned med magt.',
+            feedback: 'Den danske Martsrevolution blev berømt i Europa netop fordi den forløb fredeligt og velorganiseret den 21. marts.'
+          },
+          {
+            label: '“Send et anonymt brev med posten i næste uge og håb på det bedste.”',
+            tone: 'Svagt signal',
+            quality: 'mid',
+            moodDelta: -5,
+            points: 75,
+            crowdReaction: 'Energien i salen fiser ud, da folk går hver til sit.',
+            feedback: 'Det synlige folketog den 21. marts var afgørende for at vise kongen folkets beslutsomhed.'
+          }
+        ]
+      }
+    ];
+
+    let b2State = null;
+
+    function initBane2() {
+      b2State = {
+        round: 0,
+        mood: 55,
+        score: 0,
+        answered: false
+      };
+      renderB2Round();
+    }
+
+    function updateB2Mood(delta) {
+      b2State.mood = Math.max(10, Math.min(100, b2State.mood + delta));
+      const bar = document.getElementById('b2-mood-bar');
+      const txt = document.getElementById('b2-mood-text');
+      bar.style.width = `${b2State.mood}%`;
+
+      if (b2State.mood >= 85) txt.textContent = `${b2State.mood}% · Samlet begejstring!`;
+      else if (b2State.mood >= 60) txt.textContent = `${b2State.mood}% · Stærk opbakning`;
+      else if (b2State.mood >= 40) txt.textContent = `${b2State.mood}% · Afventende spænding`;
+      else txt.textContent = `${b2State.mood}% · Uro og splittelse`;
+    }
+
+    function renderB2Round() {
+      const r = B2_ROUNDS[b2State.round];
+      b2State.answered = false;
+
+      document.getElementById('b2-round-num').textContent = `${b2State.round + 1} / ${B2_ROUNDS.length}`;
+      document.getElementById('b2-score').textContent = b2State.score;
+      document.getElementById('b2-speaker-title').textContent = r.speaker;
+      document.getElementById('b2-topic-badge').textContent = r.badge;
+      document.getElementById('b2-question-title').textContent = r.title;
+      document.getElementById('b2-question-context').textContent = r.context;
+      updateB2Mood(0);
+
+      const fb = document.getElementById('b2-feedback');
+      fb.classList.remove('visible');
+      fb.innerHTML = '';
+
+      const nextBtn = document.getElementById('b2-next-btn');
+      nextBtn.style.display = 'none';
+      nextBtn.textContent = b2State.round === B2_ROUNDS.length - 1 ? 'Afslut mødet & se resultat →' : 'Næste resolution →';
+
+      const choicesWrap = document.getElementById('b2-choices');
+      choicesWrap.innerHTML = '';
+
+      r.choices.forEach((choice, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'b2-choice-btn';
+        btn.innerHTML = `
+          <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #8b1e24;">${choice.tone}</span>
+          <span style="font-weight: 600; font-size: 0.95rem; color: #1f1b18;">${choice.label}</span>
+        `;
+        btn.onclick = () => selectB2Choice(idx, btn);
+        choicesWrap.appendChild(btn);
+      });
+    }
+
+    function selectB2Choice(idx, clickedBtn) {
+      if (b2State.answered) return;
+      b2State.answered = true;
+
+      const r = B2_ROUNDS[b2State.round];
+      const chosen = r.choices[idx];
+
+      document.querySelectorAll('.b2-choice-btn').forEach(b => b.disabled = true);
+      if (chosen.quality === 'best') clickedBtn.classList.add('chosen-best');
+      else if (chosen.quality === 'mid') clickedBtn.classList.add('chosen-mid');
+      else clickedBtn.classList.add('chosen-bad');
+
+      b2State.score += chosen.points;
+      updateB2Mood(chosen.moodDelta);
+      document.getElementById('b2-score').textContent = b2State.score;
+      document.getElementById('b2-crowd-quote').textContent = chosen.crowdReaction;
+
+      const fb = document.getElementById('b2-feedback');
+      fb.innerHTML = `<strong>Historisk perspektiv (+${chosen.points} point):</strong> ${chosen.feedback}`;
+      fb.classList.add('visible');
+
+      document.getElementById('b2-next-btn').style.display = 'inline-flex';
+    }
+
+    function nextB2Round() {
+      if (b2State.round < B2_ROUNDS.length - 1) {
+        b2State.round += 1;
+        renderB2Round();
+      } else {
+        // Finish Bane 2
+        const earnedStars = b2State.score >= 520 ? 3 : b2State.score >= 350 ? 2 : 1;
+        gameState.completed[2] = true;
+        gameState.scores[2] = Math.max(gameState.scores[2], b2State.score);
+        gameState.stars[2] = Math.max(gameState.stars[2], earnedStars);
+        updateGlobalUI();
+
+        const choicesWrap = document.getElementById('b2-choices');
+        choicesWrap.innerHTML = `
+          <div style="background:#f3e8d4; padding:1.15rem; border-radius:12px; border:1px solid #b8862d;">
+            <h4 style="font-family:'Playfair Display',serif; font-size:1.25rem; margin-bottom:0.35rem;">
+              Mødet i Casinoteateret er afsluttet! (${renderStars(earnedStars)})
+            </h4>
+            <p style="font-size:0.92rem; margin-bottom:0.85rem;">
+              Du opnåede <strong>${b2State.score} point</strong> og sluttede med en folkestemning på <strong>${b2State.mood}%</strong>. Den 21. marts 1848 gik folketoget til Christiansborg – og Danmark fik sin frie Junigrundlov i 1849.
+            </p>
+            <div style="display:flex; flex-wrap:wrap; gap:0.65rem;">
+              <button class="btn btn-outline" onclick="initBane2()">Spil Bane 2 igen</button>
+              <button class="btn btn-primary" onclick="startLevel(3)">Gå til Bane 3: Ross &amp; Koch →</button>
+            </div>
+          </div>
+        `;
+        document.getElementById('b2-next-btn').style.display = 'none';
+      }
+    }
+
+    /* =========================================================================
+       BANE 3: DEMOKRATIDEBATTEN EFTER 2. VERDENSKRIG (ALF ROSS & HAL KOCH)
+       ========================================================================= */
+    const B3_CARDS = [
+      {
+        type: 'sort',
+        quote: '“Demokrati er en statsform, der kendetegnes ved, at den politiske magt tilhører folket gennem frie valg og flertalsafgørelser.”',
+        sub: 'Kernesynspunkt om politiske spilleregler og forfatningsmæssig procedure.',
+        answer: 'ross',
+        explanation: 'Dette er Alf Ross’ klassiske definition fra "Hvorfor demokrati?" (1946). For Ross er demokrati en bestemt metode til at træffe bindende politiske beslutninger.'
+      },
+      {
+        type: 'sort',
+        quote: '“Demokratiet kan aldrig sikres alene gennem paragraffer og afstemninger – det er en livsform, der må leves i samtale og gensidig respekt.”',
+        sub: 'Kernesynspunkt om borgernes dannelse, dialog og hverdagskultur.',
+        answer: 'koch',
+        explanation: 'Dette er Hal Kochs hovedtese fra "Hvad er demokrati?" (1945). Erfaringerne fra nazismens magtovertagelse viste ham, at demokratiske spilleregler ikke rækker uden demokratisk sindelag.'
+      },
+      {
+        type: 'sort',
+        quote: '“Det er ikke afstemningen og flertalsafgørelsen, der er det afgørende, men den samtale og forhandling, der går forud og søger at nå til enighed.”',
+        sub: 'Synspunkt om kompromisets og oplysningens rolle i folkestyret.',
+        answer: 'koch',
+        explanation: 'Hal Koch fremhæver samtalen (dialogen) som demokratiets kerne: Man skal lytte til modparten og søge det fælles bedste frem for blot at tromle et mindretal ned.'
+      },
+      {
+        type: 'sort',
+        quote: '“Man skal ikke blande moral og livsanskuelse ind i selve definitionen af demokrati – en demokratisk stat skal kunne rumme mange forskellige livsformer.”',
+        sub: 'Advarsel mod at gøre demokratiet til en bestemt livsfilosofi.',
+        answer: 'ross',
+        explanation: 'Alf Ross kritiserede Koch for at gøre demokratiet til en næsten religiøs livsform. Ifølge Ross beskytter klare juridiske spilleregler netop borgernes frihed til at leve forskelligt.'
+      },
+      {
+        type: 'sort',
+        quote: '“Folkeoplysning og opdragelse til medansvar er selve forudsætningen for, at befolkningen ikke lader sig forføre af antidemokratiske bevægelser.”',
+        sub: 'Perspektiv på højskolen, foreningslivet og borgerens oplysning.',
+        answer: 'koch',
+        explanation: 'Hal Koch så efterkrigstidens vigtigste opgave i at styrke den folkelige oplysning, så borgerne bliver myndige og ansvarsbevidste deltagere.'
+      },
+      {
+        type: 'moderator',
+        quote: 'Ordstyrer-dilemma 1: Et byråd vedtager et lokalplanforslag med 16 stemmer mod 15 uden at lytte til borgermødernes indsigelser.',
+        sub: 'Hvordan vil Alf Ross og Hal Koch vurdere denne situation?',
+        options: [
+          {
+            text: 'Ross vil sige, at beslutningen er formelt demokratisk gyldig (flertalsreglen er fulgt), mens Koch vil kritisere den som udemokratisk i sin ånd, fordi samtalen og hensynet til mindretallet svigtede.',
+            correct: true,
+            feedback: 'Fremragende ordstyrer-analyse! Her rammer du præcis spændingsfeltet mellem formel procedure (Ross) og samtale/livsform (Koch).'
+          },
+          {
+            text: 'Begge vil sige, at lokalplaner aldrig bør afgøres af folkevalgte politikere.',
+            correct: false,
+            feedback: 'Ikke helt. Både Ross og Koch støtter det repræsentative demokrati, men de lægger vægt på henholdsvis spillereglerne (Ross) og samtalekulturen (Koch).'
+          },
+          {
+            text: 'Hal Koch vil mene, at flertallet altid har fuld ret til at ignorere mindretallet, når bare stemmerne er talt rigtigt op.',
+            correct: false,
+            feedback: 'Tværtimod! Det var netop Alf Ross, der lagde vægt på den korrekte afstemningsprocedure, mens Koch advarede mod "flertalsdiktatur" uden dialog.'
+          }
+        ]
+      },
+      {
+        type: 'moderator',
+        quote: 'Ordstyrer-dilemma 2: I en ophedet debat på sociale medier råber deltagerne ad hinanden, men alle overholder grundloven og ytringsfrihedens grænser.',
+        sub: 'Hvad mangler ifølge henholdsvis Alf Ross og Hal Koch?',
+        options: [
+          {
+            text: 'Ifølge Ross er de formelle demokratiske frihedsrettigheder intakte, men ifølge Koch er demokratiet i krise, fordi den respektfulde samtale, hvor man lytter og vil lære af hinanden, er brudt sammen.',
+            correct: true,
+            feedback: 'Spot on! Du kombinerer Ross’ blik for retsstat og ytringsfrihed med Kochs krav om en levende samtalekultur.'
+          },
+          {
+            text: 'Alf Ross vil kræve, at staten forbyder alle uenigheder for at skabe ro.',
+            correct: false,
+            feedback: 'Nej, for Alf Ross er fri meningsdannelse og uenighed helt centrale elementer i et demokratisk system.'
+          },
+          {
+            text: 'Hal Koch mener, at tone og samtale er ligegyldige, så længe der er valg hvert fjerde år.',
+            correct: false,
+            feedback: 'Omvendt: For Hal Koch er den daglige samtale og respekten mellem borgere selve kernen i demokratiet som livsform.'
+          }
+        ]
+      }
+    ];
+
+    let b3State = null;
+
+    function initBane3() {
+      b3State = {
+        index: 0,
+        score: 0,
+        streak: 0,
+        answered: false
+      };
+      renderB3Card();
+    }
+
+    function renderB3Card() {
+      const card = B3_CARDS[b3State.index];
+      b3State.answered = false;
+
+      document.getElementById('b3-progress').textContent = `${b3State.index + 1} / ${B3_CARDS.length}`;
+      document.getElementById('b3-score').textContent = b3State.score;
+      document.getElementById('b3-streak').textContent = b3State.streak >= 2 ? `🔥 ${b3State.streak} i træk` : '';
+
+      document.getElementById('b3-quote-text').textContent = card.quote;
+      document.getElementById('b3-quote-sub').textContent = card.sub;
+
+      const fb = document.getElementById('b3-feedback');
+      fb.classList.remove('visible');
+      fb.innerHTML = '';
+
+      const nextBtn = document.getElementById('b3-next-btn');
+      nextBtn.style.display = 'none';
+      nextBtn.textContent = b3State.index === B3_CARDS.length - 1 ? 'Afslut debat & se diplom →' : 'Næste indlæg →';
+
+      const sortControls = document.getElementById('b3-sort-controls');
+      const modControls = document.getElementById('b3-mod-controls');
+
+      if (card.type === 'sort') {
+        document.getElementById('b3-card-phase').textContent = 'Del 1 · Hvem siger hvad?';
+        sortControls.style.display = 'grid';
+        sortControls.querySelectorAll('button').forEach(b => b.disabled = false);
+        modControls.style.display = 'none';
+      } else {
+        document.getElementById('b3-card-phase').textContent = 'Del 2 · Ordstyrer i studiet';
+        sortControls.style.display = 'none';
+        modControls.style.display = 'flex';
+        modControls.innerHTML = '';
+
+        card.options.forEach((opt, idx) => {
+          const btn = document.createElement('button');
+          btn.className = 'b2-choice-btn';
+          btn.innerHTML = `<span style="font-size:0.9rem; font-weight:500; color:#1f1b18;">${opt.text}</span>`;
+          btn.onclick = () => answerB3Moderator(idx, btn);
+          modControls.appendChild(btn);
+        });
+      }
+    }
+
+    function answerB3Sort(pick) {
+      if (b3State.answered) return;
+      b3State.answered = true;
+
+      const card = B3_CARDS[b3State.index];
+      document.getElementById('b3-sort-controls').querySelectorAll('button').forEach(b => b.disabled = true);
+
+      const isCorrect = pick === card.answer;
+      const fb = document.getElementById('b3-feedback');
+
+      if (isCorrect) {
+        b3State.streak += 1;
+        const pts = 100 + (b3State.streak >= 2 ? 25 : 0);
+        b3State.score += pts;
+        fb.innerHTML = `<strong style="color:#2d5a43;">Rigtigt placeret (+${pts} point)!</strong> ${card.explanation}`;
+      } else {
+        b3State.streak = 0;
+        b3State.score += 30;
+        const who = card.answer === 'ross' ? 'Alf Ross' : 'Hal Koch';
+        fb.innerHTML = `<strong style="color:#8b1e24;">Det var ${who} (+30 point).</strong> ${card.explanation}`;
+      }
+
+      document.getElementById('b3-score').textContent = b3State.score;
+      fb.classList.add('visible');
+      document.getElementById('b3-next-btn').style.display = 'inline-flex';
+    }
+
+    function answerB3Moderator(idx, clickedBtn) {
+      if (b3State.answered) return;
+      b3State.answered = true;
+
+      const card = B3_CARDS[b3State.index];
+      const opt = card.options[idx];
+      document.getElementById('b3-mod-controls').querySelectorAll('button').forEach(b => b.disabled = true);
+
+      const fb = document.getElementById('b3-feedback');
+      if (opt.correct) {
+        clickedBtn.classList.add('chosen-best');
+        b3State.streak += 1;
+        b3State.score += 150;
+        fb.innerHTML = `<strong style="color:#2d5a43;">Stærk ordstyrer-vurdering (+150 point)!</strong> ${opt.feedback}`;
+      } else {
+        clickedBtn.classList.add('chosen-bad');
+        b3State.streak = 0;
+        b3State.score += 40;
+        fb.innerHTML = `<strong style="color:#8b1e24;">Ikke helt præcist (+40 point).</strong> ${opt.feedback}`;
+      }
+
+      document.getElementById('b3-score').textContent = b3State.score;
+      fb.classList.add('visible');
+      document.getElementById('b3-next-btn').style.display = 'inline-flex';
+    }
+
+    function nextB3Card() {
+      if (b3State.index < B3_CARDS.length - 1) {
+        b3State.index += 1;
+        renderB3Card();
+      } else {
+        const earnedStars = b3State.score >= 700 ? 3 : b3State.score >= 450 ? 2 : 1;
+        gameState.completed[3] = true;
+        gameState.scores[3] = Math.max(gameState.scores[3], b3State.score);
+        gameState.stars[3] = Math.max(gameState.stars[3], earnedStars);
+        updateGlobalUI();
+        showToast(`Bane 3 gennemført med ${b3State.score} point (${renderStars(earnedStars)})!`);
+        showScreen('diploma');
+      }
+    }
+
+    // Initialize default state on load
+    window.addEventListener('DOMContentLoaded', () => {
+      updateGlobalUI();
+    });
+  </script>
+</body>
+</html>
 
   
